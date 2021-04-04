@@ -1,0 +1,596 @@
+/* 
+File: FlyerFoldedA6.css Date: 2021-02-27 Author: Gunnar Lidén
+
+This CSS file determines the style of the HTML web page FlyerFoldedA6.htm of the web application Flyer.
+For instance the font (Arial) and the font size for the whole web page, i.e. for the HTML element <body>
+
+The file FlyerFoldedA6.htm almost only consists of HTML elements <div>. These <div> elements are 
+placeholders for other HTML (design) elements as <p>, <text>, <textarea>, etc. They have 
+identities (e.g. id= “id_div_text_textarea”) that JavaScript functions will “fill” with the
+
+For the Flyer application the elements PageOneBox, PageTwoBox, ...., PageSixBox define the 
+bounding boxes for the six pages of the flyer.
+
+The elements shall be placed side by side. This is achieved with the attribute float with the value left. 
+
+The total size (in millimeter) of the front and back pages that will be printed is defined by  
+the CSS element 'PrintPage'. In the HTML file this corresponds to the HTML element <PrintPage>. 
+(The <PrintPage> element is not a regular (defined) HTML element. One could also have used <seite> 
+with CSS element 'seite'.)
+
+
+CSS = Cascading Style Sheets
+For more information about CSS there are two good websites
+http://www.littlewebhut.com/css/
+https://www.w3schools.com/css/default.asp
+
+*/
+
+/* Standard font für JAZZ live AARAU and forv this document <body> is Arial. */
+/* The defined font size is for almost all text of the flyer.                */
+/* The background color rgb(255,0,10) is the JAZZ live AARAU red color.      */
+body {
+  background: rgb(255,0,10); 
+  font-family: Arial;
+  font-size: 3.8mm;
+}
+
+
+/* Size and background color (white) of the two pages that shall be printed. */
+/* Format A6 is 105 x 148 millimeter, i.e. folded size 315 (3*105) x 148     */
+/* For the online printer companies the size should however be a bit bigger  */
+/* Beispiel: https://printu.ch   Standard-Beschnittzugabe: 2 mm              */
+/* For this case the size should be 319 (315+2+2) x 152 (148+2+2)            */
+/* For the home HP printer the cut area is set to 3 mm.                      */
+/* Therefore the size should be 321 (315+3+3) x 154 (148+3+3)                */
+/* But the height is a bit bigger because the flyer picture is bigger        */
+/* In this application the three pages are not equally big: 103, 105 and 105 */
+/* defined by the bounding boxes PageOneBox to PageSixBox. This means that   */
+/* the width also is a bit bigger.                                           */
+/* This is a default size. It may be changed by a JavaScript function.       */
+/* The border is set in order to visualize the page by testing.              */
+/* Please note that PagePrint is a user defined XML tag.                     */
+/* Web page with all definitions for paper sizes: Flat, trimmed, folded, ... */
+/* https://www.formaxprinting.com/blog/2015/07/printing-lingo-understanding-flat-size-trim-size-and-other-size-terms/ */
+PagePrint {
+  background: white;
+  display: block;
+  margin: 0mm;
+  width: 323mm;
+  height: 172mm;  
+  border-style: dotted;
+  position: relative;
+}
+
+/* Include padding and border in the element's total width and height        */
+/* https://www.w3schools.com/cssref/css3_pr_box-sizing.asp                   */
+/*                                                                           */
+* {
+  box-sizing: border-box;
+}
+
+/*  Bounding box for page five                                               */
+/*  This page and page two are a bit smaller than the other pages.           */
+/*  Height is 154 (150 + bottom cut area 4)                                  */
+/*  Left margin is the cut area.                                             */
+PageFiveBox {
+	float: left;
+	width: 103mm;
+    height: 154mm;
+	margin-left: 4mm;
+	margin-right: 0mm;
+	margin-top: 0mm;
+	margin-bottom: 0mm;
+	border-style: dotted;
+}
+
+/*  Bounding box for page six                                                */
+/*  The width of this page is equal to the width of pages 1, 3 and 4         */
+/*  Height is 154 (150 + bottom cut area 4)                                  */
+/*  Left margin is the cut area.                                             */
+PageSixBox {
+	float: left;
+	width: 105mm;
+    height: 154mm;
+	margin-left: 0mm;
+	margin-right: 0mm;
+	margin-top: 0mm;
+	margin-bottom: 0mm;
+	border-style: dotted;
+}
+
+/*  Bounding box for page one, where the flyer image is placed.              */
+/*  The width of this page is equal to the width of pages 3, 4 and 6.        */
+/*  The total height is also the same. The difference is that no cut area is */
+/*  defined, i.e. all margins are zero (0).                                   */
+/*  Height is 158 (150 + bottom and top cut area 4). Width is 109 (105+4)    */
+PageOneBox {
+	float: left;
+	width: 109mm;
+    height: 158mm;
+	margin-left: 0mm;
+	margin-right: 0mm;
+	margin-top: 0mm;
+	margin-bottom: 0mm;
+	border-style: dotted;
+}
+
+
+/*  Bounding box for page two                                                */
+/*  This page and page five are a bit smaller than the other pages.          */
+/*  Height is 154 (150 + bottom cut area 4)                                  */
+/*  Left margin is the cut area.                                             */
+PageTwoBox {
+	float: left;
+	width: 105mm;
+    height: 154mm;
+	margin-left: 4mm;
+	margin-right: 0mm;
+	margin-top: 0mm;
+	margin-bottom: 0mm;
+	border-style: dotted;
+}
+
+/*  Bounding box for page three.                                             */
+/*  The width of this page is equal to the width of pages 1, 4 and 6         */
+/*  Height is 154 (150 + bottom cut area 4)                                  */
+/*  Left margin is the cut area (4).                                         */
+PageThreeBox {
+	float: left;
+	width: 105mm;
+    height: 154mm;
+	margin-left: 0mm;
+	margin-right: 0mm;
+	margin-top: 0mm;
+	margin-bottom: 0mm;
+	border-style: dotted;
+}
+
+/*  Bounding box for page four.                                              */
+/*  The width of this page is equal to the width of pages 1, 3 and 6         */
+/*  Height is 154 (150 + bottom cut area 4)                                  */
+/*  Left margin is the cut area (4).                                         */
+PageFourBox {
+	float: left;
+	width: 103mm;
+    height: 154mm;
+	margin-left: 0mm;
+	margin-right: 4mm;
+	margin-top: 0mm;
+	margin-bottom: 0mm;
+	border-style: dotted;
+}
+
+/* The class defines the black area left and right of the text logo          */
+/*  border: 0.3mm solid black;                                               */
+.top_black_area {
+  
+  height: 2mm;
+  width: 2mm;
+  position: absolute;
+  left: 0mm;
+  top: 0;	
+
+}
+
+
+/* The class defines the style and the height of the top left vertical line  */
+/*                                                                           */
+.top_left_vl {
+  border-left: 0.3mm solid rgb(44, 69, 110);
+  height: 2mm;
+  position: absolute;
+  left: 7mm;
+  top: 0;	
+	
+}
+
+/* The class defines the style and the height of the top left horizontal line  */
+/*                                                                             */
+.top_left_hl {
+  border-top: 0.3mm solid rgb(44, 69, 110);
+  width: 2mm;
+  position: absolute;
+  left: 0;
+  top: 7mm;	
+	
+}
+
+/* The class defines the style and the height of the top right vertical line */
+/*                                                                           */
+.top_right_vl {
+  border-right: 0.3mm solid rgb(44, 69, 110);
+  height: 2mm;
+  position: absolute;
+  right: 7mm;
+  top: 0;	
+	
+}
+
+/* The class defines the style and the height of the top right horizontal line */
+/*                                                                             */
+.top_right_hl {
+  border-top: 0.3mm solid rgb(44, 69, 110);
+  width: 2mm;
+  position: absolute;
+  right: 0;
+  top: 7mm;	
+	
+}
+
+/* The class defines the style and the height of the bottom left vertical line  */
+/*                                                                              */
+.bottom_left_vl {
+  border-left: 0.3mm solid rgb(44, 69, 110);
+  height: 2mm;
+  position: absolute;
+  left: 7mm;
+  bottom: 0;	
+	
+}
+
+/* The class defines the style and the height of the bottom left horizontal line  */
+/*                                                                                */
+.bottom_left_hl {
+  border-top: 0.3mm solid rgb(44, 69, 110);
+  width: 2mm;
+  position: absolute;
+  left: 0;
+  bottom: 7mm;	
+	
+}
+
+/* The class defines the style and the height of the bottom right vertical line */
+/*                                                                              */
+.bottom_right_vl {
+  border-right: 0.3mm solid rgb(44, 69, 110);
+  height: 2mm;
+  position: absolute;
+  right: 7mm;
+  bottom: 0;	
+	
+}
+
+/* The class defines the style and the height of the bottom right horizontal line */
+/*                                                                                */
+.bottom_right_hl {
+  border-top: 0.3mm solid rgb(44, 69, 110);
+  width: 2mm;
+  position: absolute;
+  right: 0;
+  bottom: 7mm;	
+	
+}
+/* The class defines the style and the height of the text logo <div>.        */
+/* First there is text, then the text is replaced by an image.               */
+/* Image is necessary since background black not works for print.            */
+/* Border is set to none, since there was a problem with page 1 to remove it.*/
+.text_logo {
+  height: 10mm;	
+  font-size: 4.8mm;
+  font-weight: bold;
+  color: rgb(255,0,10);
+  text-align: center;
+  padding-top: 0.0mm;
+  margin-left: 0mm;
+  margin-right: 0mm;
+  margin-top: 0mm;
+  margin-bottom: 0mm;	  
+  background-color: black; 
+  border-style: none;
+}
+
+/* The class and its <div> elements define the area for the contents (texts, */
+/* QR codes, images, ..) for pages 2-6.                                      */
+/* When content is added the height of the <div> is increased. This is used  */
+/* to control that content is within the boundary box elements defined by    */
+/* PageTwoBox, PageThreeBox and PageFourBox                                  */
+.text_column {
+	margin-left: 6mm;
+	margin-right: 6mm;
+	margin-top: 0mm;
+	margin-bottom: 0mm;	
+	border-style: dotted;
+}
+
+/* Defines the style of the band name on page 2 and the header on page 4.    */
+/*                                                                           */
+.band_name {
+	
+  font-size: 3.81mm;
+  font-weight: bold;
+  padding-top: 3.0mm;
+  padding-left: 0mm;
+  padding-right: 0mm;
+	
+}
+
+/* Defines the style of the musician name for page 3 and 4 (for musicians)   */
+/*                                                                           */
+/*                                                                           */
+.musician_name_page_3 {	
+  font-weight: bold;
+  padding-top: 3.0mm;
+  padding-left: 0mm;
+  padding-right: 0mm;	
+}
+
+/* Defines the style of text blocks of pages 2, 3 and 4.                     */
+/*                                                                           */
+/*                                                                           */
+.short_text {	
+  padding-top: 0mm;
+  padding-left: 0mm;
+  padding-right: 0mm;
+  padding-bottom: 1.1mm;
+  
+}
+
+/* Defines the style of the musician names on pages 2 and 3.                 */
+/* There is 1.1 mm space to the above (short) text block (padding-top: 1.1mm)*/
+/*                                                                           */
+.musician_name{
+  font-weight: bold;
+  padding-top: 3.8mm;
+  padding-left: 0mm;
+  padding-right: 0mm;	
+}
+
+/* Defines the style of the musician text on pages 2 and 3.                  */
+/* There is no space between musician name and text (padding-top: 0.0mm)     */
+/*                                                                           */
+.musician_text {
+	
+  padding-top: 0.0mm;
+  padding-left: 0mm;
+  padding-right: 0mm;
+  
+}
+
+/* Defines the style of the free text on page 4                              */
+/* There is 1.1 mm space to the free text header (padding-top: 1.1mm)        */
+/*                                                                           */
+.free_text {
+	
+  padding-top: 1.1mm;
+  padding-left: 0mm;
+  padding-right: 0mm;
+  
+}
+
+/* Defines the style of the headers for page 5 and 6                         */
+/*                                                                           */
+/*                                                                           */
+.text_header {
+	
+  font-size: 3.81mm;
+  font-weight: bold;
+  padding-top: 3.0mm;
+  padding-left: 4.2mm;
+  padding-right: 0mm;
+  padding-bottom: 0mm;
+	
+}
+
+/* Defines the style of the entrance fee list on page 5                      */
+/*                                                                           */
+/*                                                                           */
+.entrance_text{
+  font-weight: bold;
+  padding-top: 1.1mm;
+  padding-left: 4.2mm;
+  padding-right: 0mm;	
+}
+
+/* Defines the style of the musician list for page 6                         */
+/*                                                                           */
+/*                                                                           */
+.musician_list {
+	
+  padding-top: 1.1mm;
+  padding-left: 4.2mm;
+  padding-right: 0mm;
+  
+}
+
+/* Defines the style of the image with the sponsors on page 6.               */
+/* There is 8.3 mm space to the preceding block (padding-top: 8.3mm)         */
+/*                                                                           */
+/*                                                                           */
+/*                                                                           */
+.logos_image {
+  padding-top: 8.3mm;
+  padding-left: 4.2mm;
+  padding-right: 0mm;
+  
+}
+
+/* Defines the style of the tables for QR Codes and text on page 5 and 6.    */
+/* There is 4.0 mm space to the preceding block (padding-top: 4.0mm)         */
+/*                                                                           */
+/*                                                                           */
+/*                                                                           */
+table {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;	
+  padding-top: 4.0mm;
+  padding-left: 4.2mm;
+  padding-right: 0mm;  
+}
+
+/* Defines the style of columns of the tables on page 5 and 6.               */
+/* There is 5.0 mm space between the QR Codes (padding-top: 5.0mm)           */
+td {
+  padding-top: 5.0mm;
+}
+
+.login_dropdown {
+ 
+  width: 70mm;
+  padding: 10px;
+}
+
+.div_logout_button{
+	 border: 0.3mm solid black;
+	 text-align: center;
+	 font-size: 4.8mm;
+	 width: 40mm;
+	 cursor: pointer;
+	 display: none;
+}
+
+.flyer_help {
+  font-size: 6.8mm;
+  font-weight: bold;  
+  width: 170mm;
+  padding-left: 400px;
+  cursor: pointer;
+}
+
+.check_box {
+  font-size: 4.8mm;
+  font-weight: bold;  	
+}
+
+.column_dropdowns {
+	
+  float: left;
+  width: 70mm;
+  padding: 10px;
+}
+
+.column_bandname_instrument {
+	
+  float: left;
+  width: 110mm;
+  padding: 10px;
+}
+
+.column_edit_xml {
+	
+  float: left;
+  width: 100mm;
+  padding: 10px;
+  
+}
+
+.column_test_data {
+	
+  float: left;
+  width: 120mm;
+  padding: 10px;
+  
+}
+
+.warning_msg {
+  background-color: yellow; 	
+  font-weight: bold;
+}
+
+.center_poster {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 95%;
+}
+.center_logos {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 70%;
+}
+
+.textarea_text {
+	height: 60mm;
+}
+
+/*the container must be positioned relative:*/
+.custom_select {
+  position: relative;
+  font-size: 4.8mm;
+  font-weight: bold;
+  padding-top: 5.0mm;
+  width: 60mm;
+  background-color: rgb(255,0,10);
+}
+
+.custom_select select {
+  display: none; /*hide original SELECT element:*/
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
+
+/* It is not possible to increase the width!  It affects the printing size!??*/
+/* Font size is set for the label flyer application. <h1> makes the text big.*/
+/*                                                                           */
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 200px;
+  font-size: 3.8mm;
+  background-color: black;
+  color: #fff;
+  text-align: left;
+  border-radius: 6px;
+  padding: 5px 0;
+  
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+  top: -5px;
+  left: 105%;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+
+
+/* https://www.w3schools.com/css/tryit.asp?filename=trycss3_object-fit_all */
+.fill 
+{
+	object-fit: fill;
+	padding: 0mm;
+}
+.contain 
+{
+  object-fit: contain;
+  padding: 0mm;
+}
+.cover 
+{
+  object-fit: cover;
+  padding: 0mm;
+}
+.scale-down 
+{
+  object-fit: scale-down;
+  padding: 0mm;
+}
+.none 
+{
+  object-fit: none;
+  padding: 0mm;
+}
+
+@media print {
+  body, PagePrint {
+    margin: 0;
+    box-shadow: 0;
+  }
+  
+}
+
+@media print {
+    #Header, #Footer { display: none !important; }
+}
+
+@media print 
+{
+.page-break { display: block; page-break-before: always; }
+}

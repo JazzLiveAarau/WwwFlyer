@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="Create flyers for JAZZ live AARAU">
+  <meta name="author" content="Gunnar Lidén">  
+  
+  <title>Flyer Folded A6</title>
+
+  <!-- Style for the folded A6 document  -->
+  <link rel="stylesheet" href="style/FlyerFoldedA6.css">
+
+  <script type="text/javascript" src="scripts/Flyer.js"></script>
+  <script type="text/javascript" src="scripts/FlyerLogin.js"></script>
+  <script type="text/javascript" src="scripts/FlyerStrings.js"></script>
+  <script type="text/javascript" src="scripts/FlyerTags.js"></script>
+  <script type="text/javascript" src="scripts/FlyerXml.js"></script>
+  <script type="text/javascript" src="scripts/FlyerControls.js"></script>
+  <script type="text/javascript" src="scripts/FlyerText.js"></script>
+  <script type="text/javascript" src="scripts/FlyerImages.js"></script>
+  <script type="text/javascript" src="scripts/FlyerEdit.js"></script>
+  <script type="text/javascript" src="scripts/FlyerSave.js"></script>
+  <script type="text/javascript" src="scripts/FlyerDivs.js"></script>
+  <script type="text/javascript" src="scripts/FlyerPrinter.js"></script>
+  <script type="text/javascript" src="scripts/FlyerTester.js"></script>
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>  
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script> 
+  <!-- <script type="text/javascript" src="scripts/html2canvas.js"></script>  -->
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>
+  
+  
+  
+
+   <!-- <script src="http://html2canvas.hertzen.com/js/html2canvas.js?rev034"></script>  -->
+
+<noscript>
+ Um den vollen Funktionsumfang dieser Webseite zu erfahren, benötigen Sie JavaScript.
+ Eine Anleitung wie Sie JavaScript in Ihrem Browser einschalten, befindet sich 
+ <a href="http://www.enable-javascript.com/de/" target="_blank">hier</a>.
+</noscript>
+ 
+</head>
+
+<body onload='mainFlyerA6("Admin", "1")'>
+
+  <div id="id_div_header_application_flyer" ></div>
+  
+  <table>
+      <tr>
+	    <td>
+	      <div class="login_dropdown" id= "id_div_login_drop_down"> </div> 
+		  <div class="div_logout_button" id= "id_div_logout_button"> </div> 
+	    </td>
+		<td>
+		<img src="Logos/IconFlyer.png" alt="JAZZ live AARAU Flyer" width="90">
+		</td>
+	    <td>
+	      <div class="flyer_help" id= "id_div_flyer_help"></div> 
+	    </td>		
+	  </tr>
+  
+  </table>
+  
+  <br>
+  
+  <div id= "id_div_create_pdf_files"> </div> 
+  
+ <div class="page-break"></div>
+
+<PagePrint id= "id_page_print_one" >
+
+  <div class="top_black_area" id= "id_top_black_area_left_page_one"></div>
+
+  <div class="top_left_vl" id= "id_top_left_vl_page_one"></div>
+  
+  <div class="top_left_hl" id= "id_top_left_hl_page_one"></div>  
+  
+  <div class="top_right_vl" id= "id_top_right_vl_page_one"></div>
+  
+  <div class="top_right_hl" id= "id_top_right_hl_page_one"></div>  
+
+  <PageFiveBox> <!-- Start bounding box page five  -->
+
+    <div id="id_div_a6_page_5_text_logo" class="text_logo">Flyer Seite 5</div>
+		
+    <div id= "id_div_text_column_page_5" class="text_column"> <!-- Start class="text_column"  --> 
+	
+    <div id="id_div_a6_page_5_entrance_header" class="text_header"></div>
+
+    <div id="id_div_a6_page_5_entrance_text" class="entrance_text"></div>
+
+    <table  align="center">
+	   <tr> <!-- www.jazzliveaarau.ch  -->	
+	     <td width="70%" align="left">
+		   <div id= "id_div_qr_code_page_5_cell_1_1"></div>
+		 </td>
+	     <td width="30%" align="center">
+		   <div id= "id_div_qr_code_page_5_cell_1_2"></div>
+		 </td>		 
+	   </tr>
+
+	   <tr> <!-- Reservationen  -->	
+	     <td width="70%" align="left">
+		   <div id= "id_div_qr_code_page_5_cell_2_1"></div>
+		 </td>
+	     <td width="30%" align="center">
+		   <div id= "id_div_qr_code_page_5_cell_2_2"></div>
+		 </td>		 
+	   </tr>	   
+
+	   <tr> <!-- App  -->	
+	     <td width="70%" align="left">
+		   <div id= "id_div_qr_code_page_5_cell_3_1"></div>
+		 </td>
+	     <td width="30%" align="center">
+		   <div id= "id_div_qr_code_page_5_cell_3_2"></div>
+		 </td>		 
+	   </tr>	 
+
+	   <tr> <!-- Supporter  -->	
+	     <td width="70%" align="left">
+		   <div id= "id_div_qr_code_page_5_cell_4_1"></div>
+		 </td>
+	     <td width="30%" align="center">
+		   <div id= "id_div_qr_code_page_5_cell_4_2"></div>
+		 </td>		 
+	   </tr>	   	   
+	   
+	   <tr> <!-- Premises  -->	
+	     <td width="70%" align="left">
+		   <div id= "id_div_qr_code_page_5_cell_5_1"></div>
+		 </td>
+	     <td width="30%" align="center">
+		   <div id= "id_div_qr_code_page_5_cell_5_2"></div>
+		 </td>		 
+	   </tr>	   	   	   
+	   
+     </table>	 
+
+    </div> <!-- End class="text_column"  --> 
+
+  </PageFiveBox>  <!-- End bounding box page five  -->
+  
+  <PageSixBox>  <!-- Start bounding box page six  -->
+
+    <div id="id_div_a6_page_6_text_logo" class="text_logo">Flyer Seite 6</div>
+
+    <div id= "id_div_text_column_page_6" class="text_column"> <!-- Start class="text_column"  --> 
+	
+    <div id="id_div_a6_page_6_band_name" class="text_header"></div>	
+	
+    <div id="id_div_a6_page_6_musician_list" class="musician_list"></div>  
+	
+    <table  align="center">
+	   <tr> <!-- Website  -->	
+	     <td width="70%" align="left">
+		   <div id= "id_div_qr_code_page_6_cell_1_1"></div>
+		 </td>
+	     <td width="30%" align="center">
+		   <div id= "id_div_qr_code_page_6_cell_1_2"></div>
+		 </td>		 
+	   </tr>
+
+	   <tr> <!-- Sound  -->	
+	     <td width="70%" align="left">
+		   <div id= "id_div_qr_code_page_6_cell_2_1"></div>
+		 </td>
+	     <td width="30%" align="center">
+		   <div id= "id_div_qr_code_page_6_cell_2_2"></div>
+		 </td>		 
+	   </tr>	   
+     </table> 
+ 
+    <div id="id_div_a6_page_6_logos_image" class= "logos_image"></div> 
+	
+   </div> <!-- End class="text_column"  --> 
+  
+  </PageSixBox>  <!-- End bounding box page six  -->
+  
+  <PageOneBox> <!-- Start bounding box page one  -->
+
+  </PageOneBox>  <!-- End bounding box page one  -->
+  
+  <div class="bottom_left_vl" id= "id_bottom_left_vl_page_one"></div>
+  
+  <div class="bottom_left_hl" id= "id_bottom_left_hl_page_one"></div>  
+  
+  <div class="bottom_right_vl" id= "id_bottom_right_vl_page_one"></div>
+  
+  <div class="bottom_right_hl" id= "id_bottom_right_hl_page_one"></div>  
+  
+</PagePrint>
+
+<div class="page-break"></div>
+
+<PagePrint id= "id_page_print_two" >
+
+  <div class="top_black_area" id= "id_top_black_area_left_page_two"></div>
+  
+  <div class="top_black_area" id= "id_top_black_area_right_page_two"></div>  
+ 
+  <div class="top_left_vl" id= "id_top_left_vl_page_two"></div>
+  
+  <div class="top_left_hl" id= "id_top_left_hl_page_two"></div>  
+  
+  <div class="top_right_vl" id= "id_top_right_vl_page_two"></div>
+  
+  <div class="top_right_hl" id= "id_top_right_hl_page_two"></div>   
+ 
+ 
+  <PageTwoBox> <!-- Start bounding box page two  -->
+  
+    <div id="id_div_a6_page_2_text_logo" class="text_logo">Flyer Seite 2 </div>
+	
+   <div id= "id_div_text_column_page_2" class="text_column"> <!-- Start class="text_column"  --> 
+   
+       <div id="id_div_a6_page_2_band_name" class="band_name"></div> 
+	
+       <div id="id_div_a6_page_2_short_text" class="short_text"></div>	
+	
+       <div id="id_div_a6_page_2_musician_name_1" class="musician_name"></div>
+	
+       <div id="id_div_a6_page_2_musician_text_1" class="musician_text"></div>
+	
+       <div id="id_div_a6_page_2_musician_name_2" class="musician_name"></div>
+	
+       <div id="id_div_a6_page_2_musician_text_2" class="musician_text"></div>		
+	
+       <div id="id_div_a6_page_2_musician_name_3" class="musician_name"></div> 	
+	
+       <div id="id_div_a6_page_2_musician_text_3" class="musician_text"></div> 
+	
+   </div> <!-- End class="text_column"  --> 	
+   
+ </PageTwoBox>  <!-- End bounding box page two  --> 
+  
+ <PageThreeBox> <!-- Start bounding box page three  -->
+   
+    <div id="id_div_a6_page_3_text_logo" class="text_logo">Flyer Seite 3</div> 
+	
+    <div id= "id_div_text_column_page_3" class="text_column"> <!-- Start class="text_column"  --> 
+   
+        <div id="id_div_a6_page_3_musician_name_1" class="musician_name_page_3"></div> 
+	
+        <div id="id_div_a6_page_3_musician_text_1" class="musician_text"></div> 		
+	
+        <div id="id_div_a6_page_3_musician_name_2" class="musician_name"></div>
+	
+        <div id="id_div_a6_page_3_musician_text_2" class="musician_text"></div>	
+
+        <div id="id_div_a6_page_3_musician_name_3" class="musician_name"></div>
+	
+        <div id="id_div_a6_page_3_musician_text_3" class="musician_text"></div>		
+	
+        <div id="id_div_a6_page_3_musician_name_4" class="musician_name"></div>
+	
+        <div id="id_div_a6_page_3_musician_text_4" class="musician_text"></div>
+ 
+        <div id="id_div_a6_page_3_musician_name_5" class="musician_name"></div>
+	
+        <div id="id_div_a6_page_3_musician_text_5" class="musician_text"></div>
+	
+        <div id="id_div_a6_page_3_musician_name_6" class="musician_name"></div>
+	
+		<div id="id_div_a6_page_3_musician_text_6" class="musician_text"></div>	
+
+   </div> <!-- End class="text_column"  --> 
+   
+ </PageThreeBox>   <!-- End bounding box page three  -->
+ 
+ <PageFourBox id= "id_page_four_box" >   <!-- Start bounding box page four  -->
+
+    <div id="id_div_a6_page_4_text_logo" class="text_logo">Flyer Seite 4</div>
+
+    <div id= "id_div_text_column_page_4" class="text_column"> <!-- Start class="text_column"  --> 
+   
+        <div id="id_div_a6_page_4_free_header" class="band_name"></div>
+
+        <div id="id_div_a6_page_4_free_text" class="free_text"></div> 
+		
+        <div id="id_div_a6_page_4_musician_name_1" class="musician_name_page_3"></div> 
+	
+        <div id="id_div_a6_page_4_musician_text_1" class="musician_text"></div> 		
+	
+        <div id="id_div_a6_page_4_musician_name_2" class="musician_name"></div>
+	
+        <div id="id_div_a6_page_4_musician_text_2" class="musician_text"></div>	
+
+        <div id="id_div_a6_page_4_musician_name_3" class="musician_name"></div>
+	
+        <div id="id_div_a6_page_4_musician_text_3" class="musician_text"></div>		
+	
+        <div id="id_div_a6_page_4_musician_name_4" class="musician_name"></div>
+	
+        <div id="id_div_a6_page_4_musician_text_4" class="musician_text"></div>		
+	
+    </div> <!-- class="text_column"  --> 	
+  
+ </PageFourBox>  <!-- End bounding box page four  -->
+
+
+  <div class="bottom_left_vl" id= "id_bottom_left_vl_page_two"></div>
+  
+  <div class="bottom_left_hl" id= "id_bottom_left_hl_page_two"></div>  
+  
+  <div class="bottom_right_vl" id= "id_bottom_right_vl_page_two"></div>
+  
+  <div class="bottom_right_hl" id= "id_bottom_right_hl_page_two"></div>  
+
+</PagePrint>
+ <div class="page-break"></div>
+ 
+ <div id="id_div_drop_downs" class="column_dropdowns" ><!-- class="column_dropdowns"  -->
+  
+ <br>
+  <div id= "id_div_active_mode"> </div> 
+ <br> 
+  <div id= "id_div_publish_concert_texts"> </div> 
+ <br>  
+ <div id= "id_div_season_drop_down"> </div>  
+ <br>
+ <div id= "id_div_concert_drop_down"> </div> 
+ <br>
+ <div id= "id_div_text_drop_down"> </div> 
+  <br>
+ <div id= "id_div_musician_drop_down"> </div> 
+ <br>
+  <div id= "id_div_password_drop_down"> </div> 
+  
+ </div> <!-- class="column_dropdowns"  -->
+ 
+ 
+ <div id="id_div_column_edit_xml" class="column_edit_xml" ><!-- class="column_edit_xml"  -->
+ 
+  <div id= "id_div_label_text_textarea"> </div><br>
+  <div id= "id_div_text_textarea"> </div> <br>
+  <br>
+
+
+ </div> <!-- class="column_edit_xml"  -->
+  
+   <div id="id_div_column_edit_xml" class="column_bandname_instrument" ><!-- class="column_bandname_instrument"  -->
+  
+  <div id= "id_div_label_header_text"> </div><br>
+  <div id= "id_div_header_text"> </div> <br>
+  <br>
+  <div id= "id_div_label_instrument_text"> </div><br>
+  <div id= "id_div_instrument_text"> </div> <br>
+  <br> 
+  
+  <div id= "id_div_warning_textarea"> </div> <br>  
+  <br>  
+  
+  
+  </div> <!-- class="column_bandname_instrument"  -->
+ 
+ <div id="id_div_column_edit_xml" class="column_test_data" ><!-- class="column_test_data"  -->
+  
+  <div id= "id_div_tester_textarea"> </div> 
+  
+  <br>
+  <div id= "id_div_display_boundaries"> </div>  
+
+  <br>
+  <div id= "id_div_display_hide_cutting_lines"> </div>  
+ 
+ </div> <!-- class="column_test_data"  -->
+ 
+ 
+</body>
+
+</html>
