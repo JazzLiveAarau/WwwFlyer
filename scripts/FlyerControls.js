@@ -1,5 +1,5 @@
 // File: FlyerControls.js
-// Date: 2021-03-18
+// Date: 2021-05-28
 // Author: Gunnar Lidén
 
 // File content
@@ -1805,7 +1805,7 @@ function getFlyerHelpAdminHtml()
 	
 	ret_paragraph_flyer_help_html = ret_paragraph_flyer_help_html + '<p><b>';
 	
-	ret_paragraph_flyer_help_html = ret_paragraph_flyer_help_html + '<A href="http://www.jazzliveaarau.ch/Flyer/Manual/FlyerManual.docx">Admin Hilfe</A>' + '</b>';
+	ret_paragraph_flyer_help_html = ret_paragraph_flyer_help_html + '<A href="https://jazzliveaarau.ch/Tasks/Documents/A0093.pdf">Admin Hilfe</A>' + '</b>';
 	
 	ret_paragraph_flyer_help_html = ret_paragraph_flyer_help_html + '</p>';
 
@@ -1838,7 +1838,7 @@ function getFlyerHelpPrinterHtml()
 	
 	ret_paragraph_flyer_help_html = ret_paragraph_flyer_help_html + '<p><b>';
 	
-	ret_paragraph_flyer_help_html = ret_paragraph_flyer_help_html + '<A href="http://www.jazzliveaarau.ch/Flyer/Manual/FlyerPrinterManual.docx">Drucker Hilfe</A>' + '</b>';
+	ret_paragraph_flyer_help_html = ret_paragraph_flyer_help_html + '<A href="https://jazzliveaarau.ch/Tasks/Documents/A0007.pdf">Drucker Hilfe</A>' + '</b>';
 	
 	ret_paragraph_flyer_help_html = ret_paragraph_flyer_help_html + '</p>';
 

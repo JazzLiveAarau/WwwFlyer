@@ -1,5 +1,5 @@
 // File: FlyerStrings.js
-// Date: 2020-05-19
+// Date: 2021-05-28
 // Author: Gunnar Lidén
 
 // File content
@@ -60,8 +60,13 @@ var g_tooltip_display_boundaries =
 "Mit oder ohne Linien mit Linksklick wechseln.";
 
 var g_tooltip_create_pdf_files = 
-"PDF Dateien für Vorderseite und Rückseite werden kreiert." + "<br>" + 
-"Diese PDFs sind Eingabedaten für printline (die Druckerei).";
+"Druckdaten der Flyer sind zwei PDF-Dateien (Vorder- und Rückseite)." + "<br>" + 
+"Die Flyer werden in einer Druckerei gedruckt und die Breite und" + "<br>" +
+"Höhe der PDF-Datei sind genau vorgeschrieben." + "<br>" +
+"Beim Klicken werden zwei solche PDF Dateien zum Anschauen kreiert." + "<br>" +
+"Die Qualität (Auflösung) dieser zwei PDF Dateien genügt aber nicht." + "<br>" +
+"Wie man PDF-Dateien für die Druckerei generiert ist im Handbuch" + "<br>" +
+"(Drucker Hilfe) beschrieben.";
 
 var g_tooltip_display_hide_cutting_lines = 
 "Mit oder ohne Schnittlinien drucken" + "<br>" + 
@@ -246,7 +251,7 @@ var g_label_cutting_lines_displayed = "Mit Schnittlinien";
 ///////////////////////// Start Caps Strings //////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
 
-var g_cap_create_pdf_files = "Druckdaten kreieren";
+var g_cap_create_pdf_files = "Test-Druckdaten";
 
 var g_cap_logout_str = "Logout";
 

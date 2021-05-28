@@ -444,17 +444,26 @@ function createPdfFiles()
 	var pdf_names = [getPdfFileNameFront(), getPdfFileNameReverse()];
 	
 	var pdf_qualtity = 10;
-	
-	for (var index_pdf=0; index_pdf<pdf_nodes.length; index_pdf++)
+
+	for (var index_pdf=0; index_pdf<pdf_nodes.length; index_pdf++) 
 	{
 		var current_pdf_node = pdf_nodes[index_pdf];
 		
 		var current_pdf_name = pdf_names[index_pdf];
+
+		if (index_pdf == 0)
+		{
+			createOnePdfFile(current_pdf_node, current_pdf_name, pdf_qualtity);
+		}
+		else
+		{
+			createSecondPdfFile(current_pdf_node, current_pdf_name, pdf_qualtity);
+		}
 		
-		createOnePdfFile(current_pdf_node, current_pdf_name, pdf_qualtity);
+		
 		
 	}	
-	
+
 } // createPdfFiles
 
 // Returns the name of the PDF file for the flyer front side
@@ -529,7 +538,31 @@ function createOnePdfFile(i_pdf_node, i_pdf_name, i_pdf_quality)
 	// https://developer.tizen.org/community/tip-tech/creating-pdf-documents-jspdf Parameters new jsPDF
 	// https://stackoverflow.com/questions/36472094/how-to-set-image-to-fit-width-of-the-page-using-jspdf  Parameters 
 	// https://stackoverflow.com/questions/23104008/where-to-change-default-pdf-page-width-and-font-size-in-jspdf-debug-js Custom sized PDF
+
+	var node_width_mm = getWidthPrintPageForPrintline();
 	
+	var node_height_mm = getHeightPrintPageForPrintline();
+	
+	var pdf_quality_int = parseInt(i_pdf_quality);
+	
+    html2canvas(i_pdf_node, {scale: pdf_quality_int, dpi: 500}
+						 ).then(canvas => {
+			let pdf = new jsPDF('landscape', 'mm', [node_width_mm, node_height_mm]);
+			pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, node_width_mm, node_height_mm);
+			pdf.save(i_pdf_name);
+		});	
+	
+	
+} // createOnePdfFile
+
+function createSecondPdfFile(i_pdf_node, i_pdf_name, i_pdf_quality)
+{
+	// https://itnext.io/javascript-convert-html-css-to-pdf-print-supported-very-sharp-and-not-blurry-c5ffe441eb5e
+	// https://developer.tizen.org/community/tip-tech/creating-pdf-documents-jspdf Parameters new jsPDF
+	// https://stackoverflow.com/questions/36472094/how-to-set-image-to-fit-width-of-the-page-using-jspdf  Parameters 
+	// https://stackoverflow.com/questions/23104008/where-to-change-default-pdf-page-width-and-font-size-in-jspdf-debug-js Custom sized PDF
+	// https://cdnjs.com/libraries/jspdf
+
 	var node_width_mm = getWidthPrintPageForPrintline();
 	
 	var node_height_mm = getHeightPrintPageForPrintline();

@@ -1,5 +1,5 @@
 // File: FlyerLogin.js
-// Date: 2020-05-19
+// Date: 2021-05-28
 // Author: Gunnar Lidén
 
 // File content
@@ -339,10 +339,25 @@ function setAndHideElementsForPrinter()
 	setParagraphDisplayHideCuttingLines();
 
 	setParagraphCreatePdfFiles();
+
+	hideCreatePdfFiles();
 	
 	displayOrHideBoundaries();
 
 } // setAndHideElementsForPrinter	
+
+// Hide the function that creates PDF files with html2canvas
+// The quality is bad. Users try to use it for printing althought the manual
+// clearly says that pdfCreator shall be used
+function hideCreatePdfFiles()
+{
+	var element_div_create_pdf_files = document.getElementById(g_id_div_create_pdf_files);	
+
+	if (element_div_create_pdf_files != null)
+	{
+		element_div_create_pdf_files.style.display = 'none';
+	}
+} // hideCreatePdfFiles
 
 // Sets and hides elements for the user Musician
 // 1. Hide the free text page four (4) if not used for musician texts.
