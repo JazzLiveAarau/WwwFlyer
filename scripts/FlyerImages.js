@@ -255,9 +255,9 @@ function setDivPremisisLabelPage5()
 {
 	var element_div_page_5_cell_5_1 = document.getElementById(g_id_div_qr_code_page_5_cell_5_1);
 	
-	var premises_label = '<b>Lokal</b><br> Spaghetti Factory Salmen<br> Metzgergasse 8, 5000 Aarau';
+	var premises_label = '<b>Lokal</b><br> SPAGI BY MARCELLO<br> Metzgergasse 8, 5000 Aarau';
 	
-	//  <div id= "id_div_qr_code_page_5_cell_5_1"><b>Lokal</b><br> Spaghetti Factory Salmen<br> Metzgergasse 8, 5000 Aarau</div>
+	//  <div id= "id_div_qr_code_page_5_cell_5_1"><b>Lokal</b><br> Spagi by Marcello<br> Metzgergasse 8, 5000 Aarau</div>
 	
 	element_div_page_5_cell_5_1.innerHTML = premises_label;
 	
