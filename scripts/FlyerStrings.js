@@ -1,5 +1,5 @@
 // File: FlyerStrings.js
-// Date: 2021-05-28
+// Date: 2022-01-25
 // Author: Gunnar Lidén
 
 // File content
@@ -182,6 +182,11 @@ var g_msg_number_musician_rows_exceeded_free_text =
 "Text für maximum sechs (6) MusikerInnen können momentan erfasst werden." + "\r\n" + 
 "Bitte Bios für folgende MusikerInnen separat schreiben und per E-Mail übermitteln:" + "\r\n";
 
+var g_msg_printer_warning_or_error = 
+"Warnung oder Fehler."  + "\r\n" + 
+"Bitte als Administrator einloggen, anschauen oder korrigieren." + "\r\n" +
+"--------------------------------------------------------------" + "\r\n";
+
 var g_msg_parameter_names = 
 [
 	"g_msg_concert_data_not_yet_copied",
@@ -190,7 +195,8 @@ var g_msg_parameter_names =
 	"g_msg_size_bandname_short_text_maximum",
 	"g_msg_number_musician_rows_exceeded",
 	"g_msg_free_text_exceeded",
-	"g_msg_number_musician_rows_exceeded_free_text"
+	"g_msg_number_musician_rows_exceeded_free_text",
+	"g_msg_printer_warning_or_error"
 ]
 
 var g_msg_parameter_values = 
@@ -201,7 +207,8 @@ var g_msg_parameter_values =
 	g_msg_size_bandname_short_text_maximum,
 	g_msg_number_musician_rows_exceeded,
 	g_msg_free_text_exceeded,
-	g_msg_number_musician_rows_exceeded_free_text
+	g_msg_number_musician_rows_exceeded_free_text,
+	g_msg_printer_warning_or_error
 ]
 
 ///////////////////////////////////////////////////////////////////////////////////////////

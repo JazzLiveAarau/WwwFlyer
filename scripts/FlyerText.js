@@ -1,5 +1,5 @@
 // File: FlyerText.js
-// Date: 2020-03-10
+// Date: 2022-01-25
 // Author: Gunnar Lidén
 
 // File content
@@ -201,7 +201,9 @@ function setTextPage2()
     var ret_n_set_musicians = 0;
 	
     clearTextsPage2();
-	
+
+	hideMusicianTextDivsPageTwo(); // 2022-01-24
+
 	setDivTextLogoPage2();
 	
 	setDivBandNamePage2();
@@ -222,6 +224,8 @@ function setTextPage2()
 	var musician_name_1_page_2 = getMusicianNameInstrument(g_current_concert_number, 1);
 	
 	var musician_text_1_page_2 = getMusicianText(g_current_concert_number, 1);
+
+	displayMusicianOneTextDivsPageTwo(); // 2022-01-24
 	
 	setDivMusicianName1Page2(musician_name_1_page_2);
 	
@@ -232,6 +236,7 @@ function setTextPage2()
 	if (getRemainingHeightPageTwo() <= 0.0)
 	{
 		clearLabelTextMusicianOnePageTwo();
+		hideMusicianOneTextDivsPageTwo(); //  2022-01-24
 		appendTotalHeightPageTwo();
 		return ret_n_set_musicians;
 	}
@@ -249,6 +254,8 @@ function setTextPage2()
 	var musician_name_2_page_2 = getMusicianNameInstrument(g_current_concert_number, 2);
 	
 	var musician_text_2_page_2 = getMusicianText(g_current_concert_number, 2);
+
+	displayMusicianTwoTextDivsPageTwo(); // 2022-01-24
 	
 	setDivMusicianName2Page2(musician_name_2_page_2);
 		
@@ -257,6 +264,7 @@ function setTextPage2()
 	if (getRemainingHeightPageTwo() <= 0.0)
 	{
 		clearLabelTextMusicianTwoPageTwo();
+		hideMusicianTwoTextDivsPageTwo(); // 2022-01-24
 		appendTotalHeightPageTwo(); 
 		return ret_n_set_musicians;
 	}
@@ -274,6 +282,8 @@ function setTextPage2()
 	var musician_name_3_page_2 = getMusicianNameInstrument(g_current_concert_number, 3);
 	
 	var musician_text_3_page_2 = getMusicianText(g_current_concert_number, 3);
+
+	displayMusicianThreeTextDivsPageTwo(); //  2022-01-24
 	
 	setDivMusicianName3Page2(musician_name_3_page_2);
 		
@@ -282,6 +292,7 @@ function setTextPage2()
 	if (getRemainingHeightPageTwo() <= 0.0)
 	{
 		clearLabelTextMusicianThreePageTwo();
+		hideMusicianThreeTextDivsPageTwo(); // 2022-01-24
 		appendTotalHeightPageTwo();
 		return ret_n_set_musicians;
 	}
@@ -302,6 +313,8 @@ function setTextPage3(i_set_musicians)
 	var musician_number = i_set_musicians;
 	
     clearTextsPage3();
+
+	hideMusicianTextDivsPageThree(); // 2022-01-24
 	
 	setDivTextLogoPage3();
 			
@@ -318,6 +331,8 @@ function setTextPage3(i_set_musicians)
 	var musician_name_1_page_3 = getMusicianNameInstrument(g_current_concert_number, musician_number);
 	
 	var musician_text_1_page_3 = getMusicianText(g_current_concert_number, musician_number);
+
+	displayMusicianOneTextDivsPageThree(); // 2022-01-24
 	
 	setDivMusicianName1Page3(musician_name_1_page_3);
 		
@@ -326,6 +341,7 @@ function setTextPage3(i_set_musicians)
 	if (getRemainingHeightPageThree() <= 0.0)
 	{
 		clearLabelTextMusicianOnePageThree();
+		hideMusicianOneTextDivsPageThree(); // 2022-01-24
 		appendTotalHeightPageThree();
 		return ret_n_set_musicians;
 	}
@@ -344,6 +360,8 @@ function setTextPage3(i_set_musicians)
 	var musician_name_2_page_3 = getMusicianNameInstrument(g_current_concert_number, musician_number);
 	
 	var musician_text_2_page_3 = getMusicianText(g_current_concert_number, musician_number);
+
+	displayMusicianTwoTextDivsPageThree(); // 2022-01-24
 	
 	setDivMusicianName2Page3(musician_name_2_page_3);
 		
@@ -352,6 +370,7 @@ function setTextPage3(i_set_musicians)
 	if (getRemainingHeightPageThree() <= 0.0)
 	{
 		clearLabelTextMusicianTwoPageThree();
+		hideMusicianTwoTextDivsPageThree(); // 2022-01-24
 		appendTotalHeightPageThree();
 		return ret_n_set_musicians;
 	}
@@ -370,6 +389,8 @@ function setTextPage3(i_set_musicians)
 	var musician_name_3_page_3 = getMusicianNameInstrument(g_current_concert_number, musician_number);
 	
 	var musician_text_3_page_3 = getMusicianText(g_current_concert_number, musician_number);
+
+	displayMusicianThreeTextDivsPageThree(); // 2022-01-24
 	
 	setDivMusicianName3Page3(musician_name_3_page_3);
 		
@@ -378,6 +399,7 @@ function setTextPage3(i_set_musicians)
 	if (getRemainingHeightPageThree() <= 0.0)
 	{
 		clearLabelTextMusicianThreePageThree();
+		hideMusicianThreeTextDivsPageThree(); // 2022-01-24
 		appendTotalHeightPageThree();
 		return ret_n_set_musicians;
 	}
@@ -397,6 +419,8 @@ function setTextPage3(i_set_musicians)
 	var musician_name_4_page_3 = getMusicianNameInstrument(g_current_concert_number, musician_number);
 	
 	var musician_text_4_page_3 = getMusicianText(g_current_concert_number, musician_number);
+
+	displayMusicianFourTextDivsPageThree(); // 2022-01-24
 	
 	setDivMusicianName4Page3(musician_name_4_page_3);
 		
@@ -405,7 +429,7 @@ function setTextPage3(i_set_musicians)
 	if (getRemainingHeightPageThree() <= 0.0)
 	{
         clearLabelTextMusicianFourPageThree();
-		
+		hideMusicianFourTextDivsPageThree(); // 2022-01-24
 		appendTotalHeightPageThree();
 		
 		return ret_n_set_musicians;
@@ -426,6 +450,8 @@ function setTextPage3(i_set_musicians)
 	var musician_name_5_page_3 = getMusicianNameInstrument(g_current_concert_number, musician_number);
 	
 	var musician_text_5_page_3 = getMusicianText(g_current_concert_number, musician_number);
+
+	displayMusicianFiveTextDivsPageThree(); // 2022-01-24
 	
 	setDivMusicianName5Page3(musician_name_5_page_3);
 		
@@ -434,7 +460,7 @@ function setTextPage3(i_set_musicians)
 	if (getRemainingHeightPageThree() <= 0.0)
 	{
 		clearLabelTextMusicianFivePageThree();
-		
+		hideMusicianFiveTextDivsPageThree(); // 2022-01-24
 		appendTotalHeightPageThree();
 		
 		return ret_n_set_musicians;
@@ -455,6 +481,8 @@ function setTextPage3(i_set_musicians)
 	var musician_name_6_page_3 = getMusicianNameInstrument(g_current_concert_number, musician_number);
 	
 	var musician_text_6_page_3 = getMusicianText(g_current_concert_number, musician_number);
+
+	displayMusicianSixTextDivsPageThree(); // 2022-01-24
 	
 	setDivMusicianName6Page3(musician_name_6_page_3);
 		
@@ -463,6 +491,7 @@ function setTextPage3(i_set_musicians)
 	if (getRemainingHeightPageThree() <= 0.0)
 	{
 		clearLabelTextMusicianSixPageThree();
+		hideMusicianSixTextDivsPageThree(); // 2022-01-24
 		appendTotalHeightPageThree();
 		return ret_n_set_musicians;
 	}
@@ -863,6 +892,100 @@ function clearTextsPage2()
 	
 } // clearTextsPage2
 
+// Hide musician text <div> elements on page two
+// The function is only executed for case printer. For this case the
+// text takes some mor place than for case administrator. 
+// This is not a clean solution to the problem that text don't
+// fit to a page in print mode ....
+function hideMusicianTextDivsPageTwo()
+{
+	if (g_user_case_str != g_user_case_printer)
+	{
+		return;
+	}
+
+	hideMusicianOneTextDivsPageTwo();
+
+	hideMusicianTwoTextDivsPageTwo();
+
+	hideMusicianThreeTextDivsPageTwo();
+
+} // hideMusicianTextDivsPageTwo
+
+
+// Hide musician one text <div> elements page two
+function hideMusicianOneTextDivsPageTwo()
+{
+    var element_div_page_2_musician_name_1 = document.getElementById(g_id_div_a6_page_2_musician_name_1);
+	
+    var element_div_page_2_musician_text_1 = document.getElementById(g_id_div_a6_page_2_musician_text_1);
+
+	element_div_page_2_musician_name_1.style.display = 'none';
+    element_div_page_2_musician_text_1.style.display = 'none';
+
+} // hideMusicianOneTextDivsPageTwo
+
+// Hide musician two text <div> elements page two
+function hideMusicianTwoTextDivsPageTwo()
+{
+    var element_div_page_2_musician_name_2 = document.getElementById(g_id_div_a6_page_2_musician_name_2);
+	
+    var element_div_page_2_musician_text_2 = document.getElementById(g_id_div_a6_page_2_musician_text_2);
+	
+    element_div_page_2_musician_name_2.style.display = 'none';
+    element_div_page_2_musician_text_2.style.display = 'none';
+
+} // hideMusicianTwoTextDivsPageTwo
+
+// Hide musician three text <div> elements page two
+function hideMusicianThreeTextDivsPageTwo()
+{
+	var element_div_page_2_musician_name_3 = document.getElementById(g_id_div_a6_page_2_musician_name_3);
+	
+    var element_div_page_2_musician_text_3 = document.getElementById(g_id_div_a6_page_2_musician_text_3);
+
+	element_div_page_2_musician_name_3.style.display = 'none';
+    element_div_page_2_musician_text_3.style.display = 'none';
+
+} // hideMusicianThreeTextDivsPageTwo
+
+// Display musician one text <div> elements page two
+function displayMusicianOneTextDivsPageTwo()
+{
+    var element_div_page_2_musician_name_1 = document.getElementById(g_id_div_a6_page_2_musician_name_1);
+	
+    var element_div_page_2_musician_text_1 = document.getElementById(g_id_div_a6_page_2_musician_text_1);
+
+	element_div_page_2_musician_name_1.style.display = 'block';
+    element_div_page_2_musician_text_1.style.display = 'block';
+
+} // displayMusicianOneTextDivsPageTwo
+
+// Display musician two text <div> elements page two
+function displayMusicianTwoTextDivsPageTwo()
+{
+    var element_div_page_2_musician_name_2 = document.getElementById(g_id_div_a6_page_2_musician_name_2);
+	
+    var element_div_page_2_musician_text_2 = document.getElementById(g_id_div_a6_page_2_musician_text_2);
+	
+    element_div_page_2_musician_name_2.style.display = 'block';
+    element_div_page_2_musician_text_2.style.display = 'block';
+
+} // displayMusicianTwoTextDivsPageTwo
+
+// Display musician three text <div> elements page two
+function displayMusicianThreeTextDivsPageTwo()
+{
+	var element_div_page_2_musician_name_3 = document.getElementById(g_id_div_a6_page_2_musician_name_3);
+	
+    var element_div_page_2_musician_text_3 = document.getElementById(g_id_div_a6_page_2_musician_text_3);
+
+	element_div_page_2_musician_name_3.style.display = 'block';
+    element_div_page_2_musician_text_3.style.display = 'block';
+
+} // displayMusicianThreeTextDivsPageTwo
+
+
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Set Text Page 2 Functions  //////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -1104,6 +1227,177 @@ function clearTextsPage3()
     element_div_page_3_musician_text_6.innerHTML = inner_html;
 	
 } // clearTextsPage3
+
+// Hide musician text <div> elements on page three
+// The function is only executed for case printer. For this case the
+// text takes some mor place than for case administrator. 
+// This is not a clean solution to the problem that text don't
+// fit to a page in print mode ....
+function hideMusicianTextDivsPageThree()
+{
+	if (g_user_case_str != g_user_case_printer)
+	{
+		return;
+	}
+
+	hideMusicianOneTextDivsPageThree();
+
+	hideMusicianTwoTextDivsPageThree();
+
+	hideMusicianThreeTextDivsPageThree();
+	
+	hideMusicianFourTextDivsPageThree();
+	
+	hideMusicianFiveTextDivsPageThree();
+	
+	hideMusicianSixTextDivsPageThree();
+
+} // hideMusicianTextDivsPageThree
+
+// Hide musician one text <div> elements page three
+function hideMusicianOneTextDivsPageThree()
+{
+    var element_div_page_3_musician_name_1 = document.getElementById(g_id_div_a6_page_3_musician_name_1);
+	
+    var element_div_page_3_musician_text_1 = document.getElementById(g_id_div_a6_page_3_musician_text_1);
+
+	element_div_page_3_musician_name_1.style.display = 'none';
+    element_div_page_3_musician_text_1.style.display = 'none';
+
+} // hideMusicianOneTextDivsPageThree
+
+// Hide musician two text <div> elements page three
+function hideMusicianTwoTextDivsPageThree()
+{
+    var element_div_page_3_musician_name_2 = document.getElementById(g_id_div_a6_page_3_musician_name_2);
+	
+    var element_div_page_3_musician_text_2 = document.getElementById(g_id_div_a6_page_3_musician_text_2);
+	
+    element_div_page_3_musician_name_2.style.display = 'none';
+    element_div_page_3_musician_text_2.style.display = 'none';
+
+} // hideMusicianTwoTextDivsPageThree
+
+// Hide musician three text <div> elements page three
+function hideMusicianThreeTextDivsPageThree()
+{
+	var element_div_page_3_musician_name_3 = document.getElementById(g_id_div_a6_page_3_musician_name_3);
+	
+    var element_div_page_3_musician_text_3 = document.getElementById(g_id_div_a6_page_3_musician_text_3);
+
+	element_div_page_3_musician_name_3.style.display = 'none';
+    element_div_page_3_musician_text_3.style.display = 'none';
+
+} // hideMusicianThreeTextDivsPageThree
+
+// Hide musician four text <div> elements page three
+function hideMusicianFourTextDivsPageThree()
+{
+    var element_div_page_3_musician_name_4 = document.getElementById(g_id_div_a6_page_3_musician_name_4);
+	
+    var element_div_page_3_musician_text_4 = document.getElementById(g_id_div_a6_page_3_musician_text_4);
+
+	element_div_page_3_musician_name_4.style.display = 'none';
+    element_div_page_3_musician_text_4.style.display = 'none';
+
+} // hideMusicianFourTextDivsPageThree
+
+// Hide musician five text <div> elements page three
+function hideMusicianFiveTextDivsPageThree()
+{
+    var element_div_page_3_musician_name_5 = document.getElementById(g_id_div_a6_page_3_musician_name_5);
+	
+    var element_div_page_3_musician_text_5 = document.getElementById(g_id_div_a6_page_3_musician_text_5);
+	
+    element_div_page_3_musician_name_5.style.display = 'none';
+    element_div_page_3_musician_text_5.style.display = 'none';
+
+} // hideMusicianFiveTextDivsPageThree
+
+// Hide musician six text <div> elements page three
+function hideMusicianSixTextDivsPageThree()
+{
+	var element_div_page_3_musician_name_6 = document.getElementById(g_id_div_a6_page_3_musician_name_6);
+	
+    var element_div_page_3_musician_text_6 = document.getElementById(g_id_div_a6_page_3_musician_text_6);
+
+	element_div_page_3_musician_name_6.style.display = 'none';
+    element_div_page_3_musician_text_6.style.display = 'none';
+
+} // hideMusicianSixTextDivsPageThree
+
+// Display musician one text <div> elements page three
+function displayMusicianOneTextDivsPageThree()
+{
+    var element_div_page_3_musician_name_1 = document.getElementById(g_id_div_a6_page_3_musician_name_1);
+	
+    var element_div_page_3_musician_text_1 = document.getElementById(g_id_div_a6_page_3_musician_text_1);
+
+	element_div_page_3_musician_name_1.style.display = 'block';
+    element_div_page_3_musician_text_1.style.display = 'block';
+
+} // displayMusicianOneTextDivsPageThree
+
+// Display musician two text <div> elements page three
+function displayMusicianTwoTextDivsPageThree()
+{
+    var element_div_page_3_musician_name_2 = document.getElementById(g_id_div_a6_page_3_musician_name_2);
+	
+    var element_div_page_3_musician_text_2 = document.getElementById(g_id_div_a6_page_3_musician_text_2);
+	
+    element_div_page_3_musician_name_2.style.display = 'block';
+    element_div_page_3_musician_text_2.style.display = 'block';
+
+} // displayMusicianTwoTextDivsPageThree
+
+// Display musician three text <div> elements page three
+function displayMusicianThreeTextDivsPageThree()
+{
+	var element_div_page_3_musician_name_3 = document.getElementById(g_id_div_a6_page_3_musician_name_3);
+	
+    var element_div_page_3_musician_text_3 = document.getElementById(g_id_div_a6_page_3_musician_text_3);
+
+	element_div_page_3_musician_name_3.style.display = 'block';
+    element_div_page_3_musician_text_3.style.display = 'block';
+
+} // displayMusicianThreeTextDivsPageThree
+
+
+// Display musician four text <div> elements page three
+function displayMusicianFourTextDivsPageThree()
+{
+    var element_div_page_3_musician_name_4 = document.getElementById(g_id_div_a6_page_3_musician_name_4);
+	
+    var element_div_page_3_musician_text_4 = document.getElementById(g_id_div_a6_page_3_musician_text_4);
+
+	element_div_page_3_musician_name_4.style.display = 'block';
+    element_div_page_3_musician_text_4.style.display = 'block';
+
+} // displayMusicianFourTextDivsPageThree
+
+// Display musician five text <div> elements page three
+function displayMusicianFiveTextDivsPageThree()
+{
+    var element_div_page_3_musician_name_5 = document.getElementById(g_id_div_a6_page_3_musician_name_5);
+	
+    var element_div_page_3_musician_text_5 = document.getElementById(g_id_div_a6_page_3_musician_text_5);
+	
+    element_div_page_3_musician_name_5.style.display = 'block';
+    element_div_page_3_musician_text_5.style.display = 'block';
+
+} // displayMusicianFiveTextDivsPageThree
+
+// Display musician six text <div> elements page three
+function displayMusicianSixTextDivsPageThree()
+{
+	var element_div_page_3_musician_name_6 = document.getElementById(g_id_div_a6_page_3_musician_name_6);
+	
+    var element_div_page_3_musician_text_6 = document.getElementById(g_id_div_a6_page_3_musician_text_6);
+
+	element_div_page_3_musician_name_6.style.display = 'block';
+    element_div_page_3_musician_text_6.style.display = 'block';
+
+} // displayMusicianSixTextDivsPageThree
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Set Text Page 3 Functions  //////////////////////////////////

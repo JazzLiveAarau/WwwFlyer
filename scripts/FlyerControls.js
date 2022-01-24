@@ -1,5 +1,5 @@
 // File: FlyerControls.js
-// Date: 2021-05-28
+// Date: 2022-01-25
 // Author: Gunnar Lidén
 
 // File content
@@ -817,14 +817,25 @@ function getElementWarningTextarea()
 	
 } // getElementWarningTextarea
 
-// Set a warning
+// Set a warning. At printing in a message box
+// No message box if the message is g_msg_number_rows_bandname_short_text
+// (Not a very good solution ....) 
 function setTextHeightWarning(i_msg_warning)
 {
     var element_warning_text = getElementWarningTextarea();
 	
 	element_warning_text.style.display = "block";
-	
-	element_warning_text.innerHTML = i_msg_warning;
+
+	var index_warning = i_msg_warning.indexOf(g_msg_number_rows_bandname_short_text);
+
+	if (g_user_case_str == g_user_case_printer && index_warning < 0)
+	{
+		alert(g_msg_printer_warning_or_error + i_msg_warning);
+	}
+	else
+	{
+		element_warning_text.innerHTML = i_msg_warning;
+	}
 	
 } // setTextHeightWarning
 
