@@ -1,5 +1,5 @@
 // File: FlyerTags.js
-// Date: 2019-05-09
+// Date: 2022-01-25
 // Author: Gunnar Lidén
 
 // File content
@@ -14,7 +14,8 @@ var g_tag_season_program_concert = "Concert";
 var g_tag_season_program_day = "Day";
 var g_tag_season_program_month = "Month";
 var g_tag_season_program_year = "Year";
-var g_tag_season_program_publish_flyer_text = "PublishFlyerText";
+// 2022-01-25 var g_tag_season_program_publish_flyer_text = "PublishFlyerText";
+var g_tag_season_program_publish_flyer_text = "FlyerTextHomepagePublish";
 var g_tag_season_program_band_name = "BandName";
 var g_tag_season_program_short_text = "ShortText";
 var g_tag_season_program_additional_text = "AdditionalText";
