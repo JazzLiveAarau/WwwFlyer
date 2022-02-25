@@ -1,5 +1,5 @@
 // File: FlyerDivs.js
-// Date: 2020-05-19
+// Date: 2022-02-25
 // Author: Gunnar Lidén
 
 // File content
@@ -1515,8 +1515,8 @@ var g_id_div_qr_code_page_5_cell_1_1 = "id_div_qr_code_page_5_cell_1_1";
 var g_id_div_qr_code_page_5_cell_1_2 = "id_div_qr_code_page_5_cell_1_2";
 var g_id_div_qr_code_page_5_cell_2_1 = "id_div_qr_code_page_5_cell_2_1";
 var g_id_div_qr_code_page_5_cell_2_2 = "id_div_qr_code_page_5_cell_2_2";
-var g_id_div_qr_code_page_5_cell_3_1 = "id_div_qr_code_page_5_cell_3_1";
-var g_id_div_qr_code_page_5_cell_3_2 = "id_div_qr_code_page_5_cell_3_2";
+//20220225 var g_id_div_qr_code_page_5_cell_3_1 = "id_div_qr_code_page_5_cell_3_1";
+//20220225 var g_id_div_qr_code_page_5_cell_3_2 = "id_div_qr_code_page_5_cell_3_2";
 var g_id_div_qr_code_page_5_cell_4_1 = "id_div_qr_code_page_5_cell_4_1";
 var g_id_div_qr_code_page_5_cell_4_2 = "id_div_qr_code_page_5_cell_4_2";
 var g_id_div_qr_code_page_5_cell_5_1 = "id_div_qr_code_page_5_cell_5_1";

@@ -1,5 +1,5 @@
 // File: FlyerImages.js
-// Date: 2021-02-27
+// Date: 2022-02-25
 // Author: Gunnar Lidén
 
 // File content
@@ -49,8 +49,8 @@ function setImagesPage5()
 	setDivHomepageQrCodePage5();
 	setDivReservationLabelPage5();
 	setDivReservationQrCodePage5();
-	setDivAppLabelPage5();
-	setDivAppQrCodePage5();
+	//20220225 setDivAppLabelPage5();
+	//20220225 setDivAppQrCodePage5();
 	setDivSupporterLabelPage5();
 	setDivSupporterQrCodePage5();
 	setDivPremisisLabelPage5();
@@ -198,6 +198,7 @@ function setDivReservationQrCodePage5()
 	
 } // setDivReservationQrCodePage5
 
+/* 20220225 
 // Set app label
 function setDivAppLabelPage5()
 {
@@ -223,6 +224,8 @@ function setDivAppQrCodePage5()
 	element_div_page_5_cell_3_2.innerHTML = app_qr;
 	
 } // setDivAppQrCodePage5
+
+ 20220225 */
 
 // Set supporter label
 function setDivSupporterLabelPage5()
@@ -309,6 +312,7 @@ function clearImagesPage5()
         return;
     }
 
+	/* 20220225
     var element_div_page_5_cell_3_1 = document.getElementById(g_id_div_qr_code_page_5_cell_3_1);	
     if (null == element_div_page_5_cell_3_1)
     {
@@ -322,6 +326,7 @@ function clearImagesPage5()
         alert("clearImagesPage5 div element g_id_div_qr_code_page_5_cell_3_2 is null");
         return;
     }
+	20220225 */
 
     var element_div_page_5_cell_4_1 = document.getElementById(g_id_div_qr_code_page_5_cell_4_1);	
     if (null == element_div_page_5_cell_4_1)
@@ -355,8 +360,8 @@ function clearImagesPage5()
     element_div_page_5_cell_1_2.innerHTML = inner_html;
     element_div_page_5_cell_2_1.innerHTML = inner_html;
     element_div_page_5_cell_2_2.innerHTML = inner_html;
-    element_div_page_5_cell_3_1.innerHTML = inner_html;
-    element_div_page_5_cell_3_2.innerHTML = inner_html;
+    //20220225 element_div_page_5_cell_3_1.innerHTML = inner_html;
+    //20220225 element_div_page_5_cell_3_2.innerHTML = inner_html;
     element_div_page_5_cell_4_1.innerHTML = inner_html;
     element_div_page_5_cell_4_2.innerHTML = inner_html;
     element_div_page_5_cell_5_1.innerHTML = inner_html;
