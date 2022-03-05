@@ -16,12 +16,300 @@ function checkFlyerBandData()
 {
 	var input_flyer_application_mode = g_flyer_application_mode; 
 
-	displayBandDataHomepageAndEdit();
+	// displayBandDataHomepageAndEdit();
+
+	if (!flyerNumberOfMusiciansIsEqual())
+	{
+		alert("Number of musicians is not equal");
+
+		g_flyer_application_mode = input_flyer_application_mode;
+
+		return;
+	}
+
+	var musicians_equal = flyerMusicianTextsAreEqual();
+
+	var b_all_equal = true;
+
+	for (var index_musician=0; index_musician < musicians_equal.length; index_musician++)
+	{
+		var b_names_equal = musicians_equal[index_musician];
+
+		if (!b_names_equal)
+		{
+			alert("Musician texts not equal for musician number " + (index_musician + 1).toString());
+
+			b_all_equal = false;
+		}
+
+	}
+
+	if (b_all_equal)
+	{
+		alert("All musician texts are equal");
+	}
 
 	g_flyer_application_mode = input_flyer_application_mode;
 
 } // checkFlyerBandData
 
+// Returns true if band name is equal in the season program XML file and the edit XML file
+function flyerBandNameIsEqual()
+{
+	var input_flyer_application_mode = g_flyer_application_mode; 
+
+	g_flyer_application_mode = "AdminXml";
+
+	var band_name_homepage = getBandName(g_current_concert_number);
+
+	g_flyer_application_mode = "EditXml";
+
+	var band_name_edit = getBandName(g_current_concert_number);
+
+	g_flyer_application_mode = input_flyer_application_mode;
+
+	if (band_name_homepage == band_name_edit)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+
+} // flyerBandNameIsEqual
+
+// Returns true if band text is equal in the season program XML file and the edit XML file
+function flyerBandTextIsEqual()
+{
+	var input_flyer_application_mode = g_flyer_application_mode; 
+
+	g_flyer_application_mode = "AdminXml";
+
+	var band_text_homepage = getConcertShortText(g_current_concert_number);
+
+	g_flyer_application_mode = "EditXml";
+
+	var band_text_edit = getConcertShortText(g_current_concert_number);
+
+	g_flyer_application_mode = input_flyer_application_mode;
+
+	if (band_text_homepage == band_text_edit)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+
+} // flyerBandTextIsEqual
+
+// Returns true if the free flyer label is equal in the season program XML file and the edit XML file
+function flyerFreeLabelIsEqual()
+{
+	var input_flyer_application_mode = g_flyer_application_mode; 
+
+	g_flyer_application_mode = "AdminXml";
+
+	var flyer_label_hompage = getConcertLabelFlyerText(g_current_concert_number);
+
+	g_flyer_application_mode = "EditXml";
+
+	var flyer_label_edit = getConcertLabelFlyerText(g_current_concert_number);
+
+	g_flyer_application_mode = input_flyer_application_mode;
+
+	if (flyer_label_hompage == flyer_label_edit)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+
+} // flyerFreeLabelIsEqual
+
+// Returns true if the free flyer text is equal in the season program XML file and the edit XML file
+function flyerFreeTextIsEqual()
+{
+	var input_flyer_application_mode = g_flyer_application_mode; 
+
+	g_flyer_application_mode = "AdminXml";
+
+	var flyer_text_hompage = getConcertFlyerText(g_current_concert_number);
+
+	g_flyer_application_mode = "EditXml";
+
+	var flyer_text_edit = getConcertFlyerText(g_current_concert_number);
+
+	g_flyer_application_mode = input_flyer_application_mode;
+
+	if (flyer_text_hompage == flyer_text_edit)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+
+} // flyerFreeTextIsEqual
+
+// Returns true if the number of musicians is equal in the season program XML file and the edit XML file
+function flyerNumberOfMusiciansIsEqual()
+{
+	var b_admin = true;
+
+	var musicians_homepage = getFlyerMusicianNamesArray(b_admin);
+
+	b_admin = false;
+
+	var musicians_edit = getFlyerMusicianNamesArray(b_admin);
+
+	if (musicians_homepage.length == musicians_edit.length)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+
+} // flyerNumberOfMusiciansIsEqual
+
+// Returns an array with booleans telling if the musician name is equal or not
+// in the season program XML file and the edit XML file
+function flyerMusicianNamesAreEqual()
+{
+	if (!flyerNumberOfMusiciansIsEqual())
+	{
+		alert("flyerMusicianNamesAreEqual Number of musicians is not equal");
+
+		return null;
+	}
+
+	var b_admin = true;
+
+	var musicians_homepage = getFlyerMusicianNamesArray(b_admin);
+
+	b_admin = false;
+
+	var musicians_edit = getFlyerMusicianNamesArray(b_admin);
+
+	var n_musicians = musicians_homepage.length;
+
+	var ret_musicians_bool = [];
+
+	for (var index_musician=0; index_musician < n_musicians; index_musician++)
+	{
+		var musician_homepage = musicians_homepage[index_musician];
+
+		var musician_edit = musicians_edit[index_musician];
+
+		if (musician_homepage == musician_edit)
+		{
+			ret_musicians_bool[index_musician] = true;
+		}
+		else
+		{
+			ret_musicians_bool[index_musician] = false;
+		}
+
+	} // index_musician
+
+	return ret_musicians_bool;
+
+} // flyerMusicianNamesAreEqual
+
+// Returns an array with booleans telling if the musician instrument is equal or not
+// in the season program XML file and the edit XML file
+function flyerMusicianInstrumentsAreEqual()
+{
+	if (!flyerNumberOfMusiciansIsEqual())
+	{
+		alert("flyerMusicianInstrumentsAreEqual Number of musicians is not equal");
+
+		return null;
+	}
+
+	var b_admin = true;
+
+	var instruments_homepage = getFlyerMusicianInstrumentsArray(b_admin);
+
+	b_admin = false;
+
+	var instruments_edit = getFlyerMusicianInstrumentsArray(b_admin);
+
+	var n_musicians = instruments_homepage.length;
+
+	var ret_instruments_bool = [];
+
+	for (var index_musician=0; index_musician < n_musicians; index_musician++)
+	{
+		var instrument_homepage = instruments_homepage[index_musician];
+
+		var instrument_edit = instruments_edit[index_musician];
+
+		if (instrument_homepage == instrument_edit)
+		{
+			ret_instruments_bool[index_musician] = true;
+		}
+		else
+		{
+			ret_instruments_bool[index_musician] = false;
+		}
+
+	} // index_musician
+
+	return ret_instruments_bool;
+
+} // flyerMusicianInstrumentsAreEqual
+
+// Returns an array with booleans telling if the musician text is equal or not
+// in the season program XML file and the edit XML file
+function flyerMusicianTextsAreEqual()
+{
+	if (!flyerNumberOfMusiciansIsEqual())
+	{
+		alert("flyerMusicianTextsAreEqual Number of musicians is not equal");
+
+		return null;
+	}
+
+	var b_admin = true;
+
+	var texts_homepage = getFlyerMusicianInstrumentsArray(b_admin);
+
+	b_admin = false;
+
+	var texts_edit = getFlyerMusicianTextsArray(b_admin);
+
+	var n_musicians = texts_homepage.length;
+
+	var ret_texts_bool = [];
+
+	for (var index_musician=0; index_musician < n_musicians; index_musician++)
+	{
+		var text_homepage = texts_homepage[index_musician];
+
+		var text_edit = texts_edit[index_musician];
+
+		if (text_homepage == text_edit)
+		{
+			ret_texts_bool[index_musician] = true;
+		}
+		else
+		{
+			ret_texts_bool[index_musician] = false;
+		}
+
+	} // index_musician
+
+	return ret_texts_bool;
+
+} // flyerMusicianTextsAreEqual
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Check Lineup  ///////////////////////////////////////////////

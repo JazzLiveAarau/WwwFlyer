@@ -1,5 +1,5 @@
 // File: FlyerLogin.js
-// Date: 2022-03-03
+// Date: 2022-03-05
 // Author: Gunnar Lidén
 
 // File content
@@ -298,7 +298,7 @@ function setAndHideElementsForAdministratorTesterPrinter()
 
 	setButtonCheckBandData();
 
-	// Temporary QQQQQQQQQQQQQQQQQQQQQQQQQQ   displayButtonCheckBandData();
+	// Temporary QQQQ displayButtonCheckBandData();
 	
 } // setAndHideElementsForAllUsersExceptMusician
 
