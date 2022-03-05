@@ -1,5 +1,5 @@
 // File: Flyer.js
-// Date: 2020-02-17
+// Date: 2022-03-03
 // Author: Gunnar Lidén
 
 // File content
@@ -170,6 +170,10 @@ function mainFlyerA6(i_user_case_str, i_current_season_number)
 	setApplicationHeader();
 	
 	setParagraphHelp();
+
+  hideButtonCheckBandData();
+
+  hideDivDisplayCheckBandData();
 		
 	loadUserNamesPasswordXml();
 			

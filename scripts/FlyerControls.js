@@ -128,6 +128,8 @@ function eventSelectConcertDropDown()
 	setAllImages();
 	
 	setXmlEditControls();
+
+	hideDivDisplayCheckBandData();
 	
 } // eventSelectConcertDropDown
 
@@ -233,6 +235,8 @@ function eventSelectSeasonDropDown()
     var new_value_season_number = dropdown_element.value;
 	
 	g_current_season_number = new_value_season_number;
+
+	hideDivDisplayCheckBandData();
 	
 	var file_name_season_xml = getFileNamePathSeasonXml();
 		

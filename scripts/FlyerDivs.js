@@ -1,5 +1,5 @@
 // File: FlyerDivs.js
-// Date: 2022-02-25
+// Date: 2022-03-03
 // Author: Gunnar Lidén
 
 // File content
@@ -1541,6 +1541,10 @@ var g_id_div_musician_drop_down = "id_div_musician_drop_down";
 var g_id_div_text_drop_down = "id_div_text_drop_down";
 var g_id_div_password_drop_down = "id_div_password_drop_down";
 
+// Check band data
+var g_id_div_check_band_data = "id_div_check_band_data";
+var g_id_div_display_check_result = "id_div_display_check_result";
+
 // Multiple line textarea for test results
 var g_id_div_tester_textarea = "id_div_tester_textarea";
 var g_id_tester_textarea = "id_tester_textarea";
@@ -1638,6 +1642,8 @@ var g_id_tooltip_active_mode = "id_tooltip_active_mode";
 var g_id_tooltip_display_boundaries = "id_tooltip_display_boundaries";
 
 var g_id_tooltip_create_pdf_files = "id_tooltip_create_pdf_files";
+
+var g_id_tooltip_check_band_data = "id_tooltip_check_band_data";
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Element Identities //////////////////////////////////////////

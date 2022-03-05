@@ -1,5 +1,5 @@
 // File: FlyerStrings.js
-// Date: 2022-01-25
+// Date: 2022-03-03
 // Author: Gunnar Lidén
 
 // File content
@@ -72,6 +72,11 @@ var g_tooltip_display_hide_cutting_lines =
 "Mit oder ohne Schnittlinien drucken" + "<br>" + 
 "(Für Druckerei printline mit Schnittlinien drucken.)";
 
+var g_tooltip_check_band_data =
+"Bevor die Kontrolle, bitte mit Admin -> Flyer " +
+"das Saisonprogramm exportieren." + "<br>" +
+"Die Funktion kontrolliert, dass die Lineup-" + "<br>" +
+"Daten gleich sind auf der Homepage und im Flyer";
 
 var g_tooltip_parameter_names = 
 [
@@ -88,7 +93,8 @@ var g_tooltip_parameter_names =
 	"g_tooltip_password_dropdown",
 	"g_tooltip_display_boundaries",
 	"g_tooltip_create_pdf_files",
-	"g_tooltip_display_hide_cutting_lines"
+	"g_tooltip_display_hide_cutting_lines",
+	"g_tooltip_check_band_data"
 ]
 
 
@@ -107,7 +113,8 @@ var g_tooltip_parameter_values =
 	g_tooltip_password_dropdown,
 	g_tooltip_display_boundaries,
 	g_tooltip_create_pdf_files,
-	g_tooltip_display_hide_cutting_lines
+	g_tooltip_display_hide_cutting_lines,
+	g_tooltip_check_band_data
 ]
 
 ///////////////////////////////////////////////////////////////////////////////////////////

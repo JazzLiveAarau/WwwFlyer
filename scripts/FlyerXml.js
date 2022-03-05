@@ -166,49 +166,9 @@ function getConcertShortText(i_concert_number)
 	
 } // getConcertShortText
 
-/*QQQQ
-// Returns the additional text label for a given concert number
-function getConcertLabelAdditionalText(i_concert_number)
-{
-    if (g_flyer_application_mode == "AdminXml")
-	{
-	    // return "Label for additional Text from season program XML not available";
-		g_flyer_application_mode = "EditXml";
-		
-		var concert_node_value = getConcertNodeValue(g_tag_season_program_label_additional_text, i_concert_number);
-		
-		g_flyer_application_mode = "AdminXml";
-		
-		return concert_node_value;
-	}
-	
-	return getConcertNodeValue(g_tag_season_program_label_additional_text, i_concert_number);
-	
-} // getConcertLabelAdditionalText
-
-// Returns the additional text for a given concert number
-function getConcertAdditionalText(i_concert_number)
-{
-	return getConcertNodeValue(g_tag_season_program_additional_text, i_concert_number);
-	
-} // getConcertAdditionalText
-QQQ*/
 // Returns the flyer text label for a given concert number
 function getConcertLabelFlyerText(i_concert_number)
-{
-	/*QQQQ
-    if (g_flyer_application_mode == "AdminXml")
-	{
-		g_flyer_application_mode = "EditXml";
-		
-		var concert_node_value = getConcertNodeValue(g_tag_season_program_label_flyer_text, i_concert_number);
-		
-		g_flyer_application_mode = "AdminXml";
-		
-		return concert_node_value;
-	}
-	QQQ*/
-	
+{	
 	return getConcertNodeValue(g_tag_season_program_label_flyer_text, i_concert_number);
 	
 } // getConcertLabelFlyerText

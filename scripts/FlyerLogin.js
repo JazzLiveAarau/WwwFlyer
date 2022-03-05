@@ -1,5 +1,5 @@
 // File: FlyerLogin.js
-// Date: 2021-05-28
+// Date: 2022-03-03
 // Author: Gunnar Lidén
 
 // File content
@@ -106,8 +106,6 @@ function setGlobalParametersLoadXml(i_user_name)
 		displayPagePrintOne();
 		
 		hidePublishCheckbox();
-		
-		// g_flyer_application_mode = "AdminXml";
 	}			
 	
 	displayPagePrintTwo();
@@ -296,7 +294,11 @@ function setAndHideElementsForAdministratorTesterPrinter()
 
 	hideToolTipSeasonDropdown();
 
-	hideToolTipConcertDropdown();	
+	hideToolTipConcertDropdown();
+
+	setButtonCheckBandData();
+
+	// Temporary QQQQQQQQQQQQQQQQQQQQQQQQQQ   displayButtonCheckBandData();
 	
 } // setAndHideElementsForAllUsersExceptMusician
 
