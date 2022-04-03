@@ -1,5 +1,5 @@
 // File: Flyer.js
-// Date: 2022-03-03
+// Date: 2022-03-05
 // Author: Gunnar Lidén
 
 // File content
@@ -424,6 +424,9 @@ function loadXmlEdit(i_xml_edit_file_number, i_case_load)
 //    2.1 Call afterLoadSeasonProgramXml
 function loadSeasonXmlSetDropdowns(i_file_name_season_xml) 
 {
+	var debug_msg = 'loadSeasonXmlSetDropdowns i_file_name_season_xml= ' + i_file_name_season_xml;
+	console.log(debug_msg);
+
   // Request server object for the XML file
   var next_season_xmlhttp = new XMLHttpRequest();
   
@@ -460,6 +463,9 @@ function loadSeasonXmlSetDropdowns(i_file_name_season_xml)
 //    2.3
 function loadSeasonXml(i_file_name_season_xml) 
 {
+	var debug_msg = 'loadSeasonXml i_file_name_season_xml= ' + i_file_name_season_xml;
+	console.log(debug_msg);
+
   // Request server object for the XML file
   var next_season_xmlhttp = new XMLHttpRequest();
   

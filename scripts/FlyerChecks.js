@@ -1,5 +1,5 @@
 // File: FlyerChecks.js
-// Date: 2022-03-05
+// Date: 2022-04-03
 // Author: Gunnar Lidén
 
 // File content
@@ -7,8 +7,49 @@
 // Data check functions
 
 ///////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////// Start Check Lineup  /////////////////////////////////////////////
+///////////////////////// Start Exeute Check Functions ////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
+
+// Check flyer data for a concert
+function checkFlyerConcertData()
+{
+	var debug_msg = 'checkFlyerConcertData Concert number= ' + g_current_concert_number.toString();
+	console.log(debug_msg);
+
+	hideDivDisplayCheckBandData();
+
+	if (g_user_case_str == g_user_case_admin || g_user_case_str == g_user_case_tester)
+	{
+		checkFlyerConcertDataAdmin();
+	}
+	else if (g_user_case_str == g_user_case_printer)
+	{
+		checkFlyerConcertDataPrinter();
+	}
+	else
+	{
+		alert("checkFlyerConcertData Error g_user_case_str= " + g_user_case_str.toString());
+
+		return;
+	}
+
+} // checkFlyerConcertData
+
+// Check flyer data for a concert after login as Administrator or Tester
+function checkFlyerConcertDataAdmin()
+{
+	var debug_msg = 'Enter checkFlyerConcertDataAdmin';
+	console.log(debug_msg);
+
+} // checkFlyerConcertDataAdmin
+
+// Check flyer data for a concert after login as printer
+function checkFlyerConcertDataPrinter()
+{
+	var debug_msg = 'Enter checkFlyerConcertDataPrinter';
+	console.log(debug_msg);
+
+} // checkFlyerConcertDataPrinter
 
 // Check that band names, musician names and musician instruments are equal in admin 
 // data (season program XML) and edit data (edit XML files)
@@ -52,6 +93,15 @@ function checkFlyerBandData()
 	g_flyer_application_mode = input_flyer_application_mode;
 
 } // checkFlyerBandData
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// End Exeute Check Functions //////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// Start Check Lineup Functions ////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
 
 // Returns true if band name is equal in the season program XML file and the edit XML file
 function flyerBandNameIsEqual()
@@ -312,7 +362,7 @@ function flyerMusicianTextsAreEqual()
 } // flyerMusicianTextsAreEqual
 
 ///////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////// End Check Lineup  ///////////////////////////////////////////////
+///////////////////////// End Check Lineup Functions //////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////////////////////////////

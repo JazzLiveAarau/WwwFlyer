@@ -1,5 +1,5 @@
 // File: FlyerLogin.js
-// Date: 2022-03-05
+// Date: 2022-04-03
 // Author: Gunnar Lidén
 
 // File content
@@ -155,6 +155,9 @@ function afterLoadApplicationXml()
 // This function is called after load of XML edit files
 function afterLoadXmlEdit(i_case_load)
 {
+	var debug_msg = 'afterLoadXmlEdit i_case_load= ' + i_case_load.toString();
+	console.log(debug_msg);
+
 	if (1 == i_case_load)
 	{
 		afterLoadXmlEditCaseOne();
@@ -170,6 +173,9 @@ function afterLoadXmlEdit(i_case_load)
 // 1. 
 function afterLoadXmlEditCaseOne()
 {
+	var debug_msg = 'Enter afterLoadXmlEditCaseOne';
+	console.log(debug_msg);
+
 	var file_name_season_xml = getFileNamePathSeasonXml();
 
 	loadSeasonXmlSetDropdowns(file_name_season_xml);	
@@ -190,6 +196,9 @@ function afterLoadXmlEditCaseOne()
 // 10. Set the edit controls. Call of setXmlEditControls
 function afterLoadXmlEditCaseTwo()
 {
+	var debug_msg = 'Enter afterLoadXmlEditCaseTwo';
+	console.log(debug_msg);
+
 	setMusiciansDropDown(g_id_div_musician_drop_down);
 
 	setTextsDropDown(g_id_div_text_drop_down);
@@ -213,6 +222,8 @@ function afterLoadXmlEditCaseTwo()
 	setAllImages();
 
 	setXmlEditControls();
+
+	checkFlyerConcertData();
 				
 } // afterLoadXmlEditCaseTwo
 
@@ -222,6 +233,9 @@ function afterLoadXmlEditCaseTwo()
 //
 function afterLoadSeasonProgramXml()
 {
+	var debug_msg = 'Enter afterLoadSeasonProgramXml';
+	console.log(debug_msg);
+
 	if (g_user_case_str == g_user_case_admin || g_user_case_str == g_user_case_tester || g_user_case_str == g_user_case_printer)
 	{
 		setAndHideElementsForAdministratorTesterPrinter();
@@ -277,7 +291,9 @@ function afterLoadSeasonProgramXml()
 		setAndHideElementsForPrinter();
 	}	
 
-	changeApplicationHeader(g_user_case_str);	
+	changeApplicationHeader(g_user_case_str);
+
+	checkFlyerConcertData();
 	
 } // afterLoadSeasonProgramXml
 
@@ -298,7 +314,7 @@ function setAndHideElementsForAdministratorTesterPrinter()
 
 	setButtonCheckBandData();
 
-	// Temporary QQQQ displayButtonCheckBandData();
+	// displayButtonCheckBandData();
 	
 } // setAndHideElementsForAllUsersExceptMusician
 
