@@ -6,6 +6,9 @@
 // =============
 // Data check functions
 
+// Object of class FlyerConcertComparisonData that holds comparison data
+var g_flyer_concert_comparison = null;
+
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// Start Exeute Check Functions ////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -17,6 +20,8 @@ function checkFlyerConcertData()
 	console.log(debug_msg);
 
 	hideDivDisplayCheckBandData();
+
+	g_flyer_concert_comparison = new FlyerConcertComparisonData(g_current_concert_number);
 
 	if (g_user_case_str == g_user_case_admin || g_user_case_str == g_user_case_tester)
 	{
@@ -38,7 +43,7 @@ function checkFlyerConcertData()
 // Check flyer data for a concert after login as Administrator or Tester
 function checkFlyerConcertDataAdmin()
 {
-	var debug_msg = 'Enter checkFlyerConcertDataAdmin';
+	var debug_msg = 'checkFlyerConcertDataAdmin';
 	console.log(debug_msg);
 
 } // checkFlyerConcertDataAdmin
@@ -46,7 +51,7 @@ function checkFlyerConcertDataAdmin()
 // Check flyer data for a concert after login as printer
 function checkFlyerConcertDataPrinter()
 {
-	var debug_msg = 'Enter checkFlyerConcertDataPrinter';
+	var debug_msg = 'checkFlyerConcertDataPrinter';
 	console.log(debug_msg);
 
 } // checkFlyerConcertDataPrinter
@@ -98,271 +103,520 @@ function checkFlyerBandData()
 ///////////////////////// End Exeute Check Functions //////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
 
-
 ///////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////// Start Check Lineup Functions ////////////////////////////////////
+///////////////////////// Start Class FlyerConcertComparisonData //////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
 
-// Returns true if band name is equal in the season program XML file and the edit XML file
-function flyerBandNameIsEqual()
+// Holds the flyer comparison data
+class FlyerConcertComparisonData
 {
-	var input_flyer_application_mode = g_flyer_application_mode; 
+    // Creates the instance of the class
+    constructor(i_concert_number)
+    {
+        // Member variables
+        // ================
 
-	g_flyer_application_mode = "AdminXml";
+		// Concert number
+		this.m_concert_number = i_concert_number;
 
-	var band_name_homepage = getBandName(g_current_concert_number);
+        // Band name homepage
+        this.m_band_name_homepage = '';
 
-	g_flyer_application_mode = "EditXml";
+        // Band name edit
+        this.m_band_name_edit = '';
 
-	var band_name_edit = getBandName(g_current_concert_number);
+        // Band name comparison result
+        this.m_band_name_bool = null;
 
-	g_flyer_application_mode = input_flyer_application_mode;
+		// Band text homepage
+		this.m_band_text_homepage = '';
 
-	if (band_name_homepage == band_name_edit)
+		// Band text edit
+		this.m_band_text_edit = '';
+
+        // Band text comparison result
+        this.m_band_text_bool = null;
+
+		// Label free text homepage
+		this.m_flyer_label_homepage = '';
+
+		// Label free text edit
+		this.m_flyer_label_edit = '';
+
+        // Label free text comparison result
+        this.m_flyer_label_bool = null;
+
+		// Free text homepage
+		this.m_flyer_text_homepage = '';
+
+		// Free text edit
+		this.m_flyer_text_edit = '';
+
+		// Free text comparison result
+		this.m_flyer_text_bool = null;
+
+		// Number of musicians homepage
+		this.m_number_musicians_homepage = -1234;
+
+		// Number of musicians edit
+		this.m_number_musicians_edit = -1234;
+
+		// Number of musicians comparison result
+		this.m_number_musicians_bool = null;
+
+		// Array of musician names homepage
+		this.m_musicians_homepage = null;
+
+		// Array of musician names edit
+		this.m_musicians_edit = null;
+
+		// Array of musicians comparison result
+		this.m_musicians_bool = null;
+
+		// Array of instruments homepage
+		this.m_instruments_homepage = null;
+
+		// Array of instruments edit
+		this.m_instruments_edit = null;
+
+		// Array of instruments comparison result
+		this.m_instruments_bool = null;
+
+		// Array of musician texts homepage
+		this.m_musician_texts_homepage = null;
+
+		// Array of musician texts edit
+		this.m_musician_texts_edit = null;
+
+		// Array of musician texts comparison result
+		this.m_musician_texts_bool = null;		
+
+		// Check all concert data
+		this.checkAllConcertData();
+		
+    } // constructor
+
+	// Check all concert data
+	checkAllConcertData()
 	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
+		this.flyerBandNameIsEqual();
 
-} // flyerBandNameIsEqual
+		this.flyerBandTextIsEqual();
 
-// Returns true if band text is equal in the season program XML file and the edit XML file
-function flyerBandTextIsEqual()
-{
-	var input_flyer_application_mode = g_flyer_application_mode; 
-
-	g_flyer_application_mode = "AdminXml";
-
-	var band_text_homepage = getConcertShortText(g_current_concert_number);
-
-	g_flyer_application_mode = "EditXml";
-
-	var band_text_edit = getConcertShortText(g_current_concert_number);
-
-	g_flyer_application_mode = input_flyer_application_mode;
-
-	if (band_text_homepage == band_text_edit)
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
-
-} // flyerBandTextIsEqual
-
-// Returns true if the free flyer label is equal in the season program XML file and the edit XML file
-function flyerFreeLabelIsEqual()
-{
-	var input_flyer_application_mode = g_flyer_application_mode; 
-
-	g_flyer_application_mode = "AdminXml";
-
-	var flyer_label_hompage = getConcertLabelFlyerText(g_current_concert_number);
-
-	g_flyer_application_mode = "EditXml";
-
-	var flyer_label_edit = getConcertLabelFlyerText(g_current_concert_number);
-
-	g_flyer_application_mode = input_flyer_application_mode;
-
-	if (flyer_label_hompage == flyer_label_edit)
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
-
-} // flyerFreeLabelIsEqual
-
-// Returns true if the free flyer text is equal in the season program XML file and the edit XML file
-function flyerFreeTextIsEqual()
-{
-	var input_flyer_application_mode = g_flyer_application_mode; 
-
-	g_flyer_application_mode = "AdminXml";
-
-	var flyer_text_hompage = getConcertFlyerText(g_current_concert_number);
-
-	g_flyer_application_mode = "EditXml";
-
-	var flyer_text_edit = getConcertFlyerText(g_current_concert_number);
-
-	g_flyer_application_mode = input_flyer_application_mode;
-
-	if (flyer_text_hompage == flyer_text_edit)
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
-
-} // flyerFreeTextIsEqual
-
-// Returns true if the number of musicians is equal in the season program XML file and the edit XML file
-function flyerNumberOfMusiciansIsEqual()
-{
-	var b_admin = true;
-
-	var musicians_homepage = getFlyerMusicianNamesArray(b_admin);
-
-	b_admin = false;
-
-	var musicians_edit = getFlyerMusicianNamesArray(b_admin);
-
-	if (musicians_homepage.length == musicians_edit.length)
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
-
-} // flyerNumberOfMusiciansIsEqual
-
-// Returns an array with booleans telling if the musician name is equal or not
-// in the season program XML file and the edit XML file
-function flyerMusicianNamesAreEqual()
-{
-	if (!flyerNumberOfMusiciansIsEqual())
-	{
-		alert("flyerMusicianNamesAreEqual Number of musicians is not equal");
-
-		return null;
-	}
-
-	var b_admin = true;
-
-	var musicians_homepage = getFlyerMusicianNamesArray(b_admin);
-
-	b_admin = false;
-
-	var musicians_edit = getFlyerMusicianNamesArray(b_admin);
-
-	var n_musicians = musicians_homepage.length;
-
-	var ret_musicians_bool = [];
-
-	for (var index_musician=0; index_musician < n_musicians; index_musician++)
-	{
-		var musician_homepage = musicians_homepage[index_musician];
-
-		var musician_edit = musicians_edit[index_musician];
-
-		if (musician_homepage == musician_edit)
+		this.flyerFreeLabelIsEqual();
+	
+		this.flyerFreeTextIsEqual();
+	
+		var number_musicians_bool = this.flyerNumberOfMusiciansIsEqual();
+	
+		if (number_musicians_bool)
 		{
-			ret_musicians_bool[index_musician] = true;
+			this.flyerMusicianNamesAreEqual();
+	
+			this.flyerMusicianInstrumentsAreEqual();
+			
+			this.flyerMusicianTextsAreEqual();		
+		}
+	
+	} // checkAllConcertData
+
+	// Check lineup functions
+	// ======================
+
+	// Returns true if band name is equal in the season program XML file and the edit XML file
+	flyerBandNameIsEqual()
+	{
+		var ret_band_name_bool = true;
+
+		var input_flyer_application_mode = g_flyer_application_mode; 
+
+		g_flyer_application_mode = "AdminXml";
+
+		var band_name_homepage = getBandName(g_current_concert_number);
+
+		g_flyer_application_mode = "EditXml";
+
+		var band_name_edit = getBandName(g_current_concert_number);
+
+		g_flyer_application_mode = input_flyer_application_mode;
+
+		if (band_name_homepage == band_name_edit)
+		{
+			ret_band_name_bool = true;
 		}
 		else
 		{
-			ret_musicians_bool[index_musician] = false;
+			ret_band_name_bool = false;
 		}
 
-	} // index_musician
+		this.m_band_name_homepage = band_name_homepage;
 
-	return ret_musicians_bool;
+		this.m_band_name_edit = band_name_edit;
 
-} // flyerMusicianNamesAreEqual
+		this.m_band_name_bool = ret_band_name_bool;
 
-// Returns an array with booleans telling if the musician instrument is equal or not
-// in the season program XML file and the edit XML file
-function flyerMusicianInstrumentsAreEqual()
-{
-	if (!flyerNumberOfMusiciansIsEqual())
-	{
-		alert("flyerMusicianInstrumentsAreEqual Number of musicians is not equal");
-
-		return null;
-	}
-
-	var b_admin = true;
-
-	var instruments_homepage = getFlyerMusicianInstrumentsArray(b_admin);
-
-	b_admin = false;
-
-	var instruments_edit = getFlyerMusicianInstrumentsArray(b_admin);
-
-	var n_musicians = instruments_homepage.length;
-
-	var ret_instruments_bool = [];
-
-	for (var index_musician=0; index_musician < n_musicians; index_musician++)
-	{
-		var instrument_homepage = instruments_homepage[index_musician];
-
-		var instrument_edit = instruments_edit[index_musician];
-
-		if (instrument_homepage == instrument_edit)
+		if (!ret_band_name_bool)
 		{
-			ret_instruments_bool[index_musician] = true;
+			var debug_msg = 'FlyerConcertComparisonData.flyerBandNameIsEqual Band names are not equal';
+			console.log(debug_msg);
+		}
+
+		return ret_band_name_bool;
+
+	} // flyerBandNameIsEqual
+
+	// Returns true if band text is equal in the season program XML file and the edit XML file
+	flyerBandTextIsEqual()
+	{
+		var ret_band_text_bool = true;
+
+		var input_flyer_application_mode = g_flyer_application_mode; 
+
+		g_flyer_application_mode = "AdminXml";
+
+		var band_text_homepage = getConcertShortText(g_current_concert_number);
+
+		g_flyer_application_mode = "EditXml";
+
+		var band_text_edit = getConcertShortText(g_current_concert_number);
+
+		g_flyer_application_mode = input_flyer_application_mode;
+
+		if (band_text_homepage == band_text_edit)
+		{
+			ret_band_text_bool = true;
 		}
 		else
 		{
-			ret_instruments_bool[index_musician] = false;
+			ret_band_text_bool = false;
 		}
 
-	} // index_musician
+		this.m_band_text_homepage = band_text_homepage;
 
-	return ret_instruments_bool;
+		this.m_band_text_edit = band_text_edit;
 
-} // flyerMusicianInstrumentsAreEqual
+		this.m_band_text_bool = ret_band_text_bool;
 
-// Returns an array with booleans telling if the musician text is equal or not
-// in the season program XML file and the edit XML file
-function flyerMusicianTextsAreEqual()
-{
-	if (!flyerNumberOfMusiciansIsEqual())
-	{
-		alert("flyerMusicianTextsAreEqual Number of musicians is not equal");
-
-		return null;
-	}
-
-	var b_admin = true;
-
-	var texts_homepage = getFlyerMusicianInstrumentsArray(b_admin);
-
-	b_admin = false;
-
-	var texts_edit = getFlyerMusicianTextsArray(b_admin);
-
-	var n_musicians = texts_homepage.length;
-
-	var ret_texts_bool = [];
-
-	for (var index_musician=0; index_musician < n_musicians; index_musician++)
-	{
-		var text_homepage = texts_homepage[index_musician];
-
-		var text_edit = texts_edit[index_musician];
-
-		if (text_homepage == text_edit)
+		if (!ret_band_text_bool)
 		{
-			ret_texts_bool[index_musician] = true;
+			var debug_msg = 'FlyerConcertComparisonData.flyerBandTextIsEqual Band texts are not equal';
+			console.log(debug_msg);
+		}
+
+		return ret_band_text_bool;
+
+	} // flyerBandTextIsEqual
+
+	// Returns true if the free flyer label is equal in the season program XML file and the edit XML file
+	flyerFreeLabelIsEqual()
+	{
+		var ret_flyer_label_bool = true;
+
+		var input_flyer_application_mode = g_flyer_application_mode; 
+
+		g_flyer_application_mode = "AdminXml";
+
+		var flyer_label_homepage = getConcertLabelFlyerText(g_current_concert_number);
+
+		g_flyer_application_mode = "EditXml";
+
+		var flyer_label_edit = getConcertLabelFlyerText(g_current_concert_number);
+
+		g_flyer_application_mode = input_flyer_application_mode;
+
+		if (flyer_label_homepage == flyer_label_edit)
+		{
+			ret_flyer_label_bool = true;
 		}
 		else
 		{
-			ret_texts_bool[index_musician] = false;
+			ret_flyer_label_bool = false;
 		}
 
-	} // index_musician
+		this.m_flyer_label_homepage = flyer_label_homepage;
 
-	return ret_texts_bool;
+		this.m_flyer_label_edit = flyer_label_edit;
 
-} // flyerMusicianTextsAreEqual
+		this.m_flyer_label_bool = ret_flyer_label_bool;
+
+		if (!ret_flyer_label_bool)
+		{
+			var debug_msg = 'FlyerConcertComparisonData.flyerFreeLabelIsEqual Free text label are not equal';
+			console.log(debug_msg);
+		}
+
+		return ret_flyer_label_bool;
+
+	} // flyerFreeLabelIsEqual
+
+	// Returns true if the free flyer text is equal in the season program XML file and the edit XML file
+	flyerFreeTextIsEqual()
+	{
+		var ret_flyer_text_bool = true;
+
+		var input_flyer_application_mode = g_flyer_application_mode; 
+
+		g_flyer_application_mode = "AdminXml";
+
+		var flyer_text_homepage = getConcertFlyerText(g_current_concert_number);
+
+		g_flyer_application_mode = "EditXml";
+
+		var flyer_text_edit = getConcertFlyerText(g_current_concert_number);
+
+		g_flyer_application_mode = input_flyer_application_mode;
+
+		if (flyer_text_homepage == flyer_text_edit)
+		{
+			ret_flyer_text_bool = true;
+		}
+		else
+		{
+			ret_flyer_text_bool = false;
+		}
+
+		this.m_flyer_text_homepage = flyer_text_homepage;
+
+		this.m_flyer_text_edit = flyer_text_edit;
+
+		this.m_flyer_text_bool = ret_flyer_text_bool;
+
+		if (!ret_flyer_text_bool)
+		{
+			var debug_msg = 'FlyerConcertComparisonData.flyerFreeTextIsEqual Free texts are not equal';
+			console.log(debug_msg);
+		}
+
+		return ret_flyer_text_bool;
+
+	} // flyerFreeTextIsEqual
+
+	// Returns true if the number of musicians is equal in the season program XML file and the edit XML file
+	flyerNumberOfMusiciansIsEqual()
+	{	
+		var ret_number_musicians_bool = true;
+		
+		var b_admin = true;
+
+		var musicians_homepage = getFlyerMusicianNamesArray(b_admin);
+
+		var number_musicians_homepage = musicians_homepage.length;
+
+		b_admin = false;
+
+		var musicians_edit = getFlyerMusicianNamesArray(b_admin);
+
+		var number_musicians_edit = musicians_edit.length;
+
+		if (number_musicians_homepage == number_musicians_edit)
+		{
+			ret_number_musicians_bool = true;
+		}
+		else
+		{
+			ret_number_musicians_bool = false;
+		}
+
+		this.m_number_musicians_homepage = number_musicians_homepage;
+
+		this.m_number_musicians_edit = number_musicians_edit;
+
+		this.m_number_musicians_bool = ret_number_musicians_bool;
+
+		if (!ret_number_musicians_bool)
+		{
+			var debug_msg = 'FlyerConcertComparisonData.flyerNumberOfMusiciansIsEqual Number of musicians are not equal';
+			console.log(debug_msg);
+		}
+
+		return ret_number_musicians_bool;
+
+	} // flyerNumberOfMusiciansIsEqual
+
+	// Returns an array with booleans telling if the musician name is equal or not
+	// in the season program XML file and the edit XML file
+	flyerMusicianNamesAreEqual()
+	{
+		if (!this.flyerNumberOfMusiciansIsEqual())
+		{
+			alert("flyerMusicianNamesAreEqual Number of musicians is not equal");
+
+			return null;
+		}
+
+		var b_admin = true;
+
+		var musicians_homepage = getFlyerMusicianNamesArray(b_admin);
+
+		b_admin = false;
+
+		var musicians_edit = getFlyerMusicianNamesArray(b_admin);
+
+		var n_musicians = musicians_homepage.length;
+
+		var ret_musicians_bool = [];
+
+		var debug_bool = true;
+
+		for (var index_musician=0; index_musician < n_musicians; index_musician++)
+		{
+			var musician_homepage = musicians_homepage[index_musician];
+
+			var musician_edit = musicians_edit[index_musician];
+
+			if (musician_homepage == musician_edit)
+			{
+				ret_musicians_bool[index_musician] = true;
+			}
+			else
+			{
+				ret_musicians_bool[index_musician] = false;
+
+				debug_bool = false;
+			}
+
+		} // index_musician
+
+		this.m_musicians_homepage = musicians_homepage;
+
+		this.m_musicians_edit = musicians_edit;
+
+		this.m_musicians_bool = ret_musicians_bool;
+
+		if (!debug_bool)
+		{
+			var debug_msg = 'FlyerConcertComparisonData.flyerMusicianNamesAreEqual Musician names are not equal';
+			console.log(debug_msg);
+		}
+
+		return ret_musicians_bool;
+
+	} // flyerMusicianNamesAreEqual
+
+	// Returns an array with booleans telling if the musician instrument is equal or not
+	// in the season program XML file and the edit XML file
+	flyerMusicianInstrumentsAreEqual()
+	{
+		if (!this.flyerNumberOfMusiciansIsEqual())
+		{
+			alert("flyerMusicianInstrumentsAreEqual Number of musicians is not equal");
+
+			return null;
+		}
+
+		var b_admin = true;
+
+		var instruments_homepage = getFlyerMusicianInstrumentsArray(b_admin);
+
+		b_admin = false;
+
+		var instruments_edit = getFlyerMusicianInstrumentsArray(b_admin);
+
+		var n_musicians = instruments_homepage.length;
+
+		var ret_instruments_bool = [];
+
+		var debug_bool = true;
+
+		for (var index_musician=0; index_musician < n_musicians; index_musician++)
+		{
+			var instrument_homepage = instruments_homepage[index_musician];
+
+			var instrument_edit = instruments_edit[index_musician];
+
+			if (instrument_homepage == instrument_edit)
+			{
+				ret_instruments_bool[index_musician] = true;
+			}
+			else
+			{
+				ret_instruments_bool[index_musician] = false;
+
+				debug_bool = false;
+			}
+
+		} // index_musician
+
+		this.m_instruments_homepage = instruments_homepage;
+
+		this.m_instruments_edit = instruments_edit;
+
+		this.m_instruments_bool = ret_instruments_bool;
+
+		if (!debug_bool)
+		{
+			var debug_msg = 'FlyerConcertComparisonData.flyerMusicianInstrumentsAreEqual Musician instruments are not equal';
+			console.log(debug_msg);
+		}
+
+		return ret_instruments_bool;
+
+	} // flyerMusicianInstrumentsAreEqual
+
+	// Returns an array with booleans telling if the musician text is equal or not
+	// in the season program XML file and the edit XML file
+	flyerMusicianTextsAreEqual()
+	{
+		if (!this.flyerNumberOfMusiciansIsEqual())
+		{
+			alert("flyerMusicianTextsAreEqual Number of musicians is not equal");
+
+			return null;
+		}
+
+		var b_admin = true;
+
+		var musician_texts_homepage = getFlyerMusicianTextsArray(b_admin);
+
+		b_admin = false;
+
+		var musician_texts_edit = getFlyerMusicianTextsArray(b_admin);
+
+		var n_musicians = musician_texts_homepage.length;
+
+		var ret_musician_texts_bool = [];
+
+		var debug_bool = true;
+
+		for (var index_musician=0; index_musician < n_musicians; index_musician++)
+		{
+			var musician_text_homepage = musician_texts_homepage[index_musician];
+
+			var musician_text_edit = musician_texts_edit[index_musician];
+
+			if (musician_text_homepage == musician_text_edit)
+			{
+				ret_musician_texts_bool[index_musician] = true;
+			}
+			else
+			{
+				ret_musician_texts_bool[index_musician] = false;
+
+				debug_bool = false;
+			}
+
+		} // index_musician
+
+		this.m_musician_texts_homepage = musician_texts_homepage;
+
+		this.m_musician_texts_edit = musician_texts_edit;
+
+		this.m_musician_texts_bool = ret_musician_texts_bool;
+
+		if (!debug_bool)
+		{
+			var debug_msg = 'FlyerConcertComparisonData.flyerMusicianTextsAreEqual Musician texts are not equal';
+			console.log(debug_msg);
+		}
+
+		return ret_musician_texts_bool;
+
+	} // flyerMusicianTextsAreEqual
+
+} // FlyerConcertComparisonData
 
 ///////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////// End Check Lineup Functions //////////////////////////////////////
+///////////////////////// End Class FlyerConcertComparisonData ////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -425,7 +679,7 @@ function getBandDataHomepageHtmlString()
 
 	var flyer_label_hompage = getConcertLabelFlyerText(g_current_concert_number);
 
-	var flyer_text_hompage = getConcertFlyerText(g_current_concert_number);
+	var flyer_text_homepage = getConcertFlyerText(g_current_concert_number);
 
 	var b_admin = true;
 
@@ -437,7 +691,7 @@ function getBandDataHomepageHtmlString()
 
 	var title_homepage = 'Homepage (Saisonprogram) Daten';
 
-	ret_html_homepage = getBandDataHtmlString(title_homepage, band_name_homepage, band_text_homepage, musicians_homepage, instruments_homepage, texts_homepage, flyer_label_hompage, flyer_text_hompage);
+	ret_html_homepage = getBandDataHtmlString(title_homepage, band_name_homepage, band_text_homepage, musicians_homepage, instruments_homepage, texts_homepage, flyer_label_hompage, flyer_text_homepage);
 
 	g_flyer_application_mode = input_flyer_application_mode;
 
