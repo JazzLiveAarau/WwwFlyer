@@ -6,8 +6,6 @@
 // =============
 // Data check functions
 
-// Object of class FlyerConcertComparisonData that holds comparison data
-var g_flyer_concert_comparison = null;
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// Start Exeute Check Functions ////////////////////////////////////
@@ -21,81 +19,103 @@ function checkFlyerConcertData()
 
 	hideDivDisplayCheckBandData();
 
-	g_flyer_concert_comparison = new FlyerConcertComparisonData(g_current_concert_number);
+	hideDivDisplayCheckBandData();
 
-	if (g_user_case_str == g_user_case_admin || g_user_case_str == g_user_case_tester)
-	{
-		checkFlyerConcertDataAdmin();
-	}
-	else if (g_user_case_str == g_user_case_printer)
-	{
-		checkFlyerConcertDataPrinter();
-	}
-	else
-	{
-		alert("checkFlyerConcertData Error g_user_case_str= " + g_user_case_str.toString());
+	var concert_comparison = new FlyerConcertComparisonData(g_current_concert_number);
 
-		return;
+	var error_html_str = checkFlyerConcertDataAdminPrinter(concert_comparison);
+
+	if (error_html_str.length > 0)
+	{
+		debug_msg = 'checkFlyerConcertData There were errors returned from checkFlyerConcertDataAdminPrinter';
+		console.log(debug_msg);
+
+		//Temporary QQQQQQQQQQQQQQQ  displayDivDisplayCheckBandData();
+
+		var element_div_display_band_data = document.getElementById(g_id_div_display_check_result);
+
+		element_div_display_band_data.innerHTML = error_html_str;
 	}
 
 } // checkFlyerConcertData
 
-// Check flyer data for a concert after login as Administrator or Tester
-function checkFlyerConcertDataAdmin()
+// Check flyer data for a concert after login as Administrator, Tester or Printer
+// The function returns an HTML string describing the error. Empty string if all is OK.
+// 1. Get band names HTML error string. Call of getBandNameErrorHtmlString
+function checkFlyerConcertDataAdminPrinter(i_concert_comparison)
 {
-	var debug_msg = 'checkFlyerConcertDataAdmin';
+	var debug_msg = 'Enter checkFlyerConcertDataAdminPrinter Concert number= ' + i_concert_comparison.m_concert_number.toString();
 	console.log(debug_msg);
 
-} // checkFlyerConcertDataAdmin
+	var ret_error_html_str = '';
+
+	ret_error_html_str = ret_error_html_str + i_concert_comparison.getBandNameErrorHtmlString();
+
+	var error_number_musician_str = i_concert_comparison.getNumberMusiciansErrorHtmlString();
+
+	ret_error_html_str = ret_error_html_str + error_number_musician_str;
+
+	if (error_number_musician_str.length > 0)
+	{
+		return ret_error_html_str;
+	}
+
+	ret_error_html_str = ret_error_html_str + i_concert_comparison.getMusicianNamesErrorHtmlString();
+
+	ret_error_html_str = ret_error_html_str + i_concert_comparison.getMusicianInstrumentsErrorHtmlString();
+
+	if (ret_error_html_str.length > 0)
+	{
+		debug_msg = 'checkFlyerConcertDataAdminPrinter There were band name, musician name, instrument and or text errors';
+		console.log(debug_msg);
+
+		ret_error_html_str = 'Fehler: Daten müssen korrigiert werden' + '<br>' + '===============================' + '<br>' + '<br>' + ret_error_html_str;
+	}
+
+	if (g_user_case_str == g_user_case_printer)
+	{
+		ret_error_html_str = checkFlyerConcertDataPrinter(i_concert_comparison, ret_error_html_str);
+	}
+
+	return ret_error_html_str;
+
+} // checkFlyerConcertDataAdminPrinter
 
 // Check flyer data for a concert after login as printer
-function checkFlyerConcertDataPrinter()
+function checkFlyerConcertDataPrinter(i_concert_comparison, i_error_html_str)
 {
 	var debug_msg = 'checkFlyerConcertDataPrinter';
 	console.log(debug_msg);
 
+	var ret_error_html_str = '';
+
+	ret_error_html_str = ret_error_html_str + i_concert_comparison.getBandTextErrorHtmlString();
+
+	ret_error_html_str = ret_error_html_str + i_concert_comparison.getFreeTextLabelErrorHtmlString();
+
+	ret_error_html_str = ret_error_html_str + i_concert_comparison.getFreeTextErrorHtmlString();
+
+	ret_error_html_str = ret_error_html_str + i_concert_comparison.getMusicianTextsErrorHtmlString();
+
+	if (ret_error_html_str.length > 0)
+	{
+		debug_msg = 'checkFlyerConcertDataPrinter There were band text, free text and/or free text label errors';
+		console.log(debug_msg);
+
+		ret_error_html_str = '<br><br>' + 'Warnung: Bitte Texte überprüfen' + '<br>' + '========================' + '<br>' + '<br>' + ret_error_html_str;
+	}
+
+	ret_error_html_str = i_error_html_str + ret_error_html_str;
+
+	return ret_error_html_str;
+
 } // checkFlyerConcertDataPrinter
 
-// Check that band names, musician names and musician instruments are equal in admin 
-// data (season program XML) and edit data (edit XML files)
+// Check ....
 function checkFlyerBandData()
 {
-	var input_flyer_application_mode = g_flyer_application_mode; 
-
-	// displayBandDataHomepageAndEdit();
-
-	if (!flyerNumberOfMusiciansIsEqual())
-	{
-		alert("Number of musicians is not equal");
-
-		g_flyer_application_mode = input_flyer_application_mode;
-
-		return;
-	}
-
-	var musicians_equal = flyerMusicianTextsAreEqual();
-
-	var b_all_equal = true;
-
-	for (var index_musician=0; index_musician < musicians_equal.length; index_musician++)
-	{
-		var b_names_equal = musicians_equal[index_musician];
-
-		if (!b_names_equal)
-		{
-			alert("Musician texts not equal for musician number " + (index_musician + 1).toString());
-
-			b_all_equal = false;
-		}
-
-	}
-
-	if (b_all_equal)
-	{
-		alert("All musician texts are equal");
-	}
-
-	g_flyer_application_mode = input_flyer_application_mode;
+	var debug_msg = 'checkFlyerBandData The function is not yet used';
+	console.log(debug_msg);
 
 } // checkFlyerBandData
 
@@ -191,10 +211,280 @@ class FlyerConcertComparisonData
 		// Array of musician texts comparison result
 		this.m_musician_texts_bool = null;		
 
+		// String for homepage, i.e. defining data from the season XML file
+		this.m_error_homepage_str = 'Saison XML:<br>';
+
+		// String for edit, i.e. defining data from an edit XML file
+		this.m_error_edit_str = 'Flyer XML:<br>';
+
 		// Check all concert data
 		this.checkAllConcertData();
 		
     } // constructor
+
+	// Error HTML strings
+	// ==================
+
+	// Returns a description of the error in HTML format for not equal band names. 
+	// Returns empty string if OK.
+	getBandNameErrorHtmlString()
+	{
+		var ret_band_name_str = '';
+
+		if (this.m_band_name_bool)
+		{
+			return ret_band_name_str;
+		}
+
+		ret_band_name_str = ret_band_name_str + '<br>';
+
+		ret_band_name_str = ret_band_name_str + 'Bandnamen sind nicht gleich' + '<br>';
+
+		ret_band_name_str = ret_band_name_str + this.m_error_homepage_str + this.m_band_name_homepage + '<br>';
+
+		ret_band_name_str = ret_band_name_str + this.m_error_edit_str + this.m_band_name_edit + '<br>';
+
+		return ret_band_name_str;
+
+	} // getBandNameErrorHtmlString
+
+	// Returns a description of the error in HTML format for not equal band texts. 
+	// Returns empty string if OK.
+	getBandTextErrorHtmlString()
+	{
+		var ret_band_text_str = '';
+
+		if (this.m_band_text_bool)
+		{
+			return ret_band_text_str;
+		}
+
+		ret_band_text_str = ret_band_text_str + '<br>';
+
+		ret_band_text_str = ret_band_text_str + 'Bandtexte sind nicht gleich' + '<br>';
+
+		ret_band_text_str = ret_band_text_str + this.m_error_homepage_str + this.m_band_text_homepage + '<br>';
+
+		ret_band_text_str = ret_band_text_str + this.m_error_edit_str + this.m_band_text_edit + '<br>';
+
+		return ret_band_text_str;
+
+	} // getBandTextErrorHtmlString
+
+	// Returns a description of the error in HTML format for not equal number of musicians
+	// Returns empty string if OK.
+	getNumberMusiciansErrorHtmlString()
+	{
+		var ret_n_musicians_str = '';
+
+		if (this.m_number_musicians_bool)
+		{
+			return ret_n_musicians_str;
+		}
+
+		ret_n_musicians_str = ret_n_musicians_str + '<br>';
+
+		ret_n_musicians_str = ret_n_musicians_str + 'Anzahl Musiker ist nicht gleich' + '<br>';
+
+		ret_n_musicians_str = ret_n_musicians_str + this.m_error_homepage_str + this.m_number_musicians_homepage.toString() + '<br>';
+
+		ret_n_musicians_str = ret_n_musicians_str + this.m_error_edit_str + this.m_number_musicians_edit.toString() + '<br>';
+
+		return ret_n_musicians_str;
+
+	} // getNumberMusiciansErrorHtmlString
+	
+	// Returns a description of the error in HTML format for not equal free text labels
+	// Returns empty string if OK.
+	getFreeTextLabelErrorHtmlString()
+	{
+		var ret_free_text_label_str = '';
+
+		if (this.m_flyer_label_bool)
+		{
+			return ret_free_text_label_str;
+		}
+
+		ret_free_text_label_str = ret_free_text_label_str + '<br>';
+
+		ret_free_text_label_str = ret_free_text_label_str + 'Titel freier Textes sind nicht gleich' + '<br>';
+
+		ret_free_text_label_str = ret_free_text_label_str + this.m_error_homepage_str + this.m_flyer_label_homepage + '<br>';
+
+		ret_free_text_label_str = ret_free_text_label_str + this.m_error_edit_str + this.m_flyer_label_edit + '<br>';
+
+		return ret_free_text_label_str;
+
+	} // getFreeTextLabelErrorHtmlString
+
+	// Returns a description of the error in HTML format for not equal free texts
+	// Returns empty string if OK.
+	getFreeTextErrorHtmlString()
+	{
+		var ret_free_text_str = '';
+
+		if (this.m_flyer_text_bool)
+		{
+			return ret_free_text_str;
+		}
+
+		ret_free_text_str = ret_free_text_str + '<br>';
+
+		ret_free_text_str = ret_free_text_str + 'Die freie Texte sind nicht gleich' + '<br>';
+
+		ret_free_text_str = ret_free_text_str + this.m_error_homepage_str + this.m_flyer_text_homepage + '<br>';
+
+		ret_free_text_str = ret_free_text_str + this.m_error_edit_str + this.m_flyer_text_edit + '<br>';
+
+		return ret_free_text_str;
+
+	} // getFreeTextErrorHtmlString
+
+	// Returns a description of the error in HTML format for not equal musician names
+	// Returns empty string if OK.
+	getMusicianNamesErrorHtmlString()
+	{
+		var ret_musician_names_str = '';
+
+		if (this.allBoolInArrayAreTrue(this.m_musicians_bool))
+		{
+			return ret_musician_names_str;
+		}
+
+		ret_musician_names_str = ret_musician_names_str + '<br>';
+
+		ret_musician_names_str = ret_musician_names_str + 'Folgende Musiker-Namen sind nicht gleich:' + '<br>';
+
+		ret_musician_names_str = ret_musician_names_str + '<br>';
+		
+		var n_musicians = this.m_musicians_bool.length;
+
+		for (var index_musician=0; index_musician < n_musicians; index_musician++)
+		{
+			var current_bool = this.m_musicians_bool[index_musician];
+
+			if (current_bool == false)
+			{
+				var current_name_homepage = this.m_musicians_homepage[index_musician];
+				
+				var current_name_edit = this.m_musicians_edit[index_musician];
+				
+				ret_musician_names_str = ret_musician_names_str + this.m_error_homepage_str + current_name_homepage + ' (Musiker ' + (index_musician+1).toString() + ')' + '<br>';
+				
+				ret_musician_names_str = ret_musician_names_str + this.m_error_homepage_str + current_name_edit + ' (Musiker ' + (index_musician+1).toString() + ')' + '<br>';
+	
+			}
+		}		
+		
+		return ret_musician_names_str;
+
+	} // getMusicianNamesErrorHtmlString
+
+	// Returns a description of the error in HTML format for not equal musician instrumenents
+	// Returns empty string if OK.
+	getMusicianInstrumentsErrorHtmlString()
+	{
+		var ret_musician_instruments_str = '';
+
+		if (this.allBoolInArrayAreTrue(this.m_instruments_bool))
+		{
+			return ret_musician_instruments_str;
+		}
+		
+		ret_musician_instruments_str = ret_musician_instruments_str + '<br>';
+		
+		ret_musician_instruments_str = ret_musician_instruments_str + 'Folgende Musiker-Instrumente sind nicht gleich:' + '<br>';
+
+		ret_musician_instruments_str = ret_musician_instruments_str + '<br>';
+		
+		var n_musicians = this.m_instruments_bool.length;
+
+		for (var index_musician=0; index_musician < n_musicians; index_musician++)
+		{
+			var current_bool = this.m_instruments_bool[index_musician];
+
+			if (current_bool == false)
+			{
+				var current_instrument_homepage = this.m_instruments_homepage[index_musician];
+				
+				var current_instrument_edit = this.m_instruments_edit[index_musician];
+				
+				ret_musician_instruments_str = ret_musician_instruments_str + this.m_error_homepage_str + current_instrument_homepage + ' (Musiker ' + (index_musician+1).toString() + ')' + '<br>';
+				
+				ret_musician_instruments_str = ret_musician_instruments_str + this.m_error_homepage_str + current_instrument_edit + ' (Musiker ' + (index_musician+1).toString() + ')' + '<br>';
+	
+			}
+		}		
+		
+		return ret_musician_instruments_str;
+
+	} // getMusicianInstrumentsErrorHtmlString
+
+	// Returns a description of the error in HTML format for not equal musician texts
+	// Returns empty string if OK.
+	getMusicianTextsErrorHtmlString()
+	{
+		var ret_musician_texts_str = '';
+
+		if (this.allBoolInArrayAreTrue(this.m_musician_texts_bool))
+		{
+			return ret_musician_texts_str;
+		}
+		
+		ret_musician_texts_str = ret_musician_texts_str + '<br>';
+		
+		ret_musician_texts_str = ret_musician_texts_str + 'Folgende Musiker-Texte sind nicht gleich:' + '<br>';
+
+		ret_musician_texts_str = ret_musician_texts_str + '<br>';
+		
+		var n_musicians = this.m_musician_texts_bool.length;
+
+		for (var index_musician=0; index_musician < n_musicians; index_musician++)
+		{
+			var current_bool = this.m_musician_texts_bool[index_musician];
+
+			if (current_bool == false)
+			{
+				var current_text_homepage = this.m_musician_texts_homepage[index_musician];
+				
+				var current_text_edit = this.m_musician_texts_edit[index_musician];
+				
+				ret_musician_texts_str = ret_musician_texts_str + this.m_error_homepage_str + current_text_homepage + ' (Musiker ' + (index_musician+1).toString() + ')' + '<br>';
+				
+				ret_musician_texts_str = ret_musician_texts_str + this.m_error_homepage_str + current_text_edit + ' (Musiker ' + (index_musician+1).toString() + ')' + '<br>';
+	
+			}
+		}		
+		
+		return ret_musician_texts_str;
+
+	} // getMusicianTextsErrorHtmlString
+	
+	// Returns true if all elements in the input array are true
+	allBoolInArrayAreTrue(i_bool_array)
+	{
+		var ret_all_bool = true;
+
+		var n_elements = i_bool_array.length;
+
+		for (var index_element=0; index_element < n_elements; index_element++)
+		{
+			var current_element = i_bool_array[index_element];
+
+			if (current_element == false)
+			{
+				ret_all_bool = false;
+
+				break;
+			}
+		}
+
+		return ret_all_bool;
+
+	} // allBoolInArrayAreTrue
+		
+	// Check all concert data
+	// ======================
 
 	// Check all concert data
 	checkAllConcertData()

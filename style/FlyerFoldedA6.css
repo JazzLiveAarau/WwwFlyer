@@ -1,5 +1,5 @@
 /* 
-File: FlyerFoldedA6.css Date: 2022-03-03 Author: Gunnar Lidén
+File: FlyerFoldedA6.css Date: 2022-04-04 Author: Gunnar Lidén
 
 This CSS file determines the style of the HTML web page FlyerFoldedA6.htm of the web application Flyer.
 For instance the font (Arial) and the font size for the whole web page, i.e. for the HTML element <body>
@@ -520,7 +520,9 @@ td {
   height: 600px;
   width: 850px;
   overflow: scroll;
+  padding: 15px;
   clear: both;
+  background-color: yellow;
   border: 1px solid black;
 }
 
