@@ -1,5 +1,5 @@
 // File: FlyerChecks.js
-// Date: 2022-04-03
+// Date: 2022-04-05
 // Author: Gunnar Lidén
 
 // File content
@@ -30,7 +30,7 @@ function checkFlyerConcertData()
 		debug_msg = 'checkFlyerConcertData There were errors returned from checkFlyerConcertDataAdminPrinter';
 		console.log(debug_msg);
 
-		//Temporary QQQQQQQQQQQQQQQ  displayDivDisplayCheckBandData();
+		displayDivDisplayCheckBandData();
 
 		var element_div_display_band_data = document.getElementById(g_id_div_display_check_result);
 
@@ -217,6 +217,12 @@ class FlyerConcertComparisonData
 		// String for edit, i.e. defining data from an edit XML file
 		this.m_error_edit_str = 'Flyer XML:<br>';
 
+		// String for string comparison result
+		this.m_compare_result_str = 'Die letzten Zeichen die gleich sind: ';
+
+		// The number of displayed equal characters compairing two strings
+		this.m_compare_string_number = 35;
+
 		// Check all concert data
 		this.checkAllConcertData();
 		
@@ -263,13 +269,25 @@ class FlyerConcertComparisonData
 
 		ret_band_text_str = ret_band_text_str + 'Bandtexte sind nicht gleich' + '<br>';
 
-		ret_band_text_str = ret_band_text_str + this.m_error_homepage_str + this.m_band_text_homepage + '<br>';
+		ret_band_text_str = ret_band_text_str + this.m_error_homepage_str + this.m_band_text_homepage + '<br><br>';
 
-		ret_band_text_str = ret_band_text_str + this.m_error_edit_str + this.m_band_text_edit + '<br>';
+		ret_band_text_str = ret_band_text_str + this.m_error_edit_str + this.m_band_text_edit + '<br><br>';
+
+		ret_band_text_str = ret_band_text_str + this.getBandTextCompareString() + '<br><br>';
 
 		return ret_band_text_str;
 
 	} // getBandTextErrorHtmlString
+
+	// Returns substring with the last characters that were equal for the band texts. 
+	// Returns empty string if OK.
+	getBandTextCompareString()
+	{
+		var sub_str = this.compareStrings(this.m_band_text_homepage, this.m_band_text_edit, this.m_compare_string_number);
+		
+		return  this.m_compare_result_str + '"' + sub_str + '"';
+
+	} // getBandTextCompareString
 
 	// Returns a description of the error in HTML format for not equal number of musicians
 	// Returns empty string if OK.
@@ -332,13 +350,25 @@ class FlyerConcertComparisonData
 
 		ret_free_text_str = ret_free_text_str + 'Die freie Texte sind nicht gleich' + '<br>';
 
-		ret_free_text_str = ret_free_text_str + this.m_error_homepage_str + this.m_flyer_text_homepage + '<br>';
+		ret_free_text_str = ret_free_text_str + this.m_error_homepage_str + this.m_flyer_text_homepage + '<br><br>';
 
-		ret_free_text_str = ret_free_text_str + this.m_error_edit_str + this.m_flyer_text_edit + '<br>';
+		ret_free_text_str = ret_free_text_str + this.m_error_edit_str + this.m_flyer_text_edit + '<br><br>';
+
+		ret_free_text_str = ret_free_text_str + this.getFreeTextCompareString() + '<br>';
 
 		return ret_free_text_str;
 
 	} // getFreeTextErrorHtmlString
+
+	// Returns substring with the last characters that were equal for the free texts 
+	// Returns empty string if OK.
+	getFreeTextCompareString()
+	{
+		var sub_str = this.compareStrings(this.m_flyer_text_homepage, this.m_flyer_text_edit, this.m_compare_string_number);
+		
+		return  this.m_compare_result_str + '"' + sub_str + '"';
+
+	} // getFreeTextCompareString	
 
 	// Returns a description of the error in HTML format for not equal musician names
 	// Returns empty string if OK.
@@ -448,10 +478,14 @@ class FlyerConcertComparisonData
 				var current_text_homepage = this.m_musician_texts_homepage[index_musician];
 				
 				var current_text_edit = this.m_musician_texts_edit[index_musician];
+
+				var sub_str = this.compareStrings(current_text_homepage, current_text_edit, this.m_compare_string_number);
 				
-				ret_musician_texts_str = ret_musician_texts_str + this.m_error_homepage_str + current_text_homepage + ' (Musiker ' + (index_musician+1).toString() + ')' + '<br>';
+				ret_musician_texts_str = ret_musician_texts_str + this.m_error_homepage_str + current_text_homepage + ' (Musiker ' + (index_musician+1).toString() + ')' + '<br><br>';
 				
-				ret_musician_texts_str = ret_musician_texts_str + this.m_error_homepage_str + current_text_edit + ' (Musiker ' + (index_musician+1).toString() + ')' + '<br>';
+				ret_musician_texts_str = ret_musician_texts_str + this.m_error_homepage_str + current_text_edit + ' (Musiker ' + (index_musician+1).toString() + ')' + '<br><br>';
+
+				ret_musician_texts_str = ret_musician_texts_str + this.m_compare_result_str + '"' + sub_str + '"' + '<br>';
 	
 			}
 		}		
@@ -459,6 +493,90 @@ class FlyerConcertComparisonData
 		return ret_musician_texts_str;
 
 	} // getMusicianTextsErrorHtmlString
+
+	// Utility functions
+	// =================
+
+	// Returns a substring with the last characters that were equal
+	// An empty substring is returned if the strings are equal
+	compareStrings(i_admin_str, i_edit_str, i_n_substring)
+	{
+		var ret_substring = '';
+
+		var equal_bool = true;
+
+		var n_admin_str = i_admin_str.length;
+
+		var n_edit_str = i_edit_str.length;
+
+		var n_end = n_admin_str;
+
+		if (n_edit_str > n_admin_str)
+		{
+			n_end = n_edit_str;
+		}
+
+		for (var index_char=0; index_char < n_end; index_char++)
+		{
+			var admin_char = '';
+
+			if (index_char < n_admin_str)
+			{
+				admin_char = i_admin_str[index_char];
+			}
+
+			var edit_char = '';
+
+			if (index_char < n_edit_str)
+			{
+				edit_char = i_edit_str[index_char];
+			}
+
+			if (admin_char == edit_char)
+			{
+				ret_substring = this.appendCompareSubstring(admin_char, ret_substring, i_n_substring);
+			}
+			else
+			{
+				equal_bool = false;
+
+				break;
+			}
+
+		} // index_char
+
+		if (equal_bool)
+		{
+			return '';
+		}
+		else if (!equal_bool && ret_substring.length == 0)
+		{
+			return 'Erstes Zeichen ist nicht gleich';
+		}
+		else
+		{
+			return ret_substring;
+		}
+
+	} // compareStrings
+
+	// Append to compare substring
+	appendCompareSubstring(i_char, i_substring, i_n_substring)
+	{
+		var ret_substring = '';
+
+		if (i_substring.length < i_n_substring)
+		{
+			ret_substring = i_substring + i_char;
+		}
+		else
+		{
+			ret_substring = i_substring.substring(1) + i_char;
+		}
+
+		return ret_substring;
+
+	} // appendCompareSubstring
 	
 	// Returns true if all elements in the input array are true
 	allBoolInArrayAreTrue(i_bool_array)
@@ -530,7 +648,7 @@ class FlyerConcertComparisonData
 
 		g_flyer_application_mode = input_flyer_application_mode;
 
-		if (band_name_homepage == band_name_edit)
+		if (band_name_homepage.trim() == band_name_edit.trim())
 		{
 			ret_band_name_bool = true;
 		}
@@ -572,7 +690,7 @@ class FlyerConcertComparisonData
 
 		g_flyer_application_mode = input_flyer_application_mode;
 
-		if (band_text_homepage == band_text_edit)
+		if (band_text_homepage.trim() == band_text_edit.trim())
 		{
 			ret_band_text_bool = true;
 		}
@@ -614,7 +732,7 @@ class FlyerConcertComparisonData
 
 		g_flyer_application_mode = input_flyer_application_mode;
 
-		if (flyer_label_homepage == flyer_label_edit)
+		if (flyer_label_homepage.trim() == flyer_label_edit.trim())
 		{
 			ret_flyer_label_bool = true;
 		}
@@ -656,7 +774,7 @@ class FlyerConcertComparisonData
 
 		g_flyer_application_mode = input_flyer_application_mode;
 
-		if (flyer_text_homepage == flyer_text_edit)
+		if (flyer_text_homepage.trim() == flyer_text_edit.trim())
 		{
 			ret_flyer_text_bool = true;
 		}
@@ -754,7 +872,7 @@ class FlyerConcertComparisonData
 
 			var musician_edit = musicians_edit[index_musician];
 
-			if (musician_homepage == musician_edit)
+			if (musician_homepage.trim() == musician_edit.trim())
 			{
 				ret_musicians_bool[index_musician] = true;
 			}
@@ -814,7 +932,7 @@ class FlyerConcertComparisonData
 
 			var instrument_edit = instruments_edit[index_musician];
 
-			if (instrument_homepage == instrument_edit)
+			if (instrument_homepage.trim() == instrument_edit.trim())
 			{
 				ret_instruments_bool[index_musician] = true;
 			}
@@ -874,7 +992,7 @@ class FlyerConcertComparisonData
 
 			var musician_text_edit = musician_texts_edit[index_musician];
 
-			if (musician_text_homepage == musician_text_edit)
+			if (musician_text_homepage.trim() == musician_text_edit.trim())
 			{
 				ret_musician_texts_bool[index_musician] = true;
 			}
