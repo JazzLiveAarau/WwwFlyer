@@ -220,6 +220,33 @@ class FlyerConcertComparisonData
 		// String for string comparison result
 		this.m_compare_result_str = 'Die letzten Zeichen die gleich sind: ';
 
+		// Error string band names are not equal
+		this.m_error_band_name = 'Bandnamen sind nicht gleich';
+
+		// Error string band texts are not equal
+		this.m_error_band_text = 'Bandtexte sind nicht gleich';
+
+		// Error string number of musicians is not equal
+		this.m_error_number_musicians = 'Anzahl Musiker ist nicht gleich';
+
+		// Error string titles for the free text are not equal
+		this.m_error_title_free_text = 'Titel freier Textes sind nicht gleich';
+
+		// Error string free texts are not equal
+		this.m_error_free_text = 'Die freie Texte sind nicht gleich';
+
+		// Error string musician names are not equal
+		this.m_error_musician_names = 'Folgende Musiker-Namen sind nicht gleich:';
+
+		// Error string musician instruments are not equal
+		this.m_error_musician_instruments = 'Folgende Musiker-Instrumente sind nicht gleich:';
+
+		// Error string musician texts are not equal
+		this.m_error_musician_texts = 'Folgende Musiker-Texte sind nicht gleich:';
+
+		// Error string first character of the compare strings are not equal
+		this.m_error_first_char = 'Erstes Zeichen ist nicht gleich';
+
 		// The number of displayed equal characters compairing two strings
 		this.m_compare_string_number = 35;
 
@@ -244,7 +271,7 @@ class FlyerConcertComparisonData
 
 		ret_band_name_str = ret_band_name_str + '<br>';
 
-		ret_band_name_str = ret_band_name_str + 'Bandnamen sind nicht gleich' + '<br>';
+		ret_band_name_str = ret_band_name_str + this.m_error_band_name + '<br>';
 
 		ret_band_name_str = ret_band_name_str + this.m_error_homepage_str + this.m_band_name_homepage + '<br>';
 
@@ -267,7 +294,7 @@ class FlyerConcertComparisonData
 
 		ret_band_text_str = ret_band_text_str + '<br>';
 
-		ret_band_text_str = ret_band_text_str + 'Bandtexte sind nicht gleich' + '<br>';
+		ret_band_text_str = ret_band_text_str + this.m_error_band_text + '<br>';
 
 		ret_band_text_str = ret_band_text_str + this.m_error_homepage_str + this.m_band_text_homepage + '<br><br>';
 
@@ -302,7 +329,7 @@ class FlyerConcertComparisonData
 
 		ret_n_musicians_str = ret_n_musicians_str + '<br>';
 
-		ret_n_musicians_str = ret_n_musicians_str + 'Anzahl Musiker ist nicht gleich' + '<br>';
+		ret_n_musicians_str = ret_n_musicians_str + this.m_error_number_musicians + '<br>';
 
 		ret_n_musicians_str = ret_n_musicians_str + this.m_error_homepage_str + this.m_number_musicians_homepage.toString() + '<br>';
 
@@ -325,7 +352,7 @@ class FlyerConcertComparisonData
 
 		ret_free_text_label_str = ret_free_text_label_str + '<br>';
 
-		ret_free_text_label_str = ret_free_text_label_str + 'Titel freier Textes sind nicht gleich' + '<br>';
+		ret_free_text_label_str = ret_free_text_label_str + this.m_error_title_free_text + '<br>';
 
 		ret_free_text_label_str = ret_free_text_label_str + this.m_error_homepage_str + this.m_flyer_label_homepage + '<br>';
 
@@ -348,7 +375,7 @@ class FlyerConcertComparisonData
 
 		ret_free_text_str = ret_free_text_str + '<br>';
 
-		ret_free_text_str = ret_free_text_str + 'Die freie Texte sind nicht gleich' + '<br>';
+		ret_free_text_str = ret_free_text_str + this.m_error_free_text + '<br>';
 
 		ret_free_text_str = ret_free_text_str + this.m_error_homepage_str + this.m_flyer_text_homepage + '<br><br>';
 
@@ -383,7 +410,7 @@ class FlyerConcertComparisonData
 
 		ret_musician_names_str = ret_musician_names_str + '<br>';
 
-		ret_musician_names_str = ret_musician_names_str + 'Folgende Musiker-Namen sind nicht gleich:' + '<br>';
+		ret_musician_names_str = ret_musician_names_str + this.m_error_musician_names + '<br>';
 
 		ret_musician_names_str = ret_musician_names_str + '<br>';
 		
@@ -401,7 +428,7 @@ class FlyerConcertComparisonData
 				
 				ret_musician_names_str = ret_musician_names_str + this.m_error_homepage_str + current_name_homepage + ' (Musiker ' + (index_musician+1).toString() + ')' + '<br>';
 				
-				ret_musician_names_str = ret_musician_names_str + this.m_error_homepage_str + current_name_edit + ' (Musiker ' + (index_musician+1).toString() + ')' + '<br>';
+				ret_musician_names_str = ret_musician_names_str + this.m_error_edit_str + current_name_edit + ' (Musiker ' + (index_musician+1).toString() + ')' + '<br>';
 	
 			}
 		}		
@@ -423,7 +450,7 @@ class FlyerConcertComparisonData
 		
 		ret_musician_instruments_str = ret_musician_instruments_str + '<br>';
 		
-		ret_musician_instruments_str = ret_musician_instruments_str + 'Folgende Musiker-Instrumente sind nicht gleich:' + '<br>';
+		ret_musician_instruments_str = ret_musician_instruments_str + this.m_error_musician_instruments + '<br>';
 
 		ret_musician_instruments_str = ret_musician_instruments_str + '<br>';
 		
@@ -441,7 +468,7 @@ class FlyerConcertComparisonData
 				
 				ret_musician_instruments_str = ret_musician_instruments_str + this.m_error_homepage_str + current_instrument_homepage + ' (Musiker ' + (index_musician+1).toString() + ')' + '<br>';
 				
-				ret_musician_instruments_str = ret_musician_instruments_str + this.m_error_homepage_str + current_instrument_edit + ' (Musiker ' + (index_musician+1).toString() + ')' + '<br>';
+				ret_musician_instruments_str = ret_musician_instruments_str + this.m_error_edit_str + current_instrument_edit + ' (Musiker ' + (index_musician+1).toString() + ')' + '<br>';
 	
 			}
 		}		
@@ -463,7 +490,7 @@ class FlyerConcertComparisonData
 		
 		ret_musician_texts_str = ret_musician_texts_str + '<br>';
 		
-		ret_musician_texts_str = ret_musician_texts_str + 'Folgende Musiker-Texte sind nicht gleich:' + '<br>';
+		ret_musician_texts_str = ret_musician_texts_str + this.m_error_musician_texts + '<br>';
 
 		ret_musician_texts_str = ret_musician_texts_str + '<br>';
 		
@@ -483,7 +510,7 @@ class FlyerConcertComparisonData
 				
 				ret_musician_texts_str = ret_musician_texts_str + this.m_error_homepage_str + current_text_homepage + ' (Musiker ' + (index_musician+1).toString() + ')' + '<br><br>';
 				
-				ret_musician_texts_str = ret_musician_texts_str + this.m_error_homepage_str + current_text_edit + ' (Musiker ' + (index_musician+1).toString() + ')' + '<br><br>';
+				ret_musician_texts_str = ret_musician_texts_str + this.m_error_edit_str + current_text_edit + ' (Musiker ' + (index_musician+1).toString() + ')' + '<br><br>';
 
 				ret_musician_texts_str = ret_musician_texts_str + this.m_compare_result_str + '"' + sub_str + '"' + '<br>';
 	
@@ -551,7 +578,7 @@ class FlyerConcertComparisonData
 		}
 		else if (!equal_bool && ret_substring.length == 0)
 		{
-			return 'Erstes Zeichen ist nicht gleich';
+			return this.m_error_first_char;
 		}
 		else
 		{
