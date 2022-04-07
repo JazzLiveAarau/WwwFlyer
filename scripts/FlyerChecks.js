@@ -1,5 +1,5 @@
 // File: FlyerChecks.js
-// Date: 2022-04-05
+// Date: 2022-04-07
 // Author: Gunnar Lidén
 
 // File content
@@ -19,67 +19,47 @@ function checkFlyerConcertData()
 
 	hideDivDisplayCheckBandData();
 
-	hideDivDisplayCheckBandData();
+	displayButtonCheckFixBandData();
 
 	var concert_comparison = new FlyerConcertComparisonData(g_current_concert_number);
 
-	var error_html_str = checkFlyerConcertDataAdminPrinter(concert_comparison);
+	var error_html_str = getFlyerConcertDataAdminPrinterHtmlString(concert_comparison);
 
 	if (error_html_str.length > 0)
 	{
-		debug_msg = 'checkFlyerConcertData There were errors returned from checkFlyerConcertDataAdminPrinter';
+		debug_msg = 'checkFlyerConcertData There were errors returned from getFlyerConcertDataAdminPrinterHtmlString';
 		console.log(debug_msg);
-
-		displayDivDisplayCheckBandData();
 
 		var element_div_display_band_data = document.getElementById(g_id_div_display_check_result);
 
 		element_div_display_band_data.innerHTML = error_html_str;
+
+		displayDivDisplayCheckBandData();
 	}
 
 } // checkFlyerConcertData
 
 // Check flyer data for a concert after login as Administrator, Tester or Printer
 // The function returns an HTML string describing the error. Empty string if all is OK.
-// 1. Get band names HTML error string. Call of getBandNameErrorHtmlString
-function checkFlyerConcertDataAdminPrinter(i_concert_comparison)
+function getFlyerConcertDataAdminPrinterHtmlString(i_concert_comparison)
 {
-	var debug_msg = 'Enter checkFlyerConcertDataAdminPrinter Concert number= ' + i_concert_comparison.m_concert_number.toString();
+	var debug_msg = 'Enter getFlyerConcertDataAdminPrinterHtmlString Concert number= ' + i_concert_comparison.m_concert_number.toString();
 	console.log(debug_msg);
 
 	var ret_error_html_str = '';
 
-	ret_error_html_str = ret_error_html_str + i_concert_comparison.getBandNameErrorHtmlString();
-
-	var error_number_musician_str = i_concert_comparison.getNumberMusiciansErrorHtmlString();
-
-	ret_error_html_str = ret_error_html_str + error_number_musician_str;
-
-	if (error_number_musician_str.length > 0)
-	{
-		return ret_error_html_str;
-	}
-
-	ret_error_html_str = ret_error_html_str + i_concert_comparison.getMusicianNamesErrorHtmlString();
-
-	ret_error_html_str = ret_error_html_str + i_concert_comparison.getMusicianInstrumentsErrorHtmlString();
-
-	if (ret_error_html_str.length > 0)
-	{
-		debug_msg = 'checkFlyerConcertDataAdminPrinter There were band name, musician name, instrument and or text errors';
-		console.log(debug_msg);
-
-		ret_error_html_str = 'Fehler: Daten müssen korrigiert werden' + '<br>' + '===============================' + '<br>' + '<br>' + ret_error_html_str;
-	}
-
 	if (g_user_case_str == g_user_case_printer)
 	{
-		ret_error_html_str = checkFlyerConcertDataPrinter(i_concert_comparison, ret_error_html_str);
+		ret_error_html_str = i_concert_comparison.getFlyerConcertDataPrinterErrorHtmlString();
+	}
+	else
+	{
+		ret_error_html_str = i_concert_comparison.getFlyerConcertDataAdminErrorHtmlString();
 	}
 
 	return ret_error_html_str;
 
-} // checkFlyerConcertDataAdminPrinter
+} // getFlyerConcertDataAdminPrinterHtmlString
 
 // Check flyer data for a concert after login as printer
 function checkFlyerConcertDataPrinter(i_concert_comparison, i_error_html_str)
@@ -110,14 +90,6 @@ function checkFlyerConcertDataPrinter(i_concert_comparison, i_error_html_str)
 	return ret_error_html_str;
 
 } // checkFlyerConcertDataPrinter
-
-// Check ....
-function checkFlyerBandData()
-{
-	var debug_msg = 'checkFlyerBandData The function is not yet used';
-	console.log(debug_msg);
-
-} // checkFlyerBandData
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Exeute Check Functions //////////////////////////////////////
@@ -212,10 +184,10 @@ class FlyerConcertComparisonData
 		this.m_musician_texts_bool = null;		
 
 		// String for homepage, i.e. defining data from the season XML file
-		this.m_error_homepage_str = 'Saison XML:<br>';
+		this.m_error_homepage_str = 'Daten Website:<br>';
 
 		// String for edit, i.e. defining data from an edit XML file
-		this.m_error_edit_str = 'Flyer XML:<br>';
+		this.m_error_edit_str = 'Daten Flyer:<br>';
 
 		// String for string comparison result
 		this.m_compare_result_str = 'Die letzten Zeichen die gleich sind: ';
@@ -230,7 +202,7 @@ class FlyerConcertComparisonData
 		this.m_error_number_musicians = 'Anzahl Musiker ist nicht gleich';
 
 		// Error string titles for the free text are not equal
-		this.m_error_title_free_text = 'Titel freier Textes sind nicht gleich';
+		this.m_error_title_free_text = 'Titel freier Texte sind nicht gleich';
 
 		// Error string free texts are not equal
 		this.m_error_free_text = 'Die freie Texte sind nicht gleich';
@@ -247,6 +219,14 @@ class FlyerConcertComparisonData
 		// Error string first character of the compare strings are not equal
 		this.m_error_first_char = 'Erstes Zeichen ist nicht gleich';
 
+		// Administrator errors header
+		this.m_error_admin_errors = 'Fehler: Daten müssen korrigiert werden';
+		this.m_error_admin_underl = '===============================';
+
+		// Printer errors header
+		this.m_error_edit_errors = 'Warnung: Bitte Texte überprüfen';
+		this.m_error_edit_underl = '========================';
+
 		// The number of displayed equal characters compairing two strings
 		this.m_compare_string_number = 35;
 
@@ -255,8 +235,267 @@ class FlyerConcertComparisonData
 		
     } // constructor
 
+	// Status functions
+	// ================
+
+	// Returns true if no comparison errors were found 
+	noComparisonErrors()
+	{
+		var ret_status_all = true;
+
+		if (!this.noAdminComparisonErrors())
+		{
+			ret_status_all = false;
+		}
+
+		if (!this.noEditComparisonErrors())
+		{
+			ret_status_all = false;
+		}
+
+		return ret_status_all;
+
+	} // noComparisonErrors
+
+	// Returns true if there are no admin (homepage) errors
+	// These are the texts that are written in Admin and set on the Homepage.
+	// Admin exports these texts from the Homepage to the Flyer application.
+	noAdminComparisonErrors()
+	{
+		var ret_status_admin = true;
+
+		if (!this.bandNameNoError())
+		{
+			ret_status_admin = false;
+		}
+
+		if (!this.numberMusiciansNoError())
+		{
+			ret_status_admin = false;
+		}
+
+		if (!this.musicianNamesNoError())
+		{
+			ret_status_admin = false;
+		}
+
+		if (!this.musicianInstrumentsNoError())
+		{
+			ret_status_admin = false;
+		}
+
+		return ret_status_admin;
+		
+	} // noAdminComparisonErrors	
+
+	// Returns true if there are no edit (flyer) errors
+	// These are the texts that are written with the Flyer application 
+	// and that are imported by Admin to the Homepage 
+	noEditComparisonErrors()
+	{
+		var ret_status_edit = true;
+
+		if (!this.bandTextNoError())
+		{
+			ret_status_edit = false;
+		}
+
+		if (!this.labelFreeTextNoError())
+		{
+			ret_status_edit = false;
+		}
+
+		if (!this.freeTextNoError())
+		{
+			ret_status_edit = false;
+		}
+
+		if (!this.musicianTextsNoError())
+		{
+			ret_status_edit = false;
+		}
+
+		return ret_status_edit;
+		
+	} // noEditComparisonErrors
+
+	// Returns true if the band names are equal
+	bandNameNoError()
+	{
+		return this.m_band_name_bool;
+
+	} // bandNameNoError
+
+	// Returns true if the band texts are equal
+	bandTextNoError()
+	{
+		return this.m_band_text_bool;
+
+	} // bandTextNoError
+
+	// Returns true if the free text labels are equal
+	labelFreeTextNoError()
+	{
+		return this.m_flyer_label_bool;
+
+	} // labelFreeTextNoError
+
+	// Returns true if the free texts are equal
+	freeTextNoError()
+	{
+		return this.m_flyer_text_bool;
+
+	} // freeTextNoError
+
+	// Returns true if the number of musicians is equal
+	numberMusiciansNoError()
+	{
+		return this.m_number_musicians_bool;
+
+	} // numberMusiciansNoError
+
+	// Returns true if the musician names equal
+	musicianNamesNoError()
+	{
+		var ret_names = true;
+
+		if (!this.numberMusiciansNoError())
+		{
+			ret_names = false;
+
+			return ret_names;
+		}
+
+		for (var index_name=0; index_name < this.m_musicians_bool.length; index_name++)
+		{
+			if (!this.m_musicians_bool[index_name])
+			{
+				ret_names = false;
+
+				break;
+			}
+		}
+
+		return ret_names;
+
+	} // musicianNamesNoError
+
+	// Returns true if the musician instruments equal
+	musicianInstrumentsNoError()
+	{
+		var ret_instruments = true;
+
+		if (!this.numberMusiciansNoError())
+		{
+			ret_instruments = false;
+
+			return ret_instruments;
+		}
+
+		for (var index_instrument=0; index_instrument < this.m_instruments_bool.length; index_instrument++)
+		{
+			if (!this.m_instruments_bool[index_instrument])
+			{
+				ret_instruments = false;
+
+				break;
+			}
+		}
+
+		return ret_instruments;
+
+	} // musicianInstrumentsNoError
+
+	// Returns true if the musician texts equal
+	musicianTextsNoError()
+	{
+		var ret_texts = true;
+
+		if (!this.numberMusiciansNoError())
+		{
+			ret_texts = false;
+
+			return ret_texts;
+		}
+
+		for (var index_text=0; index_text < this.m_musician_texts_bool.length; index_text++)
+		{
+			if (!this.m_musician_texts_bool[index_text])
+			{
+				ret_texts = false;
+
+				break;
+			}
+		}
+
+		return ret_texts;
+
+	} // musicianTextsNoError
+
 	// Error HTML strings
 	// ==================
+
+	// Returns an HTML string if there were errors for the Administrator
+	getFlyerConcertDataAdminErrorHtmlString()
+	{
+		var ret_error_html_str = '';
+	
+		ret_error_html_str = ret_error_html_str + this.getBandNameErrorHtmlString();
+	
+		var error_number_musician_str = this.getNumberMusiciansErrorHtmlString();
+	
+		ret_error_html_str = ret_error_html_str + error_number_musician_str;
+	
+		if (error_number_musician_str.length > 0)
+		{
+			return ret_error_html_str;
+		}
+	
+		ret_error_html_str = ret_error_html_str + this.getMusicianNamesErrorHtmlString();
+	
+		ret_error_html_str = ret_error_html_str + this.getMusicianInstrumentsErrorHtmlString();
+	
+		if (ret_error_html_str.length > 0)
+		{
+			var debug_msg = 'getFlyerConcertDataAdminErrorHtmlString There were band name, musician name, instrument and or text errors';
+			console.log(debug_msg);
+	
+			ret_error_html_str = this.m_error_admin_errors + '<br>' + this.m_error_admin_underl + '<br>' + '<br>' + ret_error_html_str;
+		}
+
+		return ret_error_html_str;
+		
+	}  // getFlyerConcertDataAdminErrorHtmlString
+
+	// Checks flyer data for a concert after login as printer and returns error HTML string 
+	getFlyerConcertDataPrinterErrorHtmlString()
+	{
+		var debug_msg = 'getFlyerConcertDataPrinterErrorHtmlString';
+		console.log(debug_msg);
+
+		var ret_error_html_str = '';
+
+		ret_error_html_str = ret_error_html_str + this.getBandTextErrorHtmlString();
+
+		ret_error_html_str = ret_error_html_str + this.getFreeTextLabelErrorHtmlString();
+
+		ret_error_html_str = ret_error_html_str + this.getFreeTextErrorHtmlString();
+
+		ret_error_html_str = ret_error_html_str + this.getMusicianTextsErrorHtmlString();
+
+		if (ret_error_html_str.length > 0)
+		{
+			debug_msg = 'getFlyerConcertDataPrinterErrorHtmlString There were band text, free text and/or free text label errors';
+			console.log(debug_msg);
+
+			ret_error_html_str = '<br><br>' + this.m_error_edit_errors + '<br>' + this.m_error_edit_underl + '<br>' + '<br>' + ret_error_html_str;
+		}
+
+		ret_error_html_str = this.getFlyerConcertDataAdminErrorHtmlString() + ret_error_html_str; 
+
+		return ret_error_html_str;
+
+	} // getFlyerConcertDataPrinterErrorHtmlString
 
 	// Returns a description of the error in HTML format for not equal band names. 
 	// Returns empty string if OK.
@@ -1379,105 +1618,8 @@ function getFlyerTextTextHtmlString(i_flyer_text)
 ///////////////////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////// Start Event Functions  //////////////////////////////////////////
+///////////////////////// Start Hide And Display Comparison Results  //////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
-
-// The user clicked the button 'Check band data'
-function eventCheckBandData()
-{
-    checkFlyerBandData();
-
-} // eventCheckBandData
-
-///////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////// End Event Functions  ////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////
-
-///////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////// Start Set Check Band Data  //////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////
-
-// Set active mode
-function setButtonCheckBandData()
-{
-    var button_check_band_data_html = getButtonCheckBandDataHtml();
-	
-    var element_div_check_band_data = document.getElementById(g_id_div_check_band_data);	
-    if (null == element_div_check_band_data)
-    {
-        alert("setButtonCheckBandData element_div_check_band_data is null");
-        return;
-    }
-	
-    element_div_check_band_data.innerHTML = button_check_band_data_html;	
-	
-} // setButtonCheckBandData
-
-// Returns the html code for active mode element
-function getButtonCheckBandDataHtml()
-{	
-	var ret_button_check_band_data_html = '';
-	
-	ret_button_check_band_data_html = ret_button_check_band_data_html + '<p id= "' + g_id_div_check_band_data + '" onclick="eventCheckBandData()"><b>';
-	
-	ret_button_check_band_data_html = ret_button_check_band_data_html + getCheckBandDataCaption() + '</b>';
-
-    var text_tooltip = getTooltipHtml(g_tooltip_check_band_data, g_id_tooltip_check_band_data);
-	
-	ret_button_check_band_data_html = ret_button_check_band_data_html + text_tooltip;
-	
-	ret_button_check_band_data_html = ret_button_check_band_data_html + '</p>';
-
-	return ret_button_check_band_data_html;	
-	
-} // getButtonCheckBandDataHtml
-
-
-// Returns the caption for the button
-function getCheckBandDataCaption()
-{
-   return 'Check<br> Band-Daten';
-
-} // getCheckBandDataCaption
-
-
-///////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////// End Set Check Band Data  ////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////
-
-///////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////// Start Hide And Display Button  //////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////
-
-// Hides the button (<div>) 'Check band data'
-function hideButtonCheckBandData()
-{
-	var element_id_div_check_band_data = document.getElementById(g_id_div_check_band_data);
-	if (null == element_id_div_check_band_data)
-	{
-		alert("hideCheckBandData Element with id g_id_div_check_band_data is null");
-		
-		return;
-	}
-		
-	element_id_div_check_band_data.style.display = "none";
-	
-} // hideButtonCheckBandData
-
-// Displays the button (<div>) 'Check band data'
-function displayButtonCheckBandData()
-{
-	var element_id_div_check_band_data = document.getElementById(g_id_div_check_band_data);
-	if (null == element_id_div_check_band_data)
-	{
-		alert("hideCheckBandData Element with id g_id_div_check_band_data is null");
-		
-		return;
-	}
-		
-	element_id_div_check_band_data.style.display = "block";
-	
-} // displayButtonCheckBandData
 
 // Hides the <div> displaying the result of the band data check
 function hideDivDisplayCheckBandData()
@@ -1511,5 +1653,5 @@ function displayDivDisplayCheckBandData()
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////// Start Hide And Display Button  //////////////////////////////////
+///////////////////////// End Hide And Display Comparison Results  ////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
