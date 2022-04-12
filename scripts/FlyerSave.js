@@ -1,5 +1,5 @@
 // File: FlyerSave.js
-// Date: 2019-05-16
+// Date: 2022-04-11
 // Author: Gunnar Lidén
 
 // File content
@@ -27,6 +27,15 @@ function saveXmlEditObjectToFile()
 	var xml_content_str = xmlToString(edit_xml_object);
 	
 	var file_name_path = g_xml_edit_file_names[g_current_concert_number-1];
+
+    if (!execApplicationOnServer())
+    {
+        var msg_debug = 'File ' + file_name_path + ' not uploaded while application is executed with VSC: XML=';
+        console.log(msg_debug);
+        console.log(xml_content_str);
+
+        return;
+    }
 	
     if (!saveFileWithJQueryPostFunction(file_name_path, xml_content_str))
 	{
@@ -134,4 +143,37 @@ function xmlToString(i_xml_object)
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Content XML File  ///////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// Start Server Execution Mode /////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
+// Returns true if the jazz tasks application is running on the server
+// Returns false if it is running on the Visual Studio Code Live Server
+// Please note that window.location.href can return
+// https://jazzliveaarau.ch or
+// https://www.jazzliveaarau.ch
+// Function copied from application Tasks
+function execApplicationOnServer()
+{
+    var current_base = window.location.href;
+
+    var server_url = 'jazzliveaarau.ch';
+
+    var index_url = current_base.indexOf(server_url);
+
+    if (index_url >= 0) 
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+
+} // execApplicationOnServer
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// End Server Execution Mode ///////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////

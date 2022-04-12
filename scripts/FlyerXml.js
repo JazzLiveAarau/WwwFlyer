@@ -1,5 +1,5 @@
 // File: FlyerXml.js
-// Date: 2020-02-21
+// Date: 2022-04-11
 // Author: Gunnar Lidén
 
 // File content
@@ -533,6 +533,98 @@ function setPublishFlyerText(i_concert_number, i_publish_flag)
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End XML Edit Set Functions  /////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// Start XML Edit Delete Functions  ////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
+// Delete the musician node defined by the musician_number
+function deleteMusicianNode(i_concert_number, i_musician_mumber)
+{
+	var n_musicians = getNumberOfMusicians(i_concert_number);
+
+	if (i_musician_mumber < 1 || i_musician_mumber > n_musicians)
+	{
+		alert("deleteMusicianNode Musician number is not between 1 and " + n_musicians.toString());
+		
+		return false;		
+	}
+
+	var concert_node = getConcertNodeForActiveMode(i_concert_number);
+	
+	// var musicians_nodes =  concert_node.getElementsByTagName("Musicians");
+
+	// var musicians_node = musicians_nodes[0];
+
+	var musician_nodes = concert_node.getElementsByTagName(g_tag_season_program_musician);
+
+	musician_node = musician_nodes[i_musician_mumber - 1];
+
+	musician_node.parentNode.removeChild(musician_node);
+
+	return true;
+
+} // deleteMusicianNode
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// End XML Edit Delete Functions  //////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// Start XML Edit Append Functions  ////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
+// Append musician node
+function appendMusicianNode(i_concert_number, i_name, i_instrument, i_text)
+{
+	if (null == getSeasonXmlObjectForActiveMode())
+	{
+		alert("appendMusicianNode Season program XML object getSeasonXmlObjectForActiveMode() is null");
+		return false;
+	}	
+	
+	if (i_concert_number < 1 || i_concert_number > 12)
+	{
+		alert("appendMusicianNode Concert number not between 1 and 12");
+		return false;		
+	}
+
+	var xml_object = getSeasonXmlObjectForActiveMode();
+		
+	var concert_node = getConcertNodeForActiveMode(i_concert_number);
+
+	var musicians_nodes =  concert_node.getElementsByTagName("Musicians");
+
+	var musicians_node = musicians_nodes[0];
+	
+	// var musician_nodes = concert_node.getElementsByTagName(g_tag_season_program_musician);
+
+	var new_musician = xml_object.createElement(g_tag_season_program_musician);
+
+	var musician_name_node = xml_object.createElement(g_tag_season_program_musician_name);
+	var musician_name_text = xml_object.createTextNode(i_name);
+	musician_name_node.appendChild(musician_name_text);
+	new_musician.appendChild(musician_name_node);
+
+	var musician_instrument_node = xml_object.createElement(g_tag_season_program_musician_instrument);
+	var musician_instrument_text = xml_object.createTextNode(i_instrument);
+	musician_instrument_node.appendChild(musician_instrument_text);
+	new_musician.appendChild(musician_instrument_node);
+
+	var musician_text_node = xml_object.createElement(g_tag_season_program_musician_text);
+	var musician_text_text = xml_object.createTextNode(i_text);
+	musician_text_node.appendChild(musician_text_text);
+	new_musician.appendChild(musician_text_node);
+
+	musicians_node.appendChild(new_musician);
+
+	return true;
+
+} // appendMusicianNode
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// End XML Edit Append Functions  //////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////////////////////////////
