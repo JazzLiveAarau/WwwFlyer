@@ -1,5 +1,5 @@
 // File: FlyerFixErrors.js
-// Date: 2022-04-11
+// Date: 2022-04-15
 // Author: Gunnar Lidén
 
 // File content
@@ -71,6 +71,9 @@ class FlyerConcertFixErrors
         // Message for the case that all band data is equal
         this.m_no_comparison_error_msg = 'Alle Konzert-Texte sind gleich auf der Homepage und in dieser Flyer Applikation';
 
+        // Message for the case that all homepage band data is equal aber nicht alle flyer data
+        this.m_no_homepage_error_msg = 'Keine Fehler, die mit Button "Check/Fix" korrigiert werden können. Nur Warnungen, dass Website und Flyer Daten nicht gleich sind.';
+
         // XML value for not yet set musician text
         this.m_musician_text_not_yet_set_str = 'Musiker/Musikerin Text ...';
 
@@ -102,9 +105,11 @@ class FlyerConcertFixErrors
             return;
         }
 
+        var msg_str = '';
+
         if (this.m_compare.noComparisonErrors())
         {
-            var msg_str = this.getNoComparisonErrorsMsg();
+            msg_str = this.getNoComparisonErrorsMsg();
 
             alert(msg_str);
 
@@ -136,6 +141,10 @@ class FlyerConcertFixErrors
         {
             debug_msg = 'FlyerConcertFixErrors.fixAllComparisonErrors Errors only in Edit data';
             // console.log(debug_msg);
+
+            msg_str = this.getWarningErrorsForWindowsFlyerMsg();
+
+            alert(msg_str);
 
             this.fixEditComparisonErrors();
         }
@@ -522,12 +531,20 @@ class FlyerConcertFixErrors
         return this.m_compare.getFlyerConcertDataPrinterErrorHtmlString();
     }
 
-    // Returnd the message that no errors were found
+    // Returns the message that no errors were found
     getNoComparisonErrorsMsg()
     {
         return this.m_no_comparison_error_msg;
         
     } // getNoComparisonErrorsMsg
+
+    // Returns the message that there only are (normal) differences that will
+    // disappear when data is imported by the Windows Flyer application
+    getWarningErrorsForWindowsFlyerMsg()
+    {
+        return this.m_no_homepage_error_msg;
+        
+    } // getWarningErrorsForWindowsFlyerMsg
 
 } // FlyerConcertFixErrors
 
