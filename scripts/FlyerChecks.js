@@ -1,5 +1,5 @@
 // File: FlyerChecks.js
-// Date: 2022-04-12
+// Date: 2022-04-23
 // Author: Gunnar Lidén
 
 // File content
@@ -19,7 +19,14 @@ function checkFlyerConcertData()
 
 	hideDivDisplayCheckBandData();
 
-	displayButtonCheckFixBandData();
+	if (g_user_case_str == g_user_case_admin)
+	{
+		displayButtonCheckFixBandData();
+	}
+	else
+	{
+		hideButtonCheckFixBandData();
+	}
 
 	var concert_comparison = new FlyerConcertComparisonData(g_current_concert_number);
 
