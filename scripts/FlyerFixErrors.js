@@ -1,5 +1,5 @@
 // File: FlyerFixErrors.js
-// Date: 2022-04-15
+// Date: 2022-04-23
 // Author: Gunnar Lidén
 
 // File content
@@ -221,6 +221,8 @@ class FlyerConcertFixErrors
         {
             setBandName(this.m_compare.concert_number, this.m_compare.m_band_name_homepage);
 
+            setAllTexts();
+
             saveXmlEditObjectToFile();
 
             debug_msg = 'FlyerConcertFixErrors.fixBandNameError Band name changed from' +
@@ -273,6 +275,8 @@ class FlyerConcertFixErrors
 
         this.updateFlyerMusiciansXml(musician_texts);
 
+        setAllTexts();
+
         saveXmlEditObjectToFile();
 
         debug_msg = 'FlyerConcertFixErrors.fixNumberMusiciansError Number of flyer musicians changed and musicians data is set';
@@ -298,6 +302,8 @@ class FlyerConcertFixErrors
         }
 
         this.updateFlyerMusiciansXml(musician_texts);
+
+        setAllTexts();
 
         saveXmlEditObjectToFile();
 
@@ -428,6 +434,8 @@ class FlyerConcertFixErrors
 
         if (b_at_least_one_changed)
         {
+            setAllTexts();
+
             saveXmlEditObjectToFile();
 
             setTimeout(exeCheckFixBandData, 2000);       
@@ -483,6 +491,8 @@ class FlyerConcertFixErrors
 
         if (b_at_least_one_changed)
         {
+            setAllTexts();
+            
             saveXmlEditObjectToFile();
 
             setTimeout(exeCheckFixBandData, 2000);       
