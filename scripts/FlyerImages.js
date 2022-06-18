@@ -1,5 +1,5 @@
 // File: FlyerImages.js
-// Date: 2022-02-25
+// Date: 2022-06-18
 // Author: Gunnar Lidén
 
 // File content
@@ -389,7 +389,7 @@ function setQrCodeImageWebsitePage6(i_concert_number)
 	
 	image_qr_website_html = image_qr_website_html + getQrImageWebsiteNamePath(i_concert_number) + '"';
 	
-	image_qr_website_html = image_qr_website_html + ' alt="QrCode" style="width:12mm;height:12mm">';
+	image_qr_website_html = image_qr_website_html + ' alt="QrCode" style="width:30mm;height:30mm">';
 	
 	// <img class="fill" src="AdminXml/Saison_2019-2020/QrCode_Band_02_Sound.png" alt="QrCode" style="width:12mm;height:12mm">
 
@@ -408,7 +408,7 @@ function setQrCodeImageSoundPage6(i_concert_number)
 	
 	image_qr_website_html = image_qr_website_html + getQrImageSoundNamePath(i_concert_number) + '"';
 	
-	image_qr_website_html = image_qr_website_html + ' alt="QrCode" style="width:12mm;height:12mm">';
+	image_qr_website_html = image_qr_website_html + ' alt="QrCode" style="width:35mm;height:35mm">';
 	
 	// <img class="fill" src="AdminXml/Saison_2019-2020/QrCode_Band_02_Sound.png" alt="QrCode" style="width:12mm;height:12mm">
 
@@ -478,7 +478,7 @@ function setSponsorsLabel()
 {
 	var element_div_page_6_logos_image = document.getElementById(g_id_div_a6_page_6_logos_image);	
 	
-	element_div_page_6_logos_image.innerHTML = '<br><br>' + 
+	element_div_page_6_logos_image.innerHTML =  
 	         '<img class="contain" src="Logos/Logos.png" alt="Logos" style="width:80mm;height:51mm">';
 //2021-02-27 '<img class="fill"    src="Logos/Logos.png" alt="Logos" style="width:80mm;height:51mm">';
 	
