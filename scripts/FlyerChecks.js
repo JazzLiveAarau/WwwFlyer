@@ -221,7 +221,7 @@ class FlyerConcertComparisonData
 		this.m_error_title_free_text = 'Titel freier Texte sind nicht gleich';
 
 		// Error string free texts are not equal
-		this.m_error_free_text = 'Die freie Texte sind nicht gleich';
+		this.m_error_free_text = 'Die freien Texte sind nicht gleich';
 
 		// Error string musician names are not equal
 		this.m_error_musician_names = 'Folgende Musiker-Namen sind nicht gleich:';
@@ -246,7 +246,7 @@ class FlyerConcertComparisonData
 		// Printer errors header
 		this.m_error_edit_errors = 'Warnung: Website und Flyer Texte sind nicht gleich';
 		this.m_error_edit_underl = '=======================================';
-		this.m_error_edit_errors_2 = 'Bitte als Administrator Texte mit Admin->Flyer importieren (oder Flyer Texte ändern)'
+		this.m_error_edit_errors_2 = 'Fertige Texte mit Admin->Flyer importieren'
 
 		// The number of displayed equal characters compairing two strings
 		this.m_compare_string_number = 35;
