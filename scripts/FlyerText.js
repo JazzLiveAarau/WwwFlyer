@@ -1,10 +1,15 @@
 // File: FlyerText.js
-// Date: 2022-01-25
+// Date: 2022-09-19
 // Author: Gunnar Lidén
 
 // File content
 // =============
 // Functions to set texts
+//
+// !!!!!!!!!!!!!!!!! Warning !!!!!!!!!!!!!!!!
+// Please note that checking if there is enough space for the texts is not possible with 
+// the Live Server Browser, i.e. changes of the parameter g_page_max_height.
+// These tests must be done on the server (this file has to be uploaded with FTP)
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// Start Global Parameters /////////////////////////////////////////
@@ -93,23 +98,90 @@ function pageFourDisplaysMusicians()
 
 // Set all texts
 // Please note that there is another function that sets images on the pages
-// 1. Initialize the tester text area. Call of appendTesterHeaderPositionData
-// 2. Append the hardcoded parameters that controls the positioning. Call of appendPositionParameters
-// 3. Set page with band text and text for up to three musicians. Call setTextPage2
-// 4. Set musician texts. Call of setTextPage3
-// 5. Determine if page four shall be used for free text or musician texts
+// 0. Temporary adjustment before april 2023. Call of adjustFontSizeTemporaryFix
+// 1. Adjust max text height for administror, tester and band. Call of adjustPageMaxHeight
+// 2. Initialize the tester text area. Call of appendTesterHeaderPositionData
+// 3. Append the hardcoded parameters that controls the positioning. Call of appendPositionParameters
+// 4. Set page with band text and text for up to three musicians. Call setTextPage2
+// 5. Set musician texts. Call of setTextPage3
+// 6. Determine if page four shall be used for free text or musician texts
 //    Call of pageFourDisplaysMusicians
-// 5.a Use page for for the free text
+// 6.a Use page for for the free text
 //     Display the page four free text elements. Call of displayPageFourFreeText
 //     Hide the page four musician texts elements. Call of hidePageFourMusicianTexts
-// 5.b Use page for for the musician texts
+// 6.b Use page for for the musician texts
 //     Display the page four musician texts elements. Call of displayPageFourMusicianTexts
 //     Hide the page four free text elements. Call of hidePageFourFreeText
-// 5. Set the free text page. Call of setTextPage4
-// 6. Set the entrance fees. Call of setTextPage5
-// 7. Set the band name. Call of setTextPage6
+// 7. Set the free text page. Call of setTextPage4
+// 8. Set the entrance fees. Call of setTextPage5
+// 9. Set the band name. Call of setTextPage6
 function setAllTexts()
 {
+	// This function call and all functions called by this function should be removed
+	// after april 2023
+	if (adjustFontSizeTemporaryFix())
+	{
+		// The changes have been made by the callback function setAllTextsAfterTemporaryFix
+		return;
+	}
+
+	adjustPageMaxHeight();
+
+	log_msg = "setAllTexts g_page_max_height= " + g_page_max_height.toString();
+
+	console.log(log_msg);
+
+	appendTesterHeaderPositionData();
+			
+	appendPositionParameters();
+	
+	setFlagPageFourDisplayMusicians();
+			
+	var n_set_musicians_page_2 = setTextPage2();
+	
+	var n_set_musicians_page_3 = setTextPage3(n_set_musicians_page_2);
+	
+	if (pageFourDisplaysMusicians())
+	{
+		hidePageFourFreeText();
+		
+		displayPageFourMusicianTexts();
+		
+		var n_set_musicians_page_4 = setTextPage4_Musicians(n_set_musicians_page_3);
+	
+		checkIfAllMusiciansAreSet(n_set_musicians_page_4);
+	}
+	else
+	{
+		displayPageFourFreeText();
+		
+		hidePageFourMusicianTexts();
+		
+		checkIfAllMusiciansAreSet(n_set_musicians_page_3);
+		
+		setTextPage4();
+	}
+	
+	setTextPage5();
+	
+	setTextPage6();
+
+	var log_msg = "setAllTexts Exit";
+
+	console.log(log_msg);
+	
+} // setAllTexts
+
+function setAllTextsAfterTemporaryFix()
+{	
+	var log_msg = "setAllTextsAfterTemporaryFix Enter";
+
+	console.log(log_msg);
+
+	log_msg = "setAllTextsAfterTemporaryFix g_page_max_height= " + g_page_max_height.toString();
+
+	console.log(log_msg);
+
 	appendTesterHeaderPositionData();
 			
 	appendPositionParameters();
@@ -145,8 +217,139 @@ function setAllTexts()
 	
 	setTextPage6();
 	
-} // setAllTexts
+} // setAllTextsAfterTemporaryFix
 
+// Makes the font size smaller for season 2022-2023
+// A temporary fix. For coming seasons only the page max size will be adjusted in adjustPageMaxHeight()
+// 1. If season 2022-2023 is passed return false. The temporary fix functions should now be removed.
+// 2. Determine if the temprary fix shall be done. Call of changeFontTemporarySeasonFix
+// 3. Adjustment case
+// 3.1 Printer is not the user and no temporary change:   Max height 148 and font size 3.8 mm
+// 3.2 Printer is the user and no temporary change:       Max height 150 and font size 3.8 mm
+// 3.3 Printer is not the user and make temporary change: Max height 148 and font size 3.8 mm
+// 3.2 Printer is the user and make temporary change:     Max height 150 and font size 3.6 mm
+// 4.  Make a pause so that the window gets changed and call setAllTextsAfterTemporaryFix
+// 5. Return true, i.e. that the temporary change has been made
+function adjustFontSizeTemporaryFix()
+{
+	var log_msg = "";
+
+	var current_date = new Date();
+    var current_year = current_date.getFullYear();
+	var current_month = current_date.getMonth() + 1;
+
+	if (current_year >= 2023 && current_month >= 4)
+	{
+		log_msg = "adjustFontSizeTemporaryFix Temporary fix code in file FlyerText.js should be removed.";
+
+		console.log(log_msg);
+
+		return false;
+	}
+	
+	var b_temporary_season_fix = changeFontTemporarySeasonFix();
+
+	var element_id_page_print_two = document.getElementById(g_id_page_print_two);
+
+	if (g_user_case_str != g_user_case_printer && !b_temporary_season_fix)
+	{
+		g_page_max_height= 148;
+
+		element_id_page_print_two.style.fontSize = "3.8mm"; // As in the css file
+
+		log_msg = "adjustFontSizeTemporaryFix Printer+No change: Max height 148 and font size 3.8 mm";
+
+		console.log(log_msg);
+	}
+	else if (g_user_case_str == g_user_case_printer && !b_temporary_season_fix)
+	{
+		g_page_max_height= 150;
+
+		element_id_page_print_two.style.fontSize = "3.8mm"; // As in the css file
+
+		log_msg = "adjustFontSizeTemporaryFix Not Printer+No change: Max height 150 and font size 3.8 mm";
+
+		console.log(log_msg);
+	}
+	else if (g_user_case_str != g_user_case_printer && b_temporary_season_fix)
+	{
+		g_page_max_height= 150;
+
+		element_id_page_print_two.style.fontSize = "3.8mm";
+
+		log_msg = "adjustFontSizeTemporaryFix Not printer+Change: Max height 150 and font size 3.8 mm";
+
+		console.log(log_msg);
+	}
+	else if (g_user_case_str == g_user_case_printer && b_temporary_season_fix)
+	{
+		g_page_max_height= 150;
+
+		element_id_page_print_two.style.fontSize = "3.6mm";
+
+		log_msg = "adjustFontSizeTemporaryFix Printer+Change: Max height 150 and font size 3.6 mm";
+
+		console.log(log_msg);
+	}
+	else
+	{
+		alert("adjustFontSizeTemporaryFix Programming error");
+
+		return false;
+	}
+
+	setTimeout(setAllTextsAfterTemporaryFix, 500);
+
+	return true;
+
+} // adjustFontSizeTemporaryFix
+
+// Returns true for making the temporary fix, i.e. for season 2022-2023
+function changeFontTemporarySeasonFix()
+{
+	var current_season_name = g_drop_down_season_name_array[g_current_season_number - 1];
+  
+	var ret_b_season_year_2022_2023 = false;
+	
+	if (current_season_name == "Saison_2022-2023")
+	{
+		ret_b_season_year_2022_2023 = true;
+	}	
+
+	return ret_b_season_year_2022_2023;
+
+} // changeFontTemporarySeasonFix
+
+// Adjustment of the maximum page height
+// 2. Adjustment case
+// 2.1 Administrator, tester or band is the user:   Max height 148
+// 2.2 Printer is the user:                         Max height 150
+// There is a small difference (less than two mm) between the printer and administrator version.
+// The reason are small adjustments of the printer version that are difficult to implement for the adminstrator version
+// The two millimeter was determined from testing and is not calculated
+function adjustPageMaxHeight()
+{
+	var log_msg = "";
+
+	if (g_user_case_str != g_user_case_printer)
+	{
+		g_page_max_height= 148;
+
+		log_msg = "adjustPageMaxHeight Not printer: Max height 148";
+
+		console.log(log_msg);
+	}
+	else if (g_user_case_str == g_user_case_printer)
+	{
+		g_page_max_height= 150;
+
+		log_msg = "adjustPageMaxHeight Printer: Max height 148";
+
+		console.log(log_msg);
+
+	}
+
+} // adjustPageMaxHeight
 
 // Set and check short text page 2
 function setCheckSizeDivShortTextPage2(i_short_text_page_2)
