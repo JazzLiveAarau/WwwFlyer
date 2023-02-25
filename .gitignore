@@ -370,3 +370,6 @@ FodyWeavers.xsd
 # FTP configuration files
 # ftp-sync.json
 *.json
+
+# For code analysis
+.VsCodeCounter
