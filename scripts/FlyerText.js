@@ -1,5 +1,5 @@
 // File: FlyerText.js
-// Date: 2022-09-19
+// Date: 2023-05-11
 // Author: Gunnar Lidén
 
 // File content
@@ -53,6 +53,89 @@ var g_number_chars_header_text_per_row = 33;
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Global Parameters ///////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// Start Case One Musician Text On Two Pages ///////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
+// Flag telling if the case is one musician with text on two pages
+var g_case_musician_text_two_pages = false;
+
+var g_one_musician_text_page_2 = '';
+
+var g_one_musician_text_page_3 = '';
+
+// Sets data for the case one musician with text on two pages
+function setDataSoloMusicianTextTwoPages()
+{
+	g_case_musician_text_two_pages = false;
+
+	g_one_musician_text_page_2 = '';
+
+	g_one_musician_text_page_3 = '';
+
+	var number_musicians = getNumberOfMusicians(g_current_concert_number);
+
+	if (number_musicians >= 2)
+	{
+		g_case_musician_text_two_pages = false;
+
+		return;
+	}
+
+	var musician_text_1_page_2 = getMusicianText(g_current_concert_number, 1);
+
+	var musician_text_1_page_2_br = rowEndsWindowsToHtml(musician_text_1_page_2);
+
+	var three_rows = '<br><br><br>';
+
+	var index_three_rows = musician_text_1_page_2_br.indexOf(three_rows);
+
+	if (index_three_rows < 0)
+	{
+		g_case_musician_text_two_pages = false;
+
+		return;
+	}
+
+	// rowEndsHtmlToWindows(i_string)
+
+	g_case_musician_text_two_pages = true;
+
+	var one_musician_text_page_2_br = musician_text_1_page_2_br.substring(0, index_three_rows);
+
+	var one_musician_text_page_3_br =musician_text_1_page_2_br.substring(index_three_rows + three_rows.length);
+
+	g_one_musician_text_page_2 = rowEndsHtmlToWindows(one_musician_text_page_2_br);
+
+	g_one_musician_text_page_3 = rowEndsHtmlToWindows(one_musician_text_page_3_br);
+
+} // setDataSoloMusicianTextTwoPages
+
+// Returns flag telling if the case is one musician with text on two pages
+function isCaseSoloMusicianTextTwoPages()
+{
+	return g_case_musician_text_two_pages;
+
+} // isCaseSoloMusicianTextTwoPages
+
+// Returns the one musician text for page two
+function getSoloMusicianTextForPageTwo()
+{
+	return g_one_musician_text_page_2;
+
+} // getSoloMusicianTextForPageTwo
+
+// Returns the one musician text for page three
+function getSoloMusicianTextForPageThree()
+{
+	return g_one_musician_text_page_3;
+
+} // getSoloMusicianTextForPageThree
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// End Case One Musician Text On Two Pages /////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -428,6 +511,13 @@ function setTextPage2()
 	
 	var musician_text_1_page_2 = getMusicianText(g_current_concert_number, 1);
 
+	setDataSoloMusicianTextTwoPages();
+
+	if (isCaseSoloMusicianTextTwoPages())
+	{
+		musician_text_1_page_2 = getSoloMusicianTextForPageTwo();
+	}
+
 	displayMusicianOneTextDivsPageTwo(); // 2022-01-24
 	
 	setDivMusicianName1Page2(musician_name_1_page_2);
@@ -520,21 +610,49 @@ function setTextPage3(i_set_musicians)
 	hideMusicianTextDivsPageThree(); // 2022-01-24
 	
 	setDivTextLogoPage3();
-			
-	var number_musicians = getNumberOfMusicians(g_current_concert_number);
-	
-	if (number_musicians < ret_n_set_musicians + 1)
+
+	if (!isCaseSoloMusicianTextTwoPages())
 	{
+		var number_musicians = getNumberOfMusicians(g_current_concert_number);
+	
+		if (number_musicians < ret_n_set_musicians + 1)
+		{
+			return ret_n_set_musicians;
+		}
+		
+		musician_number = musician_number + 1;
+		
+		// Musician 1
+		var musician_name_1_page_3 = getMusicianNameInstrument(g_current_concert_number, musician_number);
+		
+		var musician_text_1_page_3 = getMusicianText(g_current_concert_number, musician_number);
+	}
+	else
+	{
+		musician_text_1_page_3 = getSoloMusicianTextForPageThree();
+
+		setDivMusicianText1Page3(musician_text_1_page_3);
+
+		if (getRemainingHeightPageThree() <= 0.0)
+		{
+			clearLabelTextMusicianOnePageThree();
+			hideMusicianOneTextDivsPageThree(); 
+			appendTotalHeightPageThree();
+
+			alert("Der zweite Teil von Solomusiker Text ist zu lang!")
+
+			return ret_n_set_musicians;
+		}
+
+		//QQQ musician_number = 2;
+
+		displayMusicianOneTextDivsPageThree(); 
+
+		setDivMusicianText1Page3(musician_text_1_page_3);
+
 		return ret_n_set_musicians;
 	}
-	
-	musician_number = musician_number + 1;
-	
-	// Musician 1
-	var musician_name_1_page_3 = getMusicianNameInstrument(g_current_concert_number, musician_number);
-	
-	var musician_text_1_page_3 = getMusicianText(g_current_concert_number, musician_number);
-
+			
 	displayMusicianOneTextDivsPageThree(); // 2022-01-24
 	
 	setDivMusicianName1Page3(musician_name_1_page_3);
@@ -965,7 +1083,9 @@ function setDivMusicianText1Page2(i_musician_text)
 {
     var element_div_page_2_musician_text_1 = document.getElementById(g_id_div_a6_page_2_musician_text_1);	
 
-    element_div_page_2_musician_text_1.innerHTML = i_musician_text;	
+	var musician_text_mod = rowEndsWindowsToHtml(i_musician_text);
+
+    element_div_page_2_musician_text_1.innerHTML = musician_text_mod;	
 	
 } // setDivMusicianText1Page2
 
@@ -1224,7 +1344,9 @@ function setDivMusicianText1Page3(i_musician_text)
 {
     var element_div_page_3_musician_text_1 = document.getElementById(g_id_div_a6_page_3_musician_text_1);	
 
-    element_div_page_3_musician_text_1.innerHTML = i_musician_text;	
+	var musician_text_mod = rowEndsWindowsToHtml(i_musician_text);
+
+    element_div_page_3_musician_text_1.innerHTML = musician_text_mod;	
 	
 } // setDivMusicianText1Page3
 
@@ -2022,6 +2144,16 @@ function rowEndsWindowsToHtml(i_string)
 	
 } // rowEndsWindowsToHtml
 
+// Replaces html row ends with windows row ends
+function rowEndsHtmlToWindows(i_string)
+{
+	var ret_string = '';
+	
+	ret_string = i_string.replace(/(?:<br>)/g, '\n');
+	
+	return ret_string;
+	
+} // rowEndsHtmlToWindows
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////

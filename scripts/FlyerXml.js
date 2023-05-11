@@ -153,8 +153,6 @@ function getMusicianText(i_concert_number, i_musician_number)
 	var musician_node_value = getMusicianNodeValue(g_tag_season_program_musician_text, i_concert_number, i_musician_number);
 	
 	ret_text = musician_node_value;
-
-	ret_text = rowEndsWindowsToHtml(ret_text);
 	
 	return ret_text;
 	
