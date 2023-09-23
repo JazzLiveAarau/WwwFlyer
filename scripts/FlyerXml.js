@@ -1,5 +1,5 @@
 // File: FlyerXml.js
-// Date: 2023-05-11
+// Date: 2023-09-23
 // Author: Gunnar Lidén
 
 // File content
@@ -84,6 +84,17 @@ function getTextNotAvailableInXmlEditMode()
 ///////////////////////// Start Season Program Get Functions  /////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
 
+// Returns the number of concerts for the current season
+function getNumberOfConcertsCurrentSeason()
+{
+	var concert_nodes = g_current_season_xml.getElementsByTagName(g_tag_season_program_concert);
+
+	var ret_n_concerts = concert_nodes.length;
+
+	return ret_n_concerts;
+
+} // getNumberOfConcertsCurrentSeason
+
 
 // Returns the number of musicians for a given concert number
 function getNumberOfMusicians(i_concert_number)
@@ -98,10 +109,12 @@ function getNumberOfMusicians(i_concert_number)
 		
 		return ret_number_musicians;
 	}	
+
+	var n_concerts = getNumberOfConcertsCurrentSeason();
 	
-	if (i_concert_number < 1 || i_concert_number > 12)
+	if (i_concert_number < 1 || i_concert_number > n_concerts)
 	{
-		alert("getNumberOfMusicians Concert number not between 1 and 12");
+		alert("getNumberOfMusicians Concert number not between 1 and " + n_concerts.toString());
 		
 		ret_number_musicians = -2;
 		
@@ -289,10 +302,12 @@ function getConcertNodeValue(i_concert_tag, i_concert_number)
 		alert("getConcertNodeValue Season program XML object getSeasonXmlObjectForActiveMode() is null");
 		return ret_data;
 	}	
+
+	var n_concerts = getNumberOfConcertsCurrentSeason();
 	
-	if (i_concert_number < 1 || i_concert_number > 12)
+	if (i_concert_number < 1 || i_concert_number > n_concerts)
 	{
-		alert("getConcertNodeValue Concert number not between 1 and 12");
+		alert("getConcertNodeValue Concert number not between 1 and " + n_concerts.toString());
 		return ret_data;		
 	}
 		
@@ -318,10 +333,12 @@ function getMusicianNodeValue(i_musician_tag, i_concert_number, i_musician_numbe
 		alert("getMusicianNodeValue Season program XML object getSeasonXmlObjectForActiveMode() is null");
 		return ret_node_value;
 	}	
+
+	var n_concerts = getNumberOfConcertsCurrentSeason();
 	
-	if (i_concert_number < 1 || i_concert_number > 12)
+	if (i_concert_number < 1 || i_concert_number > n_concerts)
 	{
-		alert("getMusicianNodeValue Concert number not between 1 and 12");
+		alert("getMusicianNodeValue Concert number not between 1 and " + n_concerts.toString());
 		return ret_node_value;		
 	}
 		
@@ -375,9 +392,11 @@ function setConcertNodeValue(i_concert_tag, i_concert_number, i_node_value)
 		return ret_data;
 	}	
 	
-	if (i_concert_number < 1 || i_concert_number > 12)
+	var n_concerts = getNumberOfConcertsCurrentSeason();
+
+	if (i_concert_number < 1 || i_concert_number > n_concerts)
 	{
-		alert("setConcertNodeValue Concert number not between 1 and 12");
+		alert("setConcertNodeValue Concert number not between 1 and " + n_concerts.toString());
 		return ret_data;		
 	}
 		
@@ -398,10 +417,12 @@ function setMusicianNodeValue(i_musician_tag, i_concert_number, i_musician_numbe
 		alert("setMusicianNodeValue Season program XML object getSeasonXmlObjectForActiveMode() is null");
 		return ret_node_value;
 	}	
+
+	var n_concerts = getNumberOfConcertsCurrentSeason();
 	
-	if (i_concert_number < 1 || i_concert_number > 12)
+	if (i_concert_number < 1 || i_concert_number > n_concerts)
 	{
-		alert("setMusicianNodeValue Concert number not between 1 and 12");
+		alert("setMusicianNodeValue Concert number not between 1 and " + n_concerts);
 		return ret_node_value;		
 	}
 		
@@ -583,10 +604,12 @@ function appendMusicianNode(i_concert_number, i_name, i_instrument, i_text)
 		alert("appendMusicianNode Season program XML object getSeasonXmlObjectForActiveMode() is null");
 		return false;
 	}	
+
+	var n_concerts = getNumberOfConcertsCurrentSeason();
 	
-	if (i_concert_number < 1 || i_concert_number > 12)
+	if (i_concert_number < 1 || i_concert_number > n_concerts)
 	{
-		alert("appendMusicianNode Concert number not between 1 and 12");
+		alert("appendMusicianNode Concert number not between 1 and " + n_concerts);
 		return false;		
 	}
 

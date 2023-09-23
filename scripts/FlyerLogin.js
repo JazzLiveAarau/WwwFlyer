@@ -1,5 +1,5 @@
 // File: FlyerLogin.js
-// Date: 2022-04-06
+// Date: 2023-09-23
 // Author: Gunnar Lidén
 
 // File content
@@ -55,9 +55,9 @@ function eventSelectLoginDropDown()
 ///////////////////////////////////////////////////////////////////////////////////////////
 
 // Set global parameters after login and load of XML objects
-// Input data is the user name, i.e. admin, tester, Band 01, Band 02, ....
+// Input data is the user name, i.e. admin, printer, tester, Band 01, Band 02, ....
 // The following global parameters are set:
-// g_user_case_str (concert number, admin or tester) and 
+// g_user_case_str (concert number, admin, printer or tester) and 
 // g_current_concert_number 
 // 1. Get the concert number from the input user name. Call of getConcertNumberFromBandName
 // 2. Different cases depending on the login name (user name). For all cases the parameters
@@ -143,11 +143,13 @@ function afterLoadSubdirNames()
 //    Call of loadXmlEdit case one (1)
 function afterLoadApplicationXml()
 {
-		var xml_edit_file_number = 1;
+	initLoadSeasonXml();
+
+		//20230923 var xml_edit_file_number = 1;
 		
-		var case_load = 1;
+		//20230923 var case_load = 1;
 		
-		loadXmlEdit(xml_edit_file_number, case_load);	
+		//20230923 loadXmlEdit(xml_edit_file_number, case_load);	
 		
 } // afterLoadApplicationXml
 

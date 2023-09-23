@@ -1,5 +1,5 @@
 // File: FlyerControls.js
-// Date: 2022-04-03
+// Date: 2023-09-23
 // Author: Gunnar Lidén
 
 // File content
@@ -49,7 +49,9 @@ var g_init_logout_button = false;
 // 6. Set current musician number to one (1)
 function setConcertsDropDown(i_id_div_element_concert)
 {
-    for (var concert_number=1; concert_number <= 12; concert_number++)
+	var n_concerts = getNumberOfConcertsCurrentSeason();
+
+    for (var concert_number=1; concert_number <= n_concerts; concert_number++)
 	{
 		g_drop_down_concert_name_array[concert_number - 1] = "Konzert " + concert_number.toString();
 		g_drop_down_concert_number_array[concert_number - 1] = concert_number;

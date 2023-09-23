@@ -1,5 +1,5 @@
 // File: Flyer.js
-// Date: 2022-03-06
+// Date: 2023-09-23
 // Author: Gunnar Lidén
 
 // File content
@@ -365,8 +365,8 @@ function loadApplicationXml(i_filename_path_application_xml)
 } // loadApplicationXml
 
 // Load an XML Edit file. 
-// There are twelve XML Edit files and this function is called recursively, 
-// i.e. it calls itself twelve times. The XML objects are stored in the 
+// The number of XML Edit files is equal to the number of concerts. This function 
+// is called recursively, i.e. it calls itself. The XML objects are stored in the 
 // global variable g_xml_edit_objects
 // 1. Construct file name, load file and create XML object. Call of XMLHttpRequest.open and .send
 // 2. After loading: 
@@ -375,6 +375,8 @@ function loadApplicationXml(i_filename_path_application_xml)
 //      Otherwise increase file number and call this function again
 function loadXmlEdit(i_xml_edit_file_number, i_case_load) 
 {
+  var n_concerts = getNumberOfConcertsCurrentSeason();
+
   var file_name_path = getFileNamePathEditXml(i_xml_edit_file_number);
   
   // Request server object for the XML file
@@ -393,7 +395,7 @@ function loadXmlEdit(i_xml_edit_file_number, i_case_load)
 		g_xml_edit_file_names[i_xml_edit_file_number-1] = file_name_path;
 		
 		var next_file_number = i_xml_edit_file_number + 1;
-		if (next_file_number <= 12)
+		if (next_file_number <= n_concerts)
 		{
 		    loadXmlEdit(next_file_number, i_case_load);
 		}
@@ -488,6 +490,50 @@ function loadSeasonXml(i_file_name_season_xml)
   
   // Open the file
   next_season_xmlhttp.open("GET", i_file_name_season_xml, true);
+  
+  next_season_xmlhttp.setRequestHeader('Cache-Control', 'no-cache');
+	
+  next_season_xmlhttp.send();	
+
+} // loadSeasonXml
+
+// Loads initially the current season xml 
+// 1. Load file and create XML object. Call of XMLHttpRequest.open and .send
+// 2. After loading: 
+//    Load XML Edit file case 1
+function initLoadSeasonXml() 
+{
+    var file_name_season_xml = getFileNamePathSeasonXml();
+	
+	var debug_msg = 'initLoadSeasonXml file_name_season_xml= ' + file_name_season_xml;
+	console.log(debug_msg);
+
+  // Request server object for the XML file
+  var next_season_xmlhttp = new XMLHttpRequest();
+  
+  // Event function: The server will return state and status 
+  // from object functions open and send.
+  next_season_xmlhttp.onreadystatechange = function() 
+  {
+    if (next_season_xmlhttp.readyState == 4 && next_season_xmlhttp.status == 200) 
+	{
+		g_current_season_xml = next_season_xmlhttp.responseXML;
+		
+		var xml_edit_file_number = 1;
+		
+		var case_load = 1;
+		
+		loadXmlEdit(xml_edit_file_number, case_load);	
+
+    }
+    else if (next_season_xmlhttp.readyState == 4 && next_season_xmlhttp.status == 404) 
+	{
+      alert("Error 404: File " + file_name_season_xml + " not found" );
+    }	
+  };
+  
+  // Open the file
+  next_season_xmlhttp.open("GET", file_name_season_xml, true);
   
   next_season_xmlhttp.setRequestHeader('Cache-Control', 'no-cache');
 	
