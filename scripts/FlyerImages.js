@@ -151,7 +151,7 @@ function setDivHomepageLabelPage5()
 {
 	var element_div_page_5_cell_1_1 = document.getElementById(g_id_div_qr_code_page_5_cell_1_1);
 	
-	var homepage_label = '<b>www.jazzliveaarau.ch</b>';
+	var homepage_label = '<b>jazzliveaarau.ch</b>';
 	
 	// <div id= "id_div_qr_code_page_5_cell_1_1"><b>www.jazzliveaarau.ch</b></div>
 	
@@ -258,7 +258,7 @@ function setDivPremisisLabelPage5()
 {
 	var element_div_page_5_cell_5_1 = document.getElementById(g_id_div_qr_code_page_5_cell_5_1);
 	
-	var premises_label = '<b>Lokal</b><br> SPAGI BY MARCELLO<br> Metzgergasse 8, 5000 Aarau';
+	var premises_label = '<b>Lokal</b><br> SPAGI by Marcello<br> Metzgergasse 8, 5000 Aarau';
 	
 	//  <div id= "id_div_qr_code_page_5_cell_5_1"><b>Lokal</b><br> Spagi by Marcello<br> Metzgergasse 8, 5000 Aarau</div>
 	
