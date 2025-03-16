@@ -138,21 +138,13 @@ function afterLoadSubdirNames()
 } // afterLoadSubdirNames
 
 // This function is called after loading of the XML file JazzApplication.xml
-// This file is a copy from directory XML. The application Admin has uploaded the file
-// 1. Load the XML edit files EditTextBand_1.xml, EditTextBand_2.xml, ...
+// 1. Initialization loading season XML file. Call of initLoadSeasonXml
 //    Call of loadXmlEdit case one (1)
 function afterLoadApplicationXml()
 {
 	initLoadSeasonXml();
-
-		//20230923 var xml_edit_file_number = 1;
-		
-		//20230923 var case_load = 1;
-		
-		//20230923 loadXmlEdit(xml_edit_file_number, case_load);	
 		
 } // afterLoadApplicationXml
-
 
 // This function is called after load of XML edit files
 function afterLoadXmlEdit(i_case_load)
@@ -200,6 +192,10 @@ function afterLoadXmlEditCaseTwo()
 {
 	var debug_msg = 'Enter afterLoadXmlEditCaseTwo';
 	console.log(debug_msg);
+
+	g_current_concert_number = 1; // 20250315
+
+	setConcertsDropDown(g_id_div_concert_drop_down); // 20250315
 
 	setMusiciansDropDown(g_id_div_musician_drop_down);
 

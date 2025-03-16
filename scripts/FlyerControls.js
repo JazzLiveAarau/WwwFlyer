@@ -1,5 +1,5 @@
 // File: FlyerControls.js
-// Date: 2023-09-23
+// Date: 2025-03-15
 // Author: Gunnar Lidén
 
 // File content
@@ -50,6 +50,8 @@ var g_init_logout_button = false;
 function setConcertsDropDown(i_id_div_element_concert)
 {
 	var n_concerts = getNumberOfConcertsCurrentSeason();
+
+	g_drop_down_concert_name_array = []; // 20250315
 
     for (var concert_number=1; concert_number <= n_concerts; concert_number++)
 	{
@@ -488,8 +490,8 @@ function eventSelectPasswordDropDown()
 // 4. Set the value (innerHTML) of the <div> element.
 function setMusiciansDropDown(i_id_div_element_musician)
 {
-	g_drop_down_musician_name_array.length = 0;
-	g_drop_down_musician_number_array.length = 0;
+	g_drop_down_musician_name_array.length = [];
+	g_drop_down_musician_number_array.length = [];
 	
     var n_musicians = getNumberOfMusicians(g_current_concert_number);
 	

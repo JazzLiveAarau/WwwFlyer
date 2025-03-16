@@ -1,5 +1,5 @@
 // File: Flyer.js
-// Date: 2023-09-23
+// Date: 2025-03-15
 // Author: Gunnar Lidén
 
 // File content
@@ -10,43 +10,50 @@
 ///////////////////////// Start Global Parameters /////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
 
-// Flag telling if the user is the administrator or a musician setting text data for a concert
-// Values: Admin, Tester or concert number 1, 2, ....., 12
+// Parameter telling if the user is the administrator, a musician writing text for a concert
+// or the person that creates (prints) the flyer (a PDF file)
+// Values: Admin, Drucker, Tester or concert/band number 1, 2, ....., 12
 var g_user_case_str = "undefined";
 
-// XML object corresponding to the XML file with the subdirectory names
+// XML object corresponding to the XML file SubDirectoryNames.xml in directory AdminXml
+// holding the names of the subdirectories for the current seasons. 
+// Example: Saison_2024-2025 und Saison_2025-2026
 var g_subdirectory_names_xml = null;
 
-// XML object corresponding to the XML file with the user names and passwords
+// XML object corresponding to the XML file UsersPaawords.xml in directory AdminXml #
+// holding the user names and passwords
 var g_name_users_passwords_xml = null;
 
-// XML object corresponding to the application XML file
+// XML object corresponding to the application XML file JazzApplication.xml in directory 
+// AdminXml holding JAZZ live AARAU information
 var g_application_xml = null;
 
-// XML object corresponding to the current season XML file
+// XML object corresponding to the current season XML file SaisonProgramm.xml in directory 
+// AdminXml/Saison_20NN-20MM/ holding information about the concerts
 var g_current_season_xml = null
 
-// XML objects corresponding to the XML Edit files
+// Array of XML objects corresponding to the XML Edit files EditTextBand_x.xml in directory 
+// EditTexts/Saison_20NN-20MM/ holding the flyer texts
 var g_xml_edit_objects = [];
 
-// XML Edit file names corresponding to g_xml_edit_objects
+// Array of XML Edit file names corresponding to g_xml_edit_objects
 var g_xml_edit_file_names = [];
 
 // Flyer application mode flag
-// Eq. AdminXml: Use from Admin exported season data in subdirectory AdminXml
-// Eq. EditXml: Use season data in subdirectory EditTexts
+// AdminXml: Display flyer texts defined in AdminXml/Saison_20NN-20MM/SaisonProgramm.xml
+// EditXml: Display flyer texts defined in EditTexts/Saison_20NN-20MM/EditTextBand_x.xml
 var g_flyer_application_mode = "EditXml";
 
-// The current season number
+// The current season dropdown number
 var g_current_season_number = 1;
 
-// The current concert number
+// The current concert doropdown number
 var g_current_concert_number = 1;
 
-// The current musician number
+// The current musician dropdown number
 var g_current_musician_number = 1;
 
-// The current text number
+// The current edit text number
 // Eq. 1: Short text and band name
 // Eq. 2: Musician name, instrument and text
 // Eq. 3: Additional text and label
@@ -387,25 +394,25 @@ function loadXmlEdit(i_xml_edit_file_number, i_case_load)
   xml_edit_xmlhttp.onreadystatechange = function() 
   {
     if (xml_edit_xmlhttp.readyState == 4 && xml_edit_xmlhttp.status == 200) 
-	{
-		g_xml_edit_objects[i_xml_edit_file_number-1] = xml_edit_xmlhttp.responseXML;
-		
-		var file_name_season_xml = getFileNamePathSeasonXml();
-		
-		g_xml_edit_file_names[i_xml_edit_file_number-1] = file_name_path;
-		
-		var next_file_number = i_xml_edit_file_number + 1;
-		if (next_file_number <= n_concerts)
-		{
-		    loadXmlEdit(next_file_number, i_case_load);
-		}
-		else
-		{
-			afterLoadXmlEdit(i_case_load);
-		}
+	  {
+      g_xml_edit_objects[i_xml_edit_file_number-1] = xml_edit_xmlhttp.responseXML;
+      
+      var file_name_season_xml = getFileNamePathSeasonXml();
+      
+      g_xml_edit_file_names[i_xml_edit_file_number-1] = file_name_path;
+      
+      var next_file_number = i_xml_edit_file_number + 1;
+      if (next_file_number <= n_concerts)
+      {
+          loadXmlEdit(next_file_number, i_case_load);
+      }
+      else
+      {
+        afterLoadXmlEdit(i_case_load);
+      }
     }
     else if (xml_edit_xmlhttp.readyState == 4 && xml_edit_xmlhttp.status == 404) 
-	{
+	  {
       alert("Error 404: File " + file_name_path + " not found" );
     }	
   };
@@ -476,14 +483,18 @@ function loadSeasonXml(i_file_name_season_xml)
   next_season_xmlhttp.onreadystatechange = function() 
   {
     if (next_season_xmlhttp.readyState == 4 && next_season_xmlhttp.status == 200) 
-	{
-		g_current_season_xml = next_season_xmlhttp.responseXML;
-		
-		loadXmlEdit(1, 2);
+	  {
+      g_current_season_xml = next_season_xmlhttp.responseXML;
+
+      g_xml_edit_objects = []; // 20250315
+
+      g_xml_edit_file_names = []; // 20250315
+      
+      loadXmlEdit(1, 2);
 
     }
     else if (next_season_xmlhttp.readyState == 4 && next_season_xmlhttp.status == 404) 
-	{
+	  {
       alert("Error 404: File " + i_file_name_season_xml + " not found" );
     }	
   };
